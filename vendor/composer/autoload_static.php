@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInitd9a06d595ecc816b19ce0eb707e54309
 {
     public static $files = array (
-        'b80bc11c8c025521aa5b69478c8b0a86' => __DIR__ . '/../..' . '/app/functions.php',
+        '6235b47f31713af16fefb139fb0b5e41' => __DIR__ . '/../..' . '/apps/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -20,7 +20,7 @@ class ComposerStaticInitd9a06d595ecc816b19ce0eb707e54309
     public static $prefixDirsPsr4 = array (
         'QuickCartShopping\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app',
+            0 => __DIR__ . '/../..' . '/apps',
         ),
     );
 

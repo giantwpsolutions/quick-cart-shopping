@@ -1,0 +1,76 @@
+/* Positioning */
+.qcs-bottom-right {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+.qcs-middle-right {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+.qcs-top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+.qcs-left {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+#qcs-floating-cart {
+  z-index: 9999;
+}
+
+#qcs-cart-toggle {
+  background: #5b2c6f;
+  color: white;
+  padding: 12px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#qcs-cart-panel {
+  background: white;
+  border: 1px solid #ccc;
+}
+
+/* Side Cart */
+.qcs-mode-side #qcs-cart-panel {
+  position: fixed;
+  right: -100%;
+  top: 0;
+  bottom: 0;
+  width: 450px;
+  transition: right 0.3s ease-in-out;
+}
+.qcs-mode-side #qcs-cart-panel.open {
+  right: 0;
+}
+
+/* Popup Cart */
+.qcs-mode-popup #qcs-cart-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  max-height: 80vh;
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 99999;
+}
+.qcs-mode-popup #qcs-cart-panel.open {
+  display: block;
+}
+
+/* Header */
+#qcs-cart-header {
+  background: #f3f3f3;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}

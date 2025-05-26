@@ -1,6 +1,6 @@
 {
   "name": "habib/quick-cart-shopping",
-  "description": "A modern WooCommerce UX booster - adds floating cart, variation popups, and drag & drop shopping experience.",
+  "description": "Quick Cart Shopping is a woocommerce extention that allow user to do shopping quick with a great user experience",
   "type": "wordpress-plugin",
   "license": "GPLv2 or later",
   "authors": [
@@ -13,10 +13,10 @@
   "require": {},
   "autoload": {
     "psr-4": {
-      "QuickCartShopping\\": "app/"
+      "QuickCartShopping\\": "apps/"
     },
     "files": [
-      "app/functions.php"
+      "apps/functions.php"
     ]
   }
 }
