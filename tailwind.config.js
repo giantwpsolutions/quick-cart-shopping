@@ -7,6 +7,9 @@ export default {
     './node_modules/@heroicons/vue/**/*.{js,ts,jsx,tsx}',
 
   ],
+    corePlugins: { preflight: false },
+    prefix: 'tw-',
+
   theme: {
     extend: {
 
