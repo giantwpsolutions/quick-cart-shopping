@@ -32,9 +32,6 @@ use QuickCartShopping\Traits\SingletonTrait;
     public function qcshopping_assets_register(){
 
         wp_enqueue_style( 'qcs-shopping-cart-positions', plugin_dir_url(__DIR__). 'assets/css/qcs-cart-position.css', array(), time() );
-        wp_enqueue_style('qcs-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css');
-        wp_enqueue_style('qcs-bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css');
-        wp_enqueue_script('qcs-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js', [], null, true);
         wp_enqueue_script('qcs-script', plugin_dir_url(__DIR__) . 'assets/js/qcs-cart-position.js', ['jquery'], null, true);
 
 
