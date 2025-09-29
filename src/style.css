@@ -1,2 +1,69 @@
 /* src/index.css */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+:root { --qc-adminbar-h: 0px; }
+body.admin-bar { --qc-adminbar-h: 32px; }
+@media (max-width: 782px) { body.admin-bar { --qc-adminbar-h: 46px; } }
+
+/* used by the header */
+.fix-adminbar-top { top: var(--qc-adminbar-h); }
+
+
+/* Admin bar height var */
+:root { --qc-adminbar-h: 0px; }
+body.admin-bar { --qc-adminbar-h:15px; }             /* desktop */
+@media (max-width: 782px) {
+  body.admin-bar { --qc-adminbar-h: 20px; }           /* mobile */
+}
+
+/* Push the whole app below the admin bar */
+#quickcart-app { margin-top: var(--qc-adminbar-h); }
+
+/* Any sticky/fixed elements at the top (your sidebar etc.) */
+.fix-adminbar-top { top: var(--qc-adminbar-h) !important; }
+
+/* Element Plus overlays (drawers/dialogs) so they don't cover the bar */
+body.admin-bar .el-overlay {
+  top: var(--qc-adminbar-h);
+  height: calc(100% - var(--qc-adminbar-h));
+}
+
+
+
+
+#wpcontent {
+  margin: 0;
+  padding: 0;
+  margin-left: 160px; /* Default width of the WordPress admin menu */
+  width: calc(100% - 160px); /* Take full width minus the admin menu */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Remove upper margin or padding on #wpbody-content */
+#wpbody-content {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove top margin from .wrap class */
+#wpbody-content > .wrap {
+  margin: 0;
+  padding: 0;
+}
+
+/* Global reset for body and html */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
+
+/* Fix for when the admin menu is collapsed */
+@media (max-width: 782px) {
+  #wpcontent {
+    margin-left: 0;
+    width: 100%;
+  }
+}

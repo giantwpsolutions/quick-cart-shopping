@@ -18,7 +18,9 @@ const emit = defineEmits(['click'])
     ]"
     @click="$emit('click')"
   >
-    <div class="tw-text-sm tw-font-medium">{{ title }}</div>
+    <div class="tw-text-lg tw-font-semibold tw-capitalize">{{ title }}</div>
+    
+
 
     <span
       v-if="badge"
