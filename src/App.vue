@@ -1,18 +1,17 @@
 <!-- src/App.vue -->
 <script setup>
 import Settings from './components/Settings.vue';
-
-
 </script>
 
 <template>
-  <div>
+  <div class="qc-app-wrapper">
     <Settings />
-
   </div>
-
 </template>
 
-<style scoped>
-/* Optional global styles */
+<style>
+.qc-app-wrapper {
+  min-height: 100vh;
+  position: relative;
+}
 </style>

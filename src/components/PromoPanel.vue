@@ -9,13 +9,14 @@ const promos = [
 </script>
 
 <template>
-  <aside class="tw-bg-white tw-rounded-2xl tw-border tw-border-[#05291B]/10 tw-shadow-sm tw-h-max tw-overflow-hidden">
-    <div class="tw-p-5 tw-border-b tw-border-[#05291B]/10">
-      <h3 class="tw-font-semibold">Recommended Add-ons</h3>
-      <p class="tw-text-xs tw-text-slate-500">Curated tools that work well with Quick Cart</p>
+  <aside class="tw-bg-white tw-rounded-2xl tw-border tw-border-[#05291B]/10
+         tw-shadow-[0_8px_24px_rgba(5,41,27,0.08)] tw-h-fit">
+    <div class="tw-px-4 sm:tw-px-5 tw-py-2.5 sm:tw-py-3 tw-border-b tw-border-[#05291B]/10">
+      <h3 class="tw-text-base sm:tw-text-lg tw-font-semibold tw-text-gray-800">Recommended Add-ons</h3>
+      <p class="tw-text-xs sm:tw-text-sm tw-text-slate-500">Curated tools that work well with Quick Cart</p>
     </div>
 
-    <div class="tw-p-5 tw-space-y-4">
+    <div class="tw-p-3 sm:tw-p-4 tw-space-y-3">
       <PromoCard
         v-for="p in promos"
         :key="p.title"

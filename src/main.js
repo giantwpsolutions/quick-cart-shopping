@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 import './style.css'
 import './tailwindcss.css'
 import { router } from './router'
+import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css'
 import App from './App.vue'
 
@@ -20,5 +21,6 @@ app.config.globalProperties._n = _n;
 app.config.globalProperties._nx = _nx;
 
 app.use(router);
+app.use(ElementPlus);
 
 app.mount('#quick-cart-shopping');
