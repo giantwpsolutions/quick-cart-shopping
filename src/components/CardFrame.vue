@@ -1,4 +1,15 @@
-<!-- CardFrame.vue -->
+<!--
+/**
+ * Card Frame Component
+ *
+ * Reusable card wrapper with header, scrollable content area, and footer.
+ * Provides save/reset functionality for settings sections.
+ *
+ * @component CardFrame
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 const props = defineProps({
   title:  { type: String, required: true },

@@ -1,9 +1,20 @@
-<!-- src/components/admin/TopHeader.vue -->
+<!--
+/**
+ * Top Header Navigation Component
+ *
+ * Displays main navigation menu with logo, responsive mobile menu,
+ * and upgrade button. Handles section navigation.
+ *
+ * @component TopHeader
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 import { ref } from 'vue'
 
 const props = defineProps({
-  modelValue: { type: String, required: true } // active key
+  modelValue: { type: String, required: true }
 })
 const emit = defineEmits(['update:modelValue', 'selected', 'upgrade'])
 
@@ -12,11 +23,8 @@ const items = [
   { key: 'layout',   label: 'Layout' },
   { key: 'toggle',   label: 'Toggle' },
   { key: 'cart',     label: 'Cart' },
-  { key: 'mini',     label: 'Mini Cart' },
-  { key: 'design',   label: 'Design' },
-  { key: 'checkout', label: 'Checkout Editor' },
-  { key: 'mobile',   label: 'Mobile' },
-  { key: 'opt',      label: 'Optimization' },
+  { key: 'checkout', label: 'Checkout' },
+  { key: 'settings', label: 'Settings' },
 ]
 
 const mobileMenuOpen = ref(false)
@@ -24,16 +32,15 @@ const mobileMenuOpen = ref(false)
 function select(key) {
   emit('update:modelValue', key)
   emit('selected')
-  mobileMenuOpen.value = false // Close mobile menu after selection
+  mobileMenuOpen.value = false
 }
 
 function toggleMobileMenu() {
   mobileMenuOpen.value = !mobileMenuOpen.value
 }
 
-const logoUrl = `${pluginData.pluginUrl}assets/images/logo.png`;
+const logoUrl = `${qcshoppingPluginData.pluginUrl}assets/images/logo.png`;
 </script>
-<!-- TopHeader.vue -->
 <template>
 <header class="qc-header tw-bg-[#2c3e50] tw-text-white tw-shadow-lg tw-border-b tw-border-[#3498db]/20">
 

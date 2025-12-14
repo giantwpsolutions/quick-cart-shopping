@@ -1,3 +1,14 @@
+<!--
+/**
+ * Layout Card Component
+ *
+ * Selectable card for layout options with optional badge.
+ *
+ * @component LayoutCard
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 const props = defineProps({
   title: { type: String, required: true },

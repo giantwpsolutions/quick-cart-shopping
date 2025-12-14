@@ -1,11 +1,22 @@
+<!--
+/**
+ * General Settings Page
+ *
+ * Controls main plugin features including Quick Cart system,
+ * variable product popup, drag and drop cart, and direct checkout.
+ *
+ * @component General
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 import { ref } from 'vue'
 
-// state for the switch
-const enableQuickCart = ref(true) // default ON
-const enableVarProduct = ref(true) // default ON
-const enableDragAndDrop = ref(true) // default OND
-const enableDirectCheckout = ref(true) // default OND
+const enableQuickCart = ref(true)
+const enableVarProduct = ref(true)
+const enableDragAndDrop = ref(true)
+const enableDirectCheckout = ref(true)
 </script>
 
 <template>

@@ -1,6 +1,18 @@
-<!-- src/components/pages/Toggle.vue -->
+<!--
+/**
+ * Toggle Settings Page
+ *
+ * Manages cart toggle icon settings including position, style, size,
+ * badge display, colors, border shape, and page visibility options.
+ *
+ * @component Toggle
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 import { ref, watch, onMounted } from 'vue'
+import { pagesData, isLoadingPagesData, loadPagesData } from '@/data/pageDataFetch'
 
 const props = defineProps({ modelValue: { type: Object, required: true } })
 const emit = defineEmits(['update:modelValue'])
@@ -13,7 +25,6 @@ function update(k, v) {
   emit('update:modelValue', { ...form.value })
 }
 
-// Icon position options
 const positionOptions = [
   { value: 'bottom-right', label: 'Bottom Right' },
   { value: 'bottom-left', label: 'Bottom Left' },
@@ -21,42 +32,35 @@ const positionOptions = [
   { value: 'top-left', label: 'Top Left' },
 ]
 
-// Icon style options
+const base = (typeof qcshoppingPluginData !== 'undefined' && qcshoppingPluginData.pluginUrl)
+  ? (qcshoppingPluginData.pluginUrl.endsWith('/') ? qcshoppingPluginData.pluginUrl : qcshoppingPluginData.pluginUrl + '/')
+  : '/';
+
 const iconStyleOptions = [
-  { value: 'cart', label: 'Shopping Cart' },
-  { value: 'bag', label: 'Shopping Bag' },
-  { value: 'basket', label: 'Basket' },
+  { value: 'cart', label: 'Shopping Cart', img: `${base}assets/icons/shopping-cart.svg` },
+  { value: 'cart-solid', label: 'Shopping Cart Solid', img: `${base}assets/icons/shopping-cart-solid.svg` },
+  { value: 'bag', label: 'Shopping Bag', img: `${base}assets/icons/shopping-bag.svg` },
+  { value: 'bag-solid', label: 'Shopping Bag Solid', img: `${base}assets/icons/shopping-bag-solid.svg` },
 ]
 
-// Border shape options
 const borderShapeOptions = [
   { value: 'none', label: 'None' },
   { value: 'circle', label: 'Circle' },
   { value: 'rounded', label: 'Rounded' },
 ]
 
-// Pages list (will be fetched from API)
-const pagesList = ref([])
-
-// Fetch pages on mount
-onMounted(async () => {
-  try {
-    const response = await fetch('/wp-json/quick-cart-shopping/v1/pages')
-    if (response.ok) {
-      pagesList.value = await response.json()
-    }
-  } catch (error) {
-    console.error('Failed to fetch pages:', error)
-  }
+onMounted(() => {
+  loadPagesData()
 })
 
-// Initialize defaults
 if (!form.value.iconPosition) update('iconPosition', 'bottom-right')
 if (!form.value.iconStyle) update('iconStyle', 'cart')
 if (!form.value.iconSize) update('iconSize', 60)
 if (form.value.showBadge === undefined) update('showBadge', true)
 if (!form.value.badgeBgColor) update('badgeBgColor', '#3498db')
+if (!form.value.badgeTextColor) update('badgeTextColor', '#ffffff')
 if (!form.value.iconBgColor) update('iconBgColor', '#05291B')
+if (!form.value.iconColor) update('iconColor', '#ffffff')
 if (!form.value.hideOnPages) update('hideOnPages', [])
 if (!form.value.borderShape) update('borderShape', 'circle')
 </script>
@@ -94,21 +98,51 @@ if (!form.value.borderShape) update('borderShape', 'circle')
     <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
       <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Icon Style", "quick-cart-shopping")}}</h3>
 
-      <div class="tw-flex tw-items-center tw-gap-3">
-        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Style", "quick-cart-shopping")}}</label>
-        <el-select
-          v-model="form.iconStyle"
-          @change="val => update('iconStyle', val)"
-          size="default"
-          style="width: 180px;"
+      <!-- responsive grid: icon cards -->
+      <div class="tw-flex tw-gap-3 tw-flex-wrap">
+        <label
+          v-for="icon in iconStyleOptions"
+          :key="icon.value"
+          :class="[
+            'tw-group tw-block tw-rounded-lg tw-border-2 tw-bg-white tw-cursor-pointer tw-transition-all tw-duration-200 tw-overflow-hidden tw-w-[70px]',
+            form.iconStyle===icon.value
+              ? 'tw-border-[#3498db] tw-shadow-md tw-shadow-[#3498db]/30'
+              : 'tw-border-gray-300 hover:tw-border-[#3498db]/50 hover:tw-shadow-sm'
+          ]"
         >
-          <el-option
-            v-for="opt in iconStyleOptions"
-            :key="opt.value"
-            :value="opt.value"
-            :label="opt.label"
+          <input
+            class="tw-sr-only"
+            type="radio"
+            name="iconStyle"
+            :value="icon.value"
+            :checked="form.iconStyle===icon.value"
+            @change="update('iconStyle', icon.value)"
           />
-        </el-select>
+
+          <!-- Icon container -->
+          <div class="tw-relative tw-w-[70px] tw-h-[70px] tw-overflow-hidden tw-bg-gray-50 tw-p-2.5 tw-flex tw-items-center tw-justify-center">
+            <img
+              :src="icon.img"
+              :alt="icon.label"
+              class="tw-max-w-[50px] tw-max-h-[50px] tw-object-contain tw-transition-transform tw-duration-200 group-hover:tw-scale-110"
+              loading="lazy"
+              decoding="async"
+            />
+            <!-- Selected checkmark overlay -->
+            <div
+              v-if="form.iconStyle===icon.value"
+              class="tw-absolute tw-top-1 tw-right-1 tw-bg-[#3498db] tw-rounded-full tw-w-4 tw-h-4 tw-flex tw-items-center tw-justify-center"
+            >
+              <svg
+                class="tw-w-3 tw-h-3 tw-text-white"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+        </label>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -170,15 +204,35 @@ if (!form.value.borderShape) update('borderShape', 'circle')
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
           v-model="form.badgeBgColor"
-          @change="val => update('badgeBgColor', val)"
+          @active-change="val => update('badgeBgColor', val)"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.badgeBgColor }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.badgeBgColor || '#3498db' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
         {{__("Choose the background color for the item count badge.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- Badge Text Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Badge Text Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="form.badgeTextColor"
+          @active-change="val => update('badgeTextColor', val)"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.badgeTextColor || '#ffffff' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the text color for the item count badge.", "quick-cart-shopping")}}
       </p>
     </div>
 
@@ -190,15 +244,35 @@ if (!form.value.borderShape) update('borderShape', 'circle')
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
           v-model="form.iconBgColor"
-          @change="val => update('iconBgColor', val)"
+          @active-change="val => update('iconBgColor', val)"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.iconBgColor }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.iconBgColor || '#05291B' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
         {{__("Choose the background color for the cart icon button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- Icon Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Icon Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="form.iconColor"
+          @active-change="val => update('iconColor', val)"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.iconColor || '#ffffff' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the color for the cart icon itself.", "quick-cart-shopping")}}
       </p>
     </div>
 
@@ -241,12 +315,13 @@ if (!form.value.borderShape) update('borderShape', 'circle')
           collapse-tags
           collapse-tags-tooltip
           :max-collapse-tags="2"
-          placeholder="Select pages"
+          :placeholder="isLoadingPagesData ? 'Loading pages...' : 'Select pages'"
+          :loading="isLoadingPagesData"
           size="default"
           style="width: 100%; max-width: 400px;"
         >
           <el-option
-            v-for="page in pagesList"
+            v-for="page in pagesData"
             :key="page.value"
             :value="page.value"
             :label="page.label"

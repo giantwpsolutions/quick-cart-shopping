@@ -1,4 +1,15 @@
-<!-- src/components/admin/Settings.vue -->
+<!--
+/**
+ * Settings Container Component
+ *
+ * Manages plugin settings state, routing, and dirty tracking.
+ * Provides centralized state management for all settings sections.
+ *
+ * @component Settings
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 import { reactive, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -7,18 +18,17 @@ import CardFrame from './CardFrame.vue'
 import PromoPanel from './PromoPanel.vue'
 import { ElMessage } from 'element-plus'
 
-/* 1) Defaults — keys must match route names */
 const defaults = {
-  general : { enableQuickCart: true, brandColor: '#05291B' },
-  layout  : { cartOption: 'side', mode: 'light', layout: 'standard' },
-  toggle  : { iconPosition: 'bottom-right', iconStyle: 'cart', iconSize: 60, showBadge: true, badgeBgColor: '#3498db', iconBgColor: '#05291B', hideOnPages: [], borderShape: 'circle' },
-  // add the rest as you build them...
+  general  : { enableQuickCart: true, brandColor: '#05291B' },
+  layout   : { cartOption: 'side', mode: 'light', layout: 'standard' },
+  toggle   : { iconPosition: 'bottom-right', iconStyle: 'cart', iconSize: 60, showBadge: true, badgeBgColor: '#3498db', badgeTextColor: '#ffffff', iconBgColor: '#05291B', iconColor: '#ffffff', hideOnPages: [], borderShape: 'circle' },
+  cart     : { showShipping: true, showCouponField: true, checkoutBtnBgColor: '#05291B', checkoutBtnTextColor: '#ffffff', showCheckoutBtn: true },
+  checkout : { progressBarStyle: 'style1', progressBarColor: '#05291B', progressLabelTextColor: '#ffffff', progressLabelBgColor: '#3498db', enableThankYouPage: true, thankYouDisplay: 'popup', popupBgColor: '#ffffff', showOrderSummary: true, thankYouPage: null },
+  settings : { enableAdvancedSettings: false },
 }
 
-/* 2) One reactive object holding all sections */
 const settings = reactive(structuredClone(defaults))
 
-/* 3) Routing */
 const route = useRoute()
 const router = useRouter()
 
@@ -28,13 +38,11 @@ const sectionKey = computed(() => {
   return name in settings ? name : 'general'
 })
 
-/* 4) TopHeader v-model: navigate without reload */
 const activeMenu = computed({
   get: () => sectionKey.value,
   set: (name) => { if (name && name !== route.name) router.push({ name }) }
 })
 
-/* 5) Dirty tracking (optional) */
 const dirty = reactive({})
 watch(() => settings[sectionKey.value], () => { dirty[sectionKey.value] = true }, { deep: true })
 

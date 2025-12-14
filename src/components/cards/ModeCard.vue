@@ -1,12 +1,24 @@
+<!--
+/**
+ * Mode Card Component
+ *
+ * Selectable card for display mode options with visual preview.
+ * Supports solid, dark, glass, and gradient styles.
+ *
+ * @component ModeCard
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 import { computed } from 'vue'
 
 const props = defineProps({
   label: { type: String, required: true },
-  preview: { 
-    type: String, 
-    required: true, 
-    validator: (val) => ['solid','dark','glass','gradient'].includes(val) 
+  preview: {
+    type: String,
+    required: true,
+    validator: (val) => ['solid','dark','glass','gradient'].includes(val)
   },
   selected: { type: Boolean, default: false }
 })

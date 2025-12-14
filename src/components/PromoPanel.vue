@@ -1,3 +1,15 @@
+<!--
+/**
+ * Promo Panel Component
+ *
+ * Displays recommended add-ons, customization offer, and help links
+ * in the sidebar area.
+ *
+ * @component PromoPanel
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 import PromoCard from './cards/PromoCard.vue'
 

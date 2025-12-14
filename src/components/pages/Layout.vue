@@ -1,4 +1,15 @@
-<!-- src/components/pages/Layout.vue -->
+<!--
+/**
+ * Layout Settings Page
+ *
+ * Manages cart layout options including cart style (side/popup),
+ * cart width, and animation preferences.
+ *
+ * @component Layout
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 import { ref, watch } from 'vue'
 
@@ -13,12 +24,8 @@ function update(k, v) {
   emit('update:modelValue', { ...form.value })
 }
 
-/* Robust base:
-   - Dev: served from '/'
-   - Build (WP admin): use QC.distUrl from wp_localize_script, else pluginData.pluginUrl, else '/'
-*/
-const base = (typeof pluginData !== 'undefined' && pluginData.pluginUrl)
-  ? (pluginData.pluginUrl.endsWith('/') ? pluginData.pluginUrl : pluginData.pluginUrl + '/')
+const base = (typeof qcshoppingPluginData !== 'undefined' && qcshoppingPluginData.pluginUrl)
+  ? (qcshoppingPluginData.pluginUrl.endsWith('/') ? qcshoppingPluginData.pluginUrl : qcshoppingPluginData.pluginUrl + '/')
   : '/';
 
 const imgSide  = `${base}assets/images/sidecart.png`
@@ -29,7 +36,6 @@ const cartOptions = [
   { key: 'popup',  title: 'Popup Cart', img: imgPopup },
 ]
 
-// ensure defaults to avoid undefined when user first lands here
 if (!form.value.cartOption) update('cartOption', 'side')
 if (!form.value.cartWidth) update('cartWidth', 400)
 if (!form.value.animation) update('animation', 'slide')

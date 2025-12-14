@@ -57,17 +57,17 @@ use QuickCartShopping\Traits\SingletonTrait;
         $prod_css      = plugin_dir_url(__DIR__) . 'dist/assets/main.css';
 
         if ( $is_dev ) {
-            wp_enqueue_script( 'qcshopping-admin-vjs', $dev_server_js, ['wp-i18n'], '1.0', true );
+            wp_enqueue_script( 'qcshopping-admin-vjs', $dev_server_js, ['wp-i18n', 'wp-api-fetch'], '1.0', true );
         }else{
-            wp_enqueue_script( 'qcshopping-admin-vjs', $prod_js, ['wp-i18n'], '1.0', true );
+            wp_enqueue_script( 'qcshopping-admin-vjs', $prod_js, ['wp-i18n', 'wp-api-fetch'], '1.0', true );
             wp_enqueue_style( 'qcshopping-admin-styles', $prod_css, [], '1.0' );
         }
 
            
 
-        wp_localize_script( 'qcshopping-admin-vjs', 'pluginData', [
+        wp_localize_script( 'qcshopping-admin-vjs', 'qcshoppingPluginData', [
             'pluginUrl' => esc_url( plugin_dir_url(__DIR__) ),
-            'restUrl'   => esc_url_raw( rest_url( trailingslashit('quickcart-shopping/v2') ) ),
+            'restUrl'   => esc_url_raw( rest_url( trailingslashit('quick-cart-shopping/v2') ) ),
             'nonce'     => wp_create_nonce( 'wp_rest' ),
             'proUrl'    => esc_url( 'https://giantwpsolutions.com/' ),
             'proActive' => defined( 'QUICK_CART_SHOPPING_PRO_ACTIVE' ) && QUICK_CART_SHOPPING_PRO_ACTIVE,

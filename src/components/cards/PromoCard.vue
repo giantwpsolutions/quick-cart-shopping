@@ -1,3 +1,15 @@
+<!--
+/**
+ * Promo Card Component
+ *
+ * Displays promotional content for recommended add-ons with
+ * install/free button.
+ *
+ * @component PromoCard
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 const props = defineProps({
   title: { type: String, required: true },

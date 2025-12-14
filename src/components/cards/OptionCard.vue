@@ -1,3 +1,14 @@
+<!--
+/**
+ * Option Card Component
+ *
+ * Selectable card for generic options with radio button indicator.
+ *
+ * @component OptionCard
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 const props = defineProps({
   title: { type: String, required: true },

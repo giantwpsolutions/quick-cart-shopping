@@ -1,4 +1,14 @@
-<!-- src/App.vue -->
+<!--
+/**
+ * App Root Component
+ *
+ * Main application wrapper that renders the Settings component.
+ *
+ * @component App
+ * @since 1.0.0
+ * @package Quick Cart Shopping
+ */
+-->
 <script setup>
 import Settings from './components/Settings.vue';
 </script>
