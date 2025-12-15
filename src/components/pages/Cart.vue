@@ -10,24 +10,7 @@
  */
 -->
 <script setup>
-import { ref, watch } from 'vue'
-
-const props = defineProps({ modelValue: { type: Object, required: true } })
-const emit = defineEmits(['update:modelValue'])
-
-const form = ref({ ...props.modelValue })
-watch(() => props.modelValue, v => (form.value = { ...v }), { deep: true })
-
-function update(k, v) {
-  form.value[k] = v
-  emit('update:modelValue', { ...form.value })
-}
-
-if (form.value.showShipping === undefined) update('showShipping', true)
-if (form.value.showCouponField === undefined) update('showCouponField', true)
-if (!form.value.checkoutBtnBgColor) update('checkoutBtnBgColor', '#05291B')
-if (!form.value.checkoutBtnTextColor) update('checkoutBtnTextColor', '#ffffff')
-if (form.value.showCheckoutBtn === undefined) update('showCheckoutBtn', true)
+const model = defineModel({ type: Object, required: true })
 </script>
 
 <template>
@@ -38,8 +21,7 @@ if (form.value.showCheckoutBtn === undefined) update('showCheckoutBtn', true)
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Show Shipping", "quick-cart-shopping")}}</h4>
         <el-switch
-          v-model="form.showShipping"
-          @change="val => update('showShipping', val)"
+          v-model="model.showShipping"
           class="ml-2"
           size="large"
           inline-prompt
@@ -59,8 +41,7 @@ if (form.value.showCheckoutBtn === undefined) update('showCheckoutBtn', true)
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Show Apply Coupon Field", "quick-cart-shopping")}}</h4>
         <el-switch
-          v-model="form.showCouponField"
-          @change="val => update('showCouponField', val)"
+          v-model="model.showCouponField"
           class="ml-2"
           size="large"
           inline-prompt
@@ -82,12 +63,11 @@ if (form.value.showCheckoutBtn === undefined) update('showCheckoutBtn', true)
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
-          v-model="form.checkoutBtnBgColor"
-          @active-change="val => update('checkoutBtnBgColor', val)"
+          v-model="model.checkoutBtnBgColor"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.checkoutBtnBgColor || '#05291B' }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.checkoutBtnBgColor || '#05291B' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -102,12 +82,11 @@ if (form.value.showCheckoutBtn === undefined) update('showCheckoutBtn', true)
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
-          v-model="form.checkoutBtnTextColor"
-          @active-change="val => update('checkoutBtnTextColor', val)"
+          v-model="model.checkoutBtnTextColor"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.checkoutBtnTextColor || '#ffffff' }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.checkoutBtnTextColor || '#ffffff' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -120,8 +99,7 @@ if (form.value.showCheckoutBtn === undefined) update('showCheckoutBtn', true)
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Show Checkout Button", "quick-cart-shopping")}}</h4>
         <el-switch
-          v-model="form.showCheckoutBtn"
-          @change="val => update('showCheckoutBtn', val)"
+          v-model="model.showCheckoutBtn"
           class="ml-2"
           size="large"
           inline-prompt

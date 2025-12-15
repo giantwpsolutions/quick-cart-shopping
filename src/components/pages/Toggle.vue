@@ -11,19 +11,10 @@
  */
 -->
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { pagesData, isLoadingPagesData, loadPagesData } from '@/data/pageDataFetch'
 
-const props = defineProps({ modelValue: { type: Object, required: true } })
-const emit = defineEmits(['update:modelValue'])
-
-const form = ref({ ...props.modelValue })
-watch(() => props.modelValue, v => (form.value = { ...v }), { deep: true })
-
-function update(k, v) {
-  form.value[k] = v
-  emit('update:modelValue', { ...form.value })
-}
+const model = defineModel({ type: Object, required: true })
 
 const positionOptions = [
   { value: 'bottom-right', label: 'Bottom Right' },
@@ -52,17 +43,6 @@ const borderShapeOptions = [
 onMounted(() => {
   loadPagesData()
 })
-
-if (!form.value.iconPosition) update('iconPosition', 'bottom-right')
-if (!form.value.iconStyle) update('iconStyle', 'cart')
-if (!form.value.iconSize) update('iconSize', 60)
-if (form.value.showBadge === undefined) update('showBadge', true)
-if (!form.value.badgeBgColor) update('badgeBgColor', '#3498db')
-if (!form.value.badgeTextColor) update('badgeTextColor', '#ffffff')
-if (!form.value.iconBgColor) update('iconBgColor', '#05291B')
-if (!form.value.iconColor) update('iconColor', '#ffffff')
-if (!form.value.hideOnPages) update('hideOnPages', [])
-if (!form.value.borderShape) update('borderShape', 'circle')
 </script>
 
 <template>
@@ -75,8 +55,7 @@ if (!form.value.borderShape) update('borderShape', 'circle')
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Position", "quick-cart-shopping")}}</label>
         <el-select
-          v-model="form.iconPosition"
-          @change="val => update('iconPosition', val)"
+          v-model="model.iconPosition"
           size="default"
           style="width: 180px;"
         >
@@ -105,7 +84,7 @@ if (!form.value.borderShape) update('borderShape', 'circle')
           :key="icon.value"
           :class="[
             'tw-group tw-block tw-rounded-lg tw-border-2 tw-bg-white tw-cursor-pointer tw-transition-all tw-duration-200 tw-overflow-hidden tw-w-[70px]',
-            form.iconStyle===icon.value
+            model.iconStyle===icon.value
               ? 'tw-border-[#3498db] tw-shadow-md tw-shadow-[#3498db]/30'
               : 'tw-border-gray-300 hover:tw-border-[#3498db]/50 hover:tw-shadow-sm'
           ]"
@@ -115,8 +94,7 @@ if (!form.value.borderShape) update('borderShape', 'circle')
             type="radio"
             name="iconStyle"
             :value="icon.value"
-            :checked="form.iconStyle===icon.value"
-            @change="update('iconStyle', icon.value)"
+            v-model="model.iconStyle"
           />
 
           <!-- Icon container -->
@@ -130,7 +108,7 @@ if (!form.value.borderShape) update('borderShape', 'circle')
             />
             <!-- Selected checkmark overlay -->
             <div
-              v-if="form.iconStyle===icon.value"
+              v-if="model.iconStyle===icon.value"
               class="tw-absolute tw-top-1 tw-right-1 tw-bg-[#3498db] tw-rounded-full tw-w-4 tw-h-4 tw-flex tw-items-center tw-justify-center"
             >
               <svg
@@ -158,12 +136,11 @@ if (!form.value.borderShape) update('borderShape', 'circle')
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Size", "quick-cart-shopping")}}</label>
         <div class="tw-flex tw-items-center tw-gap-1">
           <el-input-number
-            v-model="form.iconSize"
+            v-model="model.iconSize"
             :min="40"
             :max="120"
             :step="1"
             size="small"
-            @change="val => update('iconSize', val)"
             controls-position="right"
           />
           <span class="tw-text-gray-500 tw-text-sm">px</span>
@@ -180,8 +157,7 @@ if (!form.value.borderShape) update('borderShape', 'circle')
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Show Item Count Badge", "quick-cart-shopping")}}</h4>
         <el-switch
-          v-model="form.showBadge"
-          @change="val => update('showBadge', val)"
+          v-model="model.showBadge"
           class="ml-2"
           size="large"
           inline-prompt
@@ -203,12 +179,11 @@ if (!form.value.borderShape) update('borderShape', 'circle')
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
-          v-model="form.badgeBgColor"
-          @active-change="val => update('badgeBgColor', val)"
+          v-model="model.badgeBgColor"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.badgeBgColor || '#3498db' }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.badgeBgColor || '#3498db' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -223,12 +198,11 @@ if (!form.value.borderShape) update('borderShape', 'circle')
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
-          v-model="form.badgeTextColor"
-          @active-change="val => update('badgeTextColor', val)"
+          v-model="model.badgeTextColor"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.badgeTextColor || '#ffffff' }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.badgeTextColor || '#ffffff' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -243,12 +217,11 @@ if (!form.value.borderShape) update('borderShape', 'circle')
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
-          v-model="form.iconBgColor"
-          @active-change="val => update('iconBgColor', val)"
+          v-model="model.iconBgColor"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.iconBgColor || '#05291B' }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.iconBgColor || '#05291B' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -263,12 +236,11 @@ if (!form.value.borderShape) update('borderShape', 'circle')
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
-          v-model="form.iconColor"
-          @active-change="val => update('iconColor', val)"
+          v-model="model.iconColor"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.iconColor || '#ffffff' }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.iconColor || '#ffffff' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -281,8 +253,7 @@ if (!form.value.borderShape) update('borderShape', 'circle')
       <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Icon Border Shape", "quick-cart-shopping")}}</h3>
 
       <el-radio-group
-        v-model="form.borderShape"
-        @change="val => update('borderShape', val)"
+        v-model="model.borderShape"
         class="tw-flex tw-gap-3"
       >
         <el-radio
@@ -309,8 +280,7 @@ if (!form.value.borderShape) update('borderShape', 'circle')
       <div class="tw-flex tw-items-start tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap tw-pt-2">{{__("Pages", "quick-cart-shopping")}}</label>
         <el-select
-          v-model="form.hideOnPages"
-          @change="val => update('hideOnPages', val)"
+          v-model="model.hideOnPages"
           multiple
           collapse-tags
           collapse-tags-tooltip

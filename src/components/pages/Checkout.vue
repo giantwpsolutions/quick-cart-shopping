@@ -10,19 +10,10 @@
  */
 -->
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { pagesData, isLoadingPagesData, loadPagesData } from '@/data/pageDataFetch'
 
-const props = defineProps({ modelValue: { type: Object, required: true } })
-const emit = defineEmits(['update:modelValue'])
-
-const form = ref({ ...props.modelValue })
-watch(() => props.modelValue, v => (form.value = { ...v }), { deep: true })
-
-function update(k, v) {
-  form.value[k] = v
-  emit('update:modelValue', { ...form.value })
-}
+const model = defineModel({ type: Object, required: true })
 
 const base = (typeof qcshoppingPluginData !== 'undefined' && qcshoppingPluginData.pluginUrl)
   ? (qcshoppingPluginData.pluginUrl.endsWith('/') ? qcshoppingPluginData.pluginUrl : qcshoppingPluginData.pluginUrl + '/')
@@ -42,16 +33,6 @@ const thankYouOptions = [
 onMounted(() => {
   loadPagesData()
 })
-
-if (!form.value.progressBarStyle) update('progressBarStyle', 'style1')
-if (!form.value.progressBarColor) update('progressBarColor', '#05291B')
-if (!form.value.progressLabelTextColor) update('progressLabelTextColor', '#ffffff')
-if (!form.value.progressLabelBgColor) update('progressLabelBgColor', '#3498db')
-if (form.value.enableThankYouPage === undefined) update('enableThankYouPage', true)
-if (!form.value.thankYouDisplay) update('thankYouDisplay', 'popup')
-if (!form.value.popupBgColor) update('popupBgColor', '#ffffff')
-if (form.value.showOrderSummary === undefined) update('showOrderSummary', true)
-if (!form.value.thankYouPage) update('thankYouPage', null)
 </script>
 
 <template>
@@ -67,7 +48,7 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
           :key="style.value"
           :class="[
             'tw-group tw-block tw-rounded-lg tw-border-2 tw-bg-white tw-cursor-pointer tw-transition-all tw-duration-200 tw-overflow-hidden',
-            form.progressBarStyle===style.value
+            model.progressBarStyle===style.value
               ? 'tw-border-[#3498db] tw-shadow-md tw-shadow-[#3498db]/30'
               : 'tw-border-gray-300 hover:tw-border-[#3498db]/50 hover:tw-shadow-sm'
           ]"
@@ -77,8 +58,7 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
             type="radio"
             name="progressBarStyle"
             :value="style.value"
-            :checked="form.progressBarStyle===style.value"
-            @change="update('progressBarStyle', style.value)"
+            v-model="model.progressBarStyle"
           />
 
           <div class="tw-relative tw-aspect-[3/1] tw-overflow-hidden tw-bg-gray-50 tw-p-2">
@@ -90,7 +70,7 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
               decoding="async"
             />
             <div
-              v-if="form.progressBarStyle===style.value"
+              v-if="model.progressBarStyle===style.value"
               class="tw-absolute tw-top-2 tw-right-2 tw-bg-gradient-to-r tw-from-[#3498db] tw-to-[#2980b9] tw-text-white tw-px-2 tw-py-0.5 tw-rounded-full tw-text-[10px] tw-font-semibold tw-shadow-md"
             >
               {{__("Selected", "quick-cart-shopping")}}
@@ -102,13 +82,13 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
             <span
               :class="[
                 'tw-inline-flex tw-h-4 tw-w-4 tw-rounded-full tw-border-2 tw-transition-all tw-duration-200 tw-flex-shrink-0',
-                form.progressBarStyle===style.value
+                model.progressBarStyle===style.value
                   ? 'tw-bg-[#3498db] tw-border-[#3498db]'
                   : 'tw-border-gray-400 tw-bg-white group-hover:tw-border-[#3498db]'
               ]"
             >
               <svg
-                v-if="form.progressBarStyle===style.value"
+                v-if="model.progressBarStyle===style.value"
                 class="tw-h-full tw-w-full tw-text-white tw-p-0.5"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -132,12 +112,11 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
-          v-model="form.progressBarColor"
-          @active-change="val => update('progressBarColor', val)"
+          v-model="model.progressBarColor"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.progressBarColor || '#05291B' }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.progressBarColor || '#05291B' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -152,12 +131,11 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
-          v-model="form.progressLabelTextColor"
-          @active-change="val => update('progressLabelTextColor', val)"
+          v-model="model.progressLabelTextColor"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.progressLabelTextColor || '#ffffff' }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.progressLabelTextColor || '#ffffff' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -172,12 +150,11 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
-          v-model="form.progressLabelBgColor"
-          @active-change="val => update('progressLabelBgColor', val)"
+          v-model="model.progressLabelBgColor"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.progressLabelBgColor || '#3498db' }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.progressLabelBgColor || '#3498db' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -190,8 +167,7 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Enable Thank You Page", "quick-cart-shopping")}}</h4>
         <el-switch
-          v-model="form.enableThankYouPage"
-          @change="val => update('enableThankYouPage', val)"
+          v-model="model.enableThankYouPage"
           class="ml-2"
           size="large"
           inline-prompt
@@ -207,12 +183,11 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
     </div>
 
     <!-- Thank You Display Options (Conditional) -->
-    <div v-if="form.enableThankYouPage" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+    <div v-if="model.enableThankYouPage" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
       <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Thank You Display", "quick-cart-shopping")}}</h3>
 
       <el-radio-group
-        v-model="form.thankYouDisplay"
-        @change="val => update('thankYouDisplay', val)"
+        v-model="model.thankYouDisplay"
         class="tw-flex tw-gap-3"
       >
         <el-radio
@@ -233,18 +208,17 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
     </div>
 
     <!-- Popup Background Color (Conditional) -->
-    <div v-if="form.enableThankYouPage && form.thankYouDisplay === 'popup'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+    <div v-if="model.enableThankYouPage && model.thankYouDisplay === 'popup'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
       <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Popup Background Color", "quick-cart-shopping")}}</h3>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
         <el-color-picker
-          v-model="form.popupBgColor"
-          @active-change="val => update('popupBgColor', val)"
+          v-model="model.popupBgColor"
           size="default"
           show-alpha
         />
-        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ form.popupBgColor || '#ffffff' }}</span>
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.popupBgColor || '#ffffff' }}</span>
       </div>
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
@@ -253,12 +227,11 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
     </div>
 
     <!-- Show Order Summary (Conditional - Popup only) -->
-    <div v-if="form.enableThankYouPage && form.thankYouDisplay === 'popup'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+    <div v-if="model.enableThankYouPage && model.thankYouDisplay === 'popup'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Show Order Summary", "quick-cart-shopping")}}</h4>
         <el-switch
-          v-model="form.showOrderSummary"
-          @change="val => update('showOrderSummary', val)"
+          v-model="model.showOrderSummary"
           class="ml-2"
           size="large"
           inline-prompt
@@ -274,14 +247,13 @@ if (!form.value.thankYouPage) update('thankYouPage', null)
     </div>
 
     <!-- Select Thank You Page (Conditional - Page only) -->
-    <div v-if="form.enableThankYouPage && form.thankYouDisplay === 'page'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+    <div v-if="model.enableThankYouPage && model.thankYouDisplay === 'page'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
       <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Select Thank You Page", "quick-cart-shopping")}}</h3>
 
       <div class="tw-flex tw-items-start tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap tw-pt-2">{{__("Page", "quick-cart-shopping")}}</label>
         <el-select
-          v-model="form.thankYouPage"
-          @change="val => update('thankYouPage', val)"
+          v-model="model.thankYouPage"
           :placeholder="isLoadingPagesData ? 'Loading pages...' : 'Select a page'"
           :loading="isLoadingPagesData"
           size="default"

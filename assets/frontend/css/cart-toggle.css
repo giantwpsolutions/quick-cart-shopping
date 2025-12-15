@@ -1,0 +1,191 @@
+/**
+ * Quick Cart Shopping - Cart Toggle Styles
+ *
+ * @package Quick Cart Shopping
+ * @since 1.0.0
+ */
+
+/* CSS Variables for dynamic colors */
+:root {
+  --qc-toggle-bg: #05291B;
+  --qc-toggle-icon: #ffffff;
+  --qc-badge-bg: #3498db;
+  --qc-badge-text: #ffffff;
+}
+
+/* Cart Toggle Button */
+.qc-cart-toggle {
+  position: fixed;
+  z-index: 9999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.qc-cart-toggle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.qc-cart-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Position variants */
+.qc-cart-toggle.qc-position-bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.qc-cart-toggle.qc-position-bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.qc-cart-toggle.qc-position-top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.qc-cart-toggle.qc-position-top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.qc-cart-toggle.qc-position-center-right {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.qc-cart-toggle.qc-position-center-left {
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+}
+
+.qc-cart-toggle.qc-position-center-right:hover,
+.qc-cart-toggle.qc-position-center-left:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.qc-cart-toggle.qc-position-center-right:active,
+.qc-cart-toggle.qc-position-center-left:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Border shape variants */
+.qc-cart-toggle.qc-shape-circle {
+  border-radius: 50%;
+}
+
+.qc-cart-toggle.qc-shape-rounded {
+  border-radius: 12px;
+}
+
+.qc-cart-toggle.qc-shape-square {
+  border-radius: 0;
+}
+
+/* Icon container */
+.qc-cart-toggle__icon {
+  width: 60%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qc-cart-toggle__icon svg,
+.qc-cart-toggle__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.qc-cart-toggle__icon svg {
+  /* Color will be set dynamically via JavaScript */
+  fill: currentColor;
+}
+
+/* Badge */
+.qc-cart-toggle__badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 0 6px;
+  line-height: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: qc-badge-pop 0.3s ease;
+}
+
+@keyframes qc-badge-pop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Pulse animation when item added */
+.qc-cart-toggle.qc-pulse {
+  animation: qc-pulse 0.5s ease;
+}
+
+@keyframes qc-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Hidden state */
+.qc-cart-toggle.qc-hidden {
+  display: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .qc-cart-toggle {
+    bottom: 15px !important;
+    right: 15px !important;
+  }
+
+  .qc-cart-toggle.qc-position-bottom-left,
+  .qc-cart-toggle.qc-position-top-left,
+  .qc-cart-toggle.qc-position-center-left {
+    left: 15px !important;
+  }
+
+  .qc-cart-toggle.qc-position-top-right,
+  .qc-cart-toggle.qc-position-top-left {
+    top: 15px !important;
+  }
+}
+
+/* Accessibility */
+.qc-cart-toggle:focus {
+  outline: 2px solid var(--qc-toggle-bg);
+  outline-offset: 2px;
+}
+
+.qc-cart-toggle:focus:not(:focus-visible) {
+  outline: none;
+}

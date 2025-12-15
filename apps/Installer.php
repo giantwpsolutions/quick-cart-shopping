@@ -11,6 +11,9 @@ use QuickCartShopping\Admin\Menu;
 use QuickCartShopping\Cart\CartPosition;
 use QuickCartShopping\Assets;
 use QuickCartShopping\Api\Api;
+use QuickCartShopping\FrontEnd\FrontEnd_Assets;
+use QuickCartShopping\FrontEnd\CartToggleRenderer;
+use QuickCartShopping\FrontEnd\SettingsProvider;
 
 
       /**
@@ -22,8 +25,10 @@ class Installer{
     {
       Menu::instance();
       Assets::instance();
-      CartPosition::instance();
       Api::instance();
+      SettingsProvider::instance();
+      FrontEnd_Assets::instance();
+      CartToggleRenderer::instance();
 
     }
 

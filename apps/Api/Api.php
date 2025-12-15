@@ -8,6 +8,11 @@
 namespace QuickCartShopping\Api;
 
 use QuickCartShopping\Api\Controllers\Shared\Page_Controller;
+use QuickCartShopping\Api\Controllers\Settings\GeneralData;
+use QuickCartShopping\Api\Controllers\Settings\LayoutData;
+use QuickCartShopping\Api\Controllers\Settings\ToggleData;
+use QuickCartShopping\Api\Controllers\Settings\CartData;
+use QuickCartShopping\Api\Controllers\Settings\CheckoutData;
 use QuickCartShopping\Traits\SingletonTrait;
 
 /**
@@ -34,5 +39,20 @@ class Api{
 
         $page_controllers = new Page_Controller();
         $page_controllers->register_routes();
+
+        $general_settings_controller = new GeneralData();
+        $general_settings_controller->register_routes();
+
+        $layout_settings_controller = new LayoutData();
+        $layout_settings_controller->register_routes();
+
+        $toggle_settings_controller = new ToggleData();
+        $toggle_settings_controller->register_routes();
+
+        $cart_settings_controller = new CartData();
+        $cart_settings_controller->register_routes();
+
+        $checkout_settings_controller = new CheckoutData();
+        $checkout_settings_controller->register_routes();
     }
 }

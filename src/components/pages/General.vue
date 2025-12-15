@@ -11,12 +11,7 @@
  */
 -->
 <script setup>
-import { ref } from 'vue'
-
-const enableQuickCart = ref(true)
-const enableVarProduct = ref(true)
-const enableDragAndDrop = ref(true)
-const enableDirectCheckout = ref(true)
+const model = defineModel({ type: Object, required: true })
 </script>
 
 <template>
@@ -26,7 +21,7 @@ const enableDirectCheckout = ref(true)
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Enable Quick Cart Shopping", "quick-cart-shopping")}}</h4>
         <el-switch
-          v-model="enableQuickCart"
+          v-model="model.enableQuickCart"
           class="ml-2"
           size="large"
           inline-prompt
@@ -44,7 +39,7 @@ const enableDirectCheckout = ref(true)
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Enable popup for variable product", "quick-cart-shopping")}}</h4>
         <el-switch
-          v-model="enableVarProduct"
+          v-model="model.enableVarProduct"
           class="ml-2"
           size="large"
           inline-prompt
@@ -63,7 +58,7 @@ const enableDirectCheckout = ref(true)
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Enable drag and drop cart", "quick-cart-shopping")}}</h4>
         <el-switch
-          v-model="enableDragAndDrop"
+          v-model="model.enableDragAndDrop"
           class="ml-2"
           size="large"
           inline-prompt
@@ -82,7 +77,7 @@ const enableDirectCheckout = ref(true)
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Enable direct checkout", "quick-cart-shopping")}}</h4>
         <el-switch
-          v-model="enableDirectCheckout"
+          v-model="model.enableDirectCheckout"
           class="ml-2"
           size="large"
           inline-prompt
