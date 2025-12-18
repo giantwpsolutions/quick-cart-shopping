@@ -7,18 +7,29 @@
 
 import { DOM } from './utils/dom.js';
 import { CartToggle } from './core-js/cartToggle.js';
+import { CartPanel } from './core-js/cartPanel.js';
+import { AddToCartHandler } from './core-js/addToCart.js';
+import { VariableProductPopup } from './core-js/variableProductPopup.js';
+
+console.log('Quick Cart Shopping main.js loaded');
 
 class QuickCartShopping {
   constructor() {
     this.settings = window.qcShoppingData || {};
     this.cartToggle = null;
+    this.cartPanel = null;
+    this.addToCartHandler = null;
+    this.variableProductHandler = null;
 
-    // Debug: Always initialize for now
-    // if (!this.settings.general || !this.settings.general.enableQuickCart) {
-    //   console.warn('Quick Cart Shopping is disabled');
-    //   return;
-    // }
+    console.log('QuickCartShopping constructor called', this.settings);
 
+    // Check if Quick Cart Shopping is enabled
+    if (!this.settings.general || !this.settings.general.enableQuickCart) {
+      console.warn('Quick Cart Shopping is disabled');
+      return;
+    }
+
+    console.log('Quick Cart Shopping is enabled, initializing...');
     this.init();
   }
 
@@ -28,8 +39,25 @@ class QuickCartShopping {
   init() {
     DOM.ready(() => {
       this.initCartToggle();
+      this.initCartPanel();
+      this.initAddToCartHandler();
+      this.initVariableProductPopup();
       this.bindGlobalEvents();
     });
+  }
+
+  /**
+   * Initialize add to cart handler
+   */
+  initAddToCartHandler() {
+    this.addToCartHandler = new AddToCartHandler();
+  }
+
+  /**
+   * Initialize variable product popup
+   */
+  initVariableProductPopup() {
+    this.variableProductHandler = new VariableProductPopup(this.settings);
   }
 
   /**
@@ -45,58 +73,94 @@ class QuickCartShopping {
   }
 
   /**
+   * Initialize cart panel/drawer
+   */
+  initCartPanel() {
+    if (!this.settings.layout) {
+      console.warn('Layout settings not found');
+      return;
+    }
+
+    this.cartPanel = new CartPanel(this.settings);
+  }
+
+  /**
    * Bind global events
    */
   bindGlobalEvents() {
-    // Listen for cart toggle events
-    DOM.on(document, 'qc:cart:toggle', () => {
-      // TODO: Open/close cart drawer
-    });
-
-    // TODO: Uncomment below for automatic WooCommerce cart integration
-    /*
     // Listen for add to cart events (WooCommerce)
-    DOM.on(document.body, 'added_to_cart', (e) => {
-      this.handleAddToCart(e.detail);
-    });
-
-    // Listen for cart removal events
-    DOM.on(document.body, 'removed_from_cart', () => {
-      this.handleCartUpdate();
+    DOM.on(document.body, 'added_to_cart', () => {
+      this.handleAddToCart();
     });
 
     // Listen for cart fragments refresh
     DOM.on(document.body, 'wc_fragments_refreshed', () => {
-      this.handleCartUpdate();
+      this.fetchCartItems();
     });
 
-    // Listen for cart updated event
-    DOM.on(document.body, 'updated_wc_div', () => {
-      this.handleCartUpdate();
-    });
-
-    // Initial cart count on load
-    this.updateInitialCartCount();
-    */
+    // Initial cart items fetch on load
+    this.fetchCartItems();
   }
 
   /**
    * Handle add to cart event
-   * @param {Object} data - Cart data from WooCommerce
    */
-  handleAddToCart(data) {
-    // Get cart count from WooCommerce fragments
-    const cartCount = this.getCartCountFromFragments();
+  handleAddToCart() {
+    // Fetch updated cart items
+    this.fetchCartItems();
 
-    // Update cart toggle badge
-    if (this.cartToggle) {
-      this.cartToggle.updateCartCount(cartCount);
+    // Auto-open cart panel
+    if (this.cartPanel) {
+      this.cartPanel.open();
+    }
+  }
+
+  /**
+   * Fetch cart items from server
+   */
+  fetchCartItems() {
+    const ajaxUrl = this.settings.meta?.ajaxUrl;
+    const nonce = this.settings.meta?.nonce;
+
+    if (!ajaxUrl || !nonce) {
+      return;
     }
 
-    // Trigger custom event
-    DOM.trigger(document, 'qc:cart:updated', {
-      count: cartCount,
-      data: data
+    fetch(ajaxUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        action: 'qc_get_cart_items',
+        nonce: nonce
+      })
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.success && result.data) {
+        const { items, count, subtotal } = result.data;
+
+        // Update cart toggle badge
+        if (this.cartToggle) {
+          this.cartToggle.updateCartCount(count);
+        }
+
+        // Update cart panel items
+        if (this.cartPanel) {
+          this.cartPanel.updateCartItems(items);
+          this.cartPanel.updateTotals(subtotal);
+        }
+
+        // Trigger custom event
+        DOM.trigger(document, 'qc:cart:updated', {
+          count: count,
+          items: items
+        });
+      }
+    })
+    .catch(error => {
+      console.warn('Failed to fetch cart items:', error);
     });
   }
 

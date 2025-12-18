@@ -92,11 +92,10 @@
 
 /* Icon container */
 .qc-cart-toggle__icon {
-  width: 60%;
-  height: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Width and height set dynamically via JavaScript */
 }
 
 .qc-cart-toggle__icon svg,

@@ -14,6 +14,7 @@ use QuickCartShopping\Api\Api;
 use QuickCartShopping\FrontEnd\FrontEnd_Assets;
 use QuickCartShopping\FrontEnd\CartToggleRenderer;
 use QuickCartShopping\FrontEnd\SettingsProvider;
+use QuickCartShopping\FrontEnd\CartHandler;
 
 
       /**
@@ -29,6 +30,7 @@ class Installer{
       SettingsProvider::instance();
       FrontEnd_Assets::instance();
       CartToggleRenderer::instance();
+      CartHandler::instance();
 
     }
 

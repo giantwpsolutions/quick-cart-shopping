@@ -27,6 +27,7 @@ class SettingsProvider{
             'layout' => self::get_layout_settings(),
             'cart' => self::get_cart_settings(),
             'meta' => self::get_meta_data(),
+            'i18n' => self::get_translations(),
         ];
     }
 
@@ -121,6 +122,34 @@ class SettingsProvider{
             'currentPageId' => get_the_ID(),
             'isAdmin' => is_admin(),
             'isUserLoggedIn' => is_user_logged_in(),
+            'placeholderImage' => wc_placeholder_img_src(),
+        ];
+    }
+
+    /**
+     * Get translation strings for frontend
+     *
+     * @return array
+     */
+    public static function get_translations(){
+        return [
+            'shoppingCart' => __( 'Shopping Cart', 'quick-cart-shopping' ),
+            'closeCart' => __( 'Close cart', 'quick-cart-shopping' ),
+            'emptyCartTitle' => __( 'Your cart is empty', 'quick-cart-shopping' ),
+            'emptyCartSubtext' => __( 'Add some products to get started!', 'quick-cart-shopping' ),
+            'product' => __( 'Product', 'quick-cart-shopping' ),
+            'price' => __( 'Price', 'quick-cart-shopping' ),
+            'quantity' => __( 'Quantity', 'quick-cart-shopping' ),
+            'subtotal' => __( 'Subtotal', 'quick-cart-shopping' ),
+            'removeItem' => __( 'Remove item', 'quick-cart-shopping' ),
+            'subtotalLabel' => __( 'Subtotal:', 'quick-cart-shopping' ),
+            'shipping' => __( 'Shipping:', 'quick-cart-shopping' ),
+            'calculatedAtCheckout' => __( 'Calculated at checkout', 'quick-cart-shopping' ),
+            'couponCode' => __( 'Coupon code', 'quick-cart-shopping' ),
+            'apply' => __( 'Apply', 'quick-cart-shopping' ),
+            'proceedToCheckout' => __( 'Proceed to Checkout', 'quick-cart-shopping' ),
+            'viewCart' => __( 'View Cart', 'quick-cart-shopping' ),
+            'emptyCart' => __( 'Empty Cart', 'quick-cart-shopping' ),
         ];
     }
 

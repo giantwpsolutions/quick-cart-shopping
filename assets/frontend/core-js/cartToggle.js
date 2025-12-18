@@ -49,10 +49,13 @@ export class CartToggle {
       tabindex: '0'
     });
 
+    // Button should be larger than icon to have padding (add 30px for padding)
+    const buttonSize = toggle.iconSize + 30;
+
     // Apply dynamic styles
     DOM.setStyles(this.toggle, {
-      width: `${toggle.iconSize}px`,
-      height: `${toggle.iconSize}px`,
+      width: `${buttonSize}px`,
+      height: `${buttonSize}px`,
       backgroundColor: toggle.iconBgColor,
       color: toggle.iconColor
     });
@@ -60,6 +63,12 @@ export class CartToggle {
     // Create icon container
     const iconContainer = DOM.createElement('span', {
       class: 'qc-cart-toggle__icon'
+    });
+
+    // Set icon size directly from settings (exact size, not percentage)
+    DOM.setStyles(iconContainer, {
+      width: `${toggle.iconSize}px`,
+      height: `${toggle.iconSize}px`
     });
 
     // Load and insert SVG icon

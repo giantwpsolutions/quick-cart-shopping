@@ -183,7 +183,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="tw-min-h-screen tw-bg-gray-50 tw-pt-[46px] ">
+  <div class="tw-min-h-screen tw-bg-gray-50 tw-pt-[20px] ">
     <!--  header -->
     <TopHeader v-model="activeMenu" @upgrade="() => window.open('https://your-upgrade-url', '_blank')" />
 

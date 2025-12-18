@@ -28,15 +28,15 @@ class CartToggleRenderer{
      * @return void
      */
     public function render_cart_toggle(){
-        // Debug: Always render for now
-        // if ( ! SettingsProvider::is_enabled() ) {
-        //     return;
-        // }
+        // Check if Quick Cart Shopping is enabled
+        if ( ! SettingsProvider::is_enabled() ) {
+            return;
+        }
 
-        // // Exit if current page should hide toggle
-        // if ( SettingsProvider::should_hide_toggle() ) {
-        //     return;
-        // }
+        // Exit if current page should hide toggle
+        if ( SettingsProvider::should_hide_toggle() ) {
+            return;
+        }
 
         // Get toggle settings
         $settings = SettingsProvider::get_toggle_settings();

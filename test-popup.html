@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Variable Product Popup</title>
+    <link rel="stylesheet" href="assets/frontend/css/variable-product-popup.css">
+    <style>
+        body { padding: 50px; font-family: Arial; }
+        .test-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #0073aa;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Variable Product Popup</h1>
+
+    <p>Click this button to test:</p>
+    <a href="?add-to-cart=123" class="test-button product_type_variable" data-product_id="123">
+        Select Options (Variable Product)
+    </a>
+
+    <script>
+        // Mock settings data
+        window.qcShoppingData = {
+            general: {
+                enableQuickCart: true,
+                enableVarProduct: true
+            },
+            meta: {
+                ajaxUrl: '/wp-admin/admin-ajax.php',
+                nonce: 'test-nonce',
+                pluginUrl: '/wp-content/plugins/quick-cart-shopping/'
+            }
+        };
+    </script>
+
+    <script type="module" src="assets/frontend/main.js"></script>
+</body>
+</html>
