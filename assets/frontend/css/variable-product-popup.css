@@ -57,26 +57,37 @@
   right: 20px;
   width: 40px;
   height: 40px;
-  border: none;
-  background: #f5f5f5;
+  border: none !important;
+  background: #f5f5f5 !important;
   border-radius: 50%;
   cursor: pointer;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  z-index: 100000 !important;
   transition: all 0.2s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .qc-variable-close:hover {
-  background: #e8e8e8;
+  background: #e8e8e8 !important;
   transform: scale(1.1);
+}
+
+.qc-variable-close:active {
+  transform: scale(0.95);
 }
 
 .qc-variable-close svg {
   width: 20px;
   height: 20px;
-  stroke: #666;
+  stroke: #666 !important;
+  display: block;
+  flex-shrink: 0;
 }
 
 /* Content */

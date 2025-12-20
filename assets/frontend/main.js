@@ -10,8 +10,7 @@ import { CartToggle } from './core-js/cartToggle.js';
 import { CartPanel } from './core-js/cartPanel.js';
 import { AddToCartHandler } from './core-js/addToCart.js';
 import { VariableProductPopup } from './core-js/variableProductPopup.js';
-
-console.log('Quick Cart Shopping main.js loaded');
+import { DragToCart } from './core-js/dragToCart.js';
 
 class QuickCartShopping {
   constructor() {
@@ -20,16 +19,13 @@ class QuickCartShopping {
     this.cartPanel = null;
     this.addToCartHandler = null;
     this.variableProductHandler = null;
-
-    console.log('QuickCartShopping constructor called', this.settings);
+    this.dragToCart = null;
 
     // Check if Quick Cart Shopping is enabled
     if (!this.settings.general || !this.settings.general.enableQuickCart) {
-      console.warn('Quick Cart Shopping is disabled');
       return;
     }
 
-    console.log('Quick Cart Shopping is enabled, initializing...');
     this.init();
   }
 
@@ -42,6 +38,7 @@ class QuickCartShopping {
       this.initCartPanel();
       this.initAddToCartHandler();
       this.initVariableProductPopup();
+      this.initDragToCart();
       this.bindGlobalEvents();
     });
   }
@@ -61,11 +58,22 @@ class QuickCartShopping {
   }
 
   /**
+   * Initialize drag to cart
+   */
+  initDragToCart() {
+    this.dragToCart = new DragToCart(this.settings);
+
+    // Pass variable product handler reference to drag to cart
+    if (this.variableProductHandler) {
+      this.dragToCart.setVariableProductHandler(this.variableProductHandler);
+    }
+  }
+
+  /**
    * Initialize cart toggle button
    */
   initCartToggle() {
     if (!this.settings.toggle) {
-      console.warn('Toggle settings not found');
       return;
     }
 
@@ -77,7 +85,6 @@ class QuickCartShopping {
    */
   initCartPanel() {
     if (!this.settings.layout) {
-      console.warn('Layout settings not found');
       return;
     }
 
@@ -139,23 +146,31 @@ class QuickCartShopping {
     .then(response => response.json())
     .then(result => {
       if (result.success && result.data) {
-        const { items, count, subtotal } = result.data;
+        const { items, count, subtotal, total, coupons, discount_total, shipping_total, total_tax, shipping_methods, shipping_destination } = result.data;
 
         // Update cart toggle badge
         if (this.cartToggle) {
           this.cartToggle.updateCartCount(count);
         }
 
-        // Update cart panel items
+        // Update cart panel items and totals
         if (this.cartPanel) {
-          this.cartPanel.updateCartItems(items);
-          this.cartPanel.updateTotals(subtotal);
+          this.cartPanel.updateCartItems(items, coupons);
+          this.cartPanel.updateTotals({
+            subtotal,
+            discount_total,
+            shipping_total,
+            total_tax,
+            total
+          });
+          this.cartPanel.updateShippingMethods(shipping_methods, shipping_destination);
         }
 
         // Trigger custom event
         DOM.trigger(document, 'qc:cart:updated', {
           count: count,
-          items: items
+          items: items,
+          coupons: coupons
         });
       }
     })
@@ -311,8 +326,8 @@ class QuickCartShopping {
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    new QuickCartShopping();
+    window.qcShoppingInstance = new QuickCartShopping();
   });
 } else {
-  new QuickCartShopping();
+  window.qcShoppingInstance = new QuickCartShopping();
 }

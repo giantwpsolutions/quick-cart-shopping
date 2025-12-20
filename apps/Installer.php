@@ -15,6 +15,7 @@ use QuickCartShopping\FrontEnd\FrontEnd_Assets;
 use QuickCartShopping\FrontEnd\CartToggleRenderer;
 use QuickCartShopping\FrontEnd\SettingsProvider;
 use QuickCartShopping\FrontEnd\CartHandler;
+use QuickCartShopping\FrontEnd\CheckoutHandler;
 
 
       /**
@@ -31,6 +32,7 @@ class Installer{
       FrontEnd_Assets::instance();
       CartToggleRenderer::instance();
       CartHandler::instance();
+      CheckoutHandler::instance();
 
     }
 

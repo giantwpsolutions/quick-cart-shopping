@@ -50,6 +50,10 @@ class CartToggleRenderer{
              data-icon-size="<?php echo esc_attr( $settings['iconSize'] ); ?>"
              data-show-badge="<?php echo esc_attr( $settings['showBadge'] ? '1' : '0' ); ?>"
              data-border-shape="<?php echo esc_attr( $settings['borderShape'] ); ?>"
+             data-offset-top="<?php echo esc_attr( $settings['offsetTop'] ?? 20 ); ?>"
+             data-offset-bottom="<?php echo esc_attr( $settings['offsetBottom'] ?? 20 ); ?>"
+             data-offset-left="<?php echo esc_attr( $settings['offsetLeft'] ?? 20 ); ?>"
+             data-offset-right="<?php echo esc_attr( $settings['offsetRight'] ?? 20 ); ?>"
              style="display: none;">
         </div>
         <?php

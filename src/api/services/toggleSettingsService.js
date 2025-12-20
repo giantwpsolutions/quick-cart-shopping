@@ -74,6 +74,10 @@ export const toggleSettingsService = {
         iconColor: settingsData.iconColor ?? '#ffffff',
         hideOnPages: settingsData.hideOnPages ?? [],
         borderShape: validateBorderShape(settingsData.borderShape),
+        offsetTop: settingsData.offsetTop ?? 20,
+        offsetBottom: settingsData.offsetBottom ?? 20,
+        offsetLeft: settingsData.offsetLeft ?? 20,
+        offsetRight: settingsData.offsetRight ?? 20,
       };
 
       const response = await apiClient.post('/save-toggle-settings', payload);

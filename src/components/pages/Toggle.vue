@@ -42,6 +42,12 @@ const borderShapeOptions = [
 
 onMounted(() => {
   loadPagesData()
+
+  // Ensure offset values are numbers with defaults (fix for database integer storage)
+  model.value.offsetTop = model.value.offsetTop !== undefined ? Number(model.value.offsetTop) : 20
+  model.value.offsetBottom = model.value.offsetBottom !== undefined ? Number(model.value.offsetBottom) : 20
+  model.value.offsetLeft = model.value.offsetLeft !== undefined ? Number(model.value.offsetLeft) : 20
+  model.value.offsetRight = model.value.offsetRight !== undefined ? Number(model.value.offsetRight) : 20
 })
 </script>
 
@@ -270,6 +276,85 @@ onMounted(() => {
 
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
         {{__("Select the border style for the cart icon button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- Position Offset -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Position Offset", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-grid tw-grid-cols-2 tw-gap-4">
+        <!-- Offset Top -->
+        <div class="tw-flex tw-items-center tw-gap-2">
+          <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap tw-w-16">{{__("Top", "quick-cart-shopping")}}</label>
+          <div class="tw-flex tw-items-center tw-gap-1 tw-flex-1">
+            <el-input-number
+              v-model="model.offsetTop"
+              :min="0"
+              :max="500"
+              :step="5"
+              size="small"
+              controls-position="right"
+              class="tw-w-full"
+            />
+            <span class="tw-text-gray-500 tw-text-sm">px</span>
+          </div>
+        </div>
+
+        <!-- Offset Bottom -->
+        <div class="tw-flex tw-items-center tw-gap-2">
+          <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap tw-w-16">{{__("Bottom", "quick-cart-shopping")}}</label>
+          <div class="tw-flex tw-items-center tw-gap-1 tw-flex-1">
+            <el-input-number
+              v-model="model.offsetBottom"
+              :min="0"
+              :max="500"
+              :step="5"
+              size="small"
+              controls-position="right"
+              class="tw-w-full"
+            />
+            <span class="tw-text-gray-500 tw-text-sm">px</span>
+          </div>
+        </div>
+
+        <!-- Offset Left -->
+        <div class="tw-flex tw-items-center tw-gap-2">
+          <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap tw-w-16">{{__("Left", "quick-cart-shopping")}}</label>
+          <div class="tw-flex tw-items-center tw-gap-1 tw-flex-1">
+            <el-input-number
+              v-model="model.offsetLeft"
+              :min="0"
+              :max="500"
+              :step="5"
+              size="small"
+              controls-position="right"
+              class="tw-w-full"
+            />
+            <span class="tw-text-gray-500 tw-text-sm">px</span>
+          </div>
+        </div>
+
+        <!-- Offset Right -->
+        <div class="tw-flex tw-items-center tw-gap-2">
+          <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap tw-w-16">{{__("Right", "quick-cart-shopping")}}</label>
+          <div class="tw-flex tw-items-center tw-gap-1 tw-flex-1">
+            <el-input-number
+              v-model="model.offsetRight"
+              :min="0"
+              :max="500"
+              :step="5"
+              size="small"
+              controls-position="right"
+              class="tw-w-full"
+            />
+            <span class="tw-text-gray-500 tw-text-sm">px</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Adjust the distance of the cart icon from the edges of the screen. Note: Only the relevant offset values (based on icon position) will be applied.", "quick-cart-shopping")}}
       </p>
     </div>
 

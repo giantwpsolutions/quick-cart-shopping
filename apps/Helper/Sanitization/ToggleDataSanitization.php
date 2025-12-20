@@ -45,6 +45,14 @@ class ToggleDataSanitization
                                  ? array_map( 'intval', $data['hideOnPages'] ) : [],
             'borderShape'     => isset( $data['borderShape'] ) && in_array( $data['borderShape'], ['none', 'circle', 'rounded'] )
                                  ? $data['borderShape'] : 'circle',
+            'offsetTop'       => isset( $data['offsetTop'] ) && is_numeric( $data['offsetTop'] )
+                                 ? (int) max( 0, min( 500, $data['offsetTop'] ) ) : 20,
+            'offsetBottom'    => isset( $data['offsetBottom'] ) && is_numeric( $data['offsetBottom'] )
+                                 ? (int) max( 0, min( 500, $data['offsetBottom'] ) ) : 20,
+            'offsetLeft'      => isset( $data['offsetLeft'] ) && is_numeric( $data['offsetLeft'] )
+                                 ? (int) max( 0, min( 500, $data['offsetLeft'] ) ) : 20,
+            'offsetRight'     => isset( $data['offsetRight'] ) && is_numeric( $data['offsetRight'] )
+                                 ? (int) max( 0, min( 500, $data['offsetRight'] ) ) : 20,
         ];
     }
 }

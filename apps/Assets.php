@@ -97,7 +97,7 @@ use QuickCartShopping\Traits\SingletonTrait;
         return $tag;
     }
 
-            /**
+    /**
      * Removes all admin notices from plugin settings page.
      * 
      * Ensures a clean experience inside GiantWP Discount Rules's admin interface.

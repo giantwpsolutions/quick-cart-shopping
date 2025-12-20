@@ -34,7 +34,7 @@ class FrontEnd_Assets{
         }
 
         $plugin_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
-        $plugin_version = defined( 'QUICK_CART_SHOPPING_VERSION' ) ? QUICK_CART_SHOPPING_VERSION : '1.0.0';
+        $plugin_version = time(); // Use timestamp to prevent caching during development
 
         // Enqueue CSS
         wp_enqueue_style(
@@ -54,6 +54,13 @@ class FrontEnd_Assets{
         wp_enqueue_style(
             'qc-variable-popup',
             $plugin_url . 'assets/frontend/css/variable-product-popup.css',
+            [],
+            $plugin_version
+        );
+
+        wp_enqueue_style(
+            'qc-multi-step-checkout',
+            $plugin_url . 'assets/frontend/css/multi-step-checkout.css',
             [],
             $plugin_version
         );

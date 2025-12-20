@@ -24,7 +24,6 @@ export class CartToggle {
   init() {
     this.container = DOM.qs('#qc-cart-toggle-container');
     if (!this.container) {
-      console.warn('Cart toggle container not found');
       return;
     }
 
@@ -52,12 +51,26 @@ export class CartToggle {
     // Button should be larger than icon to have padding (add 30px for padding)
     const buttonSize = toggle.iconSize + 30;
 
-    // Apply dynamic styles
+    // Get offset values from container data attributes
+    const offsetTop = this.container.dataset.offsetTop || toggle.offsetTop || 20;
+    const offsetBottom = this.container.dataset.offsetBottom || toggle.offsetBottom || 20;
+    const offsetLeft = this.container.dataset.offsetLeft || toggle.offsetLeft || 20;
+    const offsetRight = this.container.dataset.offsetRight || toggle.offsetRight || 20;
+
+    // Apply dynamic styles including position offsets
+    const positionStyles = this.getPositionStyles(toggle.iconPosition, {
+      top: offsetTop,
+      bottom: offsetBottom,
+      left: offsetLeft,
+      right: offsetRight
+    });
+
     DOM.setStyles(this.toggle, {
       width: `${buttonSize}px`,
       height: `${buttonSize}px`,
       backgroundColor: toggle.iconBgColor,
-      color: toggle.iconColor
+      color: toggle.iconColor,
+      ...positionStyles
     });
 
     // Create icon container
@@ -112,6 +125,50 @@ export class CartToggle {
     classes.push(`qc-shape-${toggle.borderShape}`);
 
     return classes.join(' ');
+  }
+
+  /**
+   * Get position styles based on icon position and offsets
+   * @param {string} position - Icon position (bottom-right, top-left, etc.)
+   * @param {object} offsets - Offset values {top, bottom, left, right}
+   * @returns {object} CSS styles object
+   */
+  getPositionStyles(position, offsets) {
+    const styles = {};
+
+    switch (position) {
+      case 'bottom-right':
+        styles.bottom = `${offsets.bottom}px`;
+        styles.right = `${offsets.right}px`;
+        break;
+      case 'bottom-left':
+        styles.bottom = `${offsets.bottom}px`;
+        styles.left = `${offsets.left}px`;
+        break;
+      case 'top-right':
+        styles.top = `${offsets.top}px`;
+        styles.right = `${offsets.right}px`;
+        break;
+      case 'top-left':
+        styles.top = `${offsets.top}px`;
+        styles.left = `${offsets.left}px`;
+        break;
+      case 'center-right':
+        styles.top = '50%';
+        styles.right = `${offsets.right}px`;
+        styles.transform = 'translateY(-50%)';
+        break;
+      case 'center-left':
+        styles.top = '50%';
+        styles.left = `${offsets.left}px`;
+        styles.transform = 'translateY(-50%)';
+        break;
+      default:
+        styles.bottom = `${offsets.bottom}px`;
+        styles.right = `${offsets.right}px`;
+    }
+
+    return styles;
   }
 
   /**
@@ -183,7 +240,6 @@ export class CartToggle {
         container.appendChild(svgElement);
       }
     } catch (error) {
-      console.error('Failed to load icon SVG:', error);
       // Fallback: Show text
       container.innerHTML = '<span>🛒</span>';
     }

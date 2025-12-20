@@ -26,6 +26,7 @@ class SettingsProvider{
             'toggle' => self::get_toggle_settings(),
             'layout' => self::get_layout_settings(),
             'cart' => self::get_cart_settings(),
+            'checkout' => self::get_checkout_settings(),
             'meta' => self::get_meta_data(),
             'i18n' => self::get_translations(),
         ];
@@ -68,6 +69,10 @@ class SettingsProvider{
             'iconColor' => '#ffffff',
             'hideOnPages' => [],
             'borderShape' => 'circle',
+            'offsetTop' => 20,
+            'offsetBottom' => 20,
+            'offsetLeft' => 20,
+            'offsetRight' => 20,
         ];
 
         return wp_parse_args( $settings, $defaults );
@@ -110,6 +115,30 @@ class SettingsProvider{
     }
 
     /**
+     * Get checkout settings
+     *
+     * @return array
+     */
+    public static function get_checkout_settings(){
+        $settings = get_option( 'quick_cart_checkout_settings', [] );
+
+        $defaults = [
+            'enableStep1' => true,
+            'step1Label' => 'Order Review',
+            'enableStep2' => true,
+            'step2Label' => 'Billing & Shipping',
+            'enableStep3' => true,
+            'step3Label' => 'Payment',
+            'progressBarStyle' => 'style1',
+            'progressBarColor' => '#05291B',
+            'progressLabelTextColor' => '#ffffff',
+            'progressLabelBgColor' => '#3498db',
+        ];
+
+        return wp_parse_args( $settings, $defaults );
+    }
+
+    /**
      * Get meta data (URLs, nonce, etc.)
      *
      * @return array
@@ -123,6 +152,8 @@ class SettingsProvider{
             'isAdmin' => is_admin(),
             'isUserLoggedIn' => is_user_logged_in(),
             'placeholderImage' => wc_placeholder_img_src(),
+            'checkoutUrl' => class_exists( 'WooCommerce' ) ? wc_get_checkout_url() : '/checkout',
+            'cartUrl' => class_exists( 'WooCommerce' ) ? wc_get_cart_url() : '/cart',
         ];
     }
 
@@ -145,11 +176,22 @@ class SettingsProvider{
             'subtotalLabel' => __( 'Subtotal:', 'quick-cart-shopping' ),
             'shipping' => __( 'Shipping:', 'quick-cart-shopping' ),
             'calculatedAtCheckout' => __( 'Calculated at checkout', 'quick-cart-shopping' ),
+            'flatRate' => __( 'Flat rate:', 'quick-cart-shopping' ),
+            'localPickup' => __( 'Local pickup', 'quick-cart-shopping' ),
+            'shippingTo' => __( 'Shipping to', 'quick-cart-shopping' ),
+            'shippingLocation' => __( 'your location', 'quick-cart-shopping' ),
+            'total' => __( 'Total:', 'quick-cart-shopping' ),
             'couponCode' => __( 'Coupon code', 'quick-cart-shopping' ),
             'apply' => __( 'Apply', 'quick-cart-shopping' ),
             'proceedToCheckout' => __( 'Proceed to Checkout', 'quick-cart-shopping' ),
             'viewCart' => __( 'View Cart', 'quick-cart-shopping' ),
             'emptyCart' => __( 'Empty Cart', 'quick-cart-shopping' ),
+            // Multi-step checkout translations
+            'loading' => __( 'Loading...', 'quick-cart-shopping' ),
+            'backToCart' => __( 'Back to Cart', 'quick-cart-shopping' ),
+            'previous' => __( 'Previous', 'quick-cart-shopping' ),
+            'next' => __( 'Next', 'quick-cart-shopping' ),
+            'placeOrder' => __( 'Place Order', 'quick-cart-shopping' ),
         ];
     }
 

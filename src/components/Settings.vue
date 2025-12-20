@@ -27,9 +27,9 @@ import { generalMessages, layoutMessages, toggleMessages, cartMessages, checkout
 const defaults = {
   general  : { enableQuickCart: true, enableVarProduct: true, enableDragAndDrop: true, enableDirectCheckout: true },
   layout   : { cartOption: 'side', cartWidth: 400, animation: 'slide' },
-  toggle   : { iconPosition: 'bottom-right', iconStyle: 'cart', iconSize: 60, showBadge: true, badgeBgColor: '#3498db', badgeTextColor: '#ffffff', iconBgColor: '#05291B', iconColor: '#ffffff', hideOnPages: [], borderShape: 'circle' },
+  toggle   : { iconPosition: 'bottom-right', iconStyle: 'cart', iconSize: 60, showBadge: true, badgeBgColor: '#3498db', badgeTextColor: '#ffffff', iconBgColor: '#05291B', iconColor: '#ffffff', hideOnPages: [], borderShape: 'circle', offsetTop: 20, offsetBottom: 20, offsetLeft: 20, offsetRight: 20 },
   cart     : { showShipping: true, showCouponField: true, checkoutBtnBgColor: '#05291B', checkoutBtnTextColor: '#ffffff', showCheckoutBtn: true },
-  checkout : { progressBarStyle: 'style1', progressBarColor: '#05291B', progressLabelTextColor: '#ffffff', progressLabelBgColor: '#3498db', enableThankYouPage: true, thankYouDisplay: 'popup', popupBgColor: '#ffffff', showOrderSummary: true, thankYouPage: null },
+  checkout : { enableStep1: true, step1Label: 'Cart Review', enableStep2: true, step2Label: 'Billing Details', enableStep3: true, step3Label: 'Shipping Details', enableStep4: true, step4Label: 'Payment', progressBarStyle: 'style1', progressBarColor: '#05291B', progressLabelTextColor: '#ffffff', progressLabelBgColor: '#3498db', enableThankYouPage: true, thankYouDisplay: 'popup', popupBgColor: '#ffffff', showOrderSummary: true, thankYouPage: null },
   settings : { enableAdvancedSettings: false },
 }
 
@@ -66,7 +66,15 @@ async function save() {
       dirty[sectionKey.value] = false
       ElMessage.success({ message: layoutMessages.saveSuccess, offset: 120 })
     } else if (sectionKey.value === 'toggle') {
-      await toggleSettingsService.save(settings.toggle)
+      // Ensure offset values are numbers before saving
+      const toggleData = {
+        ...settings.toggle,
+        offsetTop: Number(settings.toggle.offsetTop || 20),
+        offsetBottom: Number(settings.toggle.offsetBottom || 20),
+        offsetLeft: Number(settings.toggle.offsetLeft || 20),
+        offsetRight: Number(settings.toggle.offsetRight || 20)
+      }
+      await toggleSettingsService.save(toggleData)
       dirty[sectionKey.value] = false
       ElMessage.success({ message: toggleMessages.saveSuccess, offset: 120 })
     } else if (sectionKey.value === 'cart') {
@@ -144,6 +152,10 @@ onMounted(async () => {
       if (data.iconColor !== undefined) settings.toggle.iconColor = data.iconColor
       if (data.hideOnPages !== undefined) settings.toggle.hideOnPages = data.hideOnPages
       if (data.borderShape !== undefined) settings.toggle.borderShape = data.borderShape
+      if (data.offsetTop !== undefined) settings.toggle.offsetTop = Number(data.offsetTop)
+      if (data.offsetBottom !== undefined) settings.toggle.offsetBottom = Number(data.offsetBottom)
+      if (data.offsetLeft !== undefined) settings.toggle.offsetLeft = Number(data.offsetLeft)
+      if (data.offsetRight !== undefined) settings.toggle.offsetRight = Number(data.offsetRight)
       dirty.toggle = false
     }
 
@@ -163,6 +175,14 @@ onMounted(async () => {
     const checkoutResponse = await checkoutSettingsService.get()
     if (checkoutResponse.success && checkoutResponse.settings && Object.keys(checkoutResponse.settings).length > 0) {
       const data = checkoutResponse.settings
+      if (data.enableStep1 !== undefined) settings.checkout.enableStep1 = data.enableStep1
+      if (data.step1Label !== undefined) settings.checkout.step1Label = data.step1Label
+      if (data.enableStep2 !== undefined) settings.checkout.enableStep2 = data.enableStep2
+      if (data.step2Label !== undefined) settings.checkout.step2Label = data.step2Label
+      if (data.enableStep3 !== undefined) settings.checkout.enableStep3 = data.enableStep3
+      if (data.step3Label !== undefined) settings.checkout.step3Label = data.step3Label
+      if (data.enableStep4 !== undefined) settings.checkout.enableStep4 = data.enableStep4
+      if (data.step4Label !== undefined) settings.checkout.step4Label = data.step4Label
       if (data.progressBarStyle !== undefined) settings.checkout.progressBarStyle = data.progressBarStyle
       if (data.progressBarColor !== undefined) settings.checkout.progressBarColor = data.progressBarColor
       if (data.progressLabelTextColor !== undefined) settings.checkout.progressLabelTextColor = data.progressLabelTextColor
@@ -183,7 +203,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="tw-min-h-screen tw-bg-gray-50 tw-pt-[20px] ">
+  <div class="tw-min-h-screen tw-bg-gray-50 tw-pt-[2px] ">
     <!--  header -->
     <TopHeader v-model="activeMenu" @upgrade="() => window.open('https://your-upgrade-url', '_blank')" />
 

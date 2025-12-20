@@ -39,43 +39,46 @@ export class VariableProductPopup {
    * Bind events for variable products
    */
   bindEvents() {
-    // Handle clicks on variable product items (image, title, button)
-    document.body.addEventListener('click', (e) => {
-      // Check if clicked on variable product button
-      const button = e.target.closest('.product_type_variable');
+    // Delegate click handler for variable products
+    DOM.on(document.body, 'click', (e) => {
+      const target = e.target;
 
-      // Check if clicked on product item container
-      const productItem = e.target.closest('.product, .product-item, li.product, .woocommerce ul.products li.product');
-
-      if (button) {
-        // Prevent default action immediately
+      // Check for "Select Options" button click
+      const selectBtn = target.closest('a.product_type_variable');
+      if (selectBtn) {
         e.preventDefault();
         e.stopPropagation();
-
-        this.handleVariableProductClick(button);
+        this.handleVariableProductClick(selectBtn);
         return;
       }
 
-      // If clicked on product image or title within a variable product
-      if (productItem) {
-        // Check if this product has a variable product button
-        const variableButton = productItem.querySelector('.product_type_variable');
+      // Check for image click on variable product
+      const productCard = target.closest('li.product, .product');
+      if (!productCard) {
+        return;
+      }
 
-        if (variableButton) {
-          // Check if clicked on image or title
-          const isImageOrTitle = e.target.closest('.woocommerce-loop-product__link, .attachment-woocommerce_thumbnail, img, h2, h3, .woocommerce-loop-product__title');
+      const variableBtn = productCard.querySelector('a.product_type_variable');
+      if (!variableBtn) {
+        return;
+      }
 
-          if (isImageOrTitle) {
-            // Prevent default action
-            e.preventDefault();
-            e.stopPropagation();
-
-            this.handleVariableProductClick(variableButton);
-          }
+      // Image click - only on product images (not drag handles or other images)
+      if (target.tagName === 'IMG') {
+        const imageLink = target.closest('a.woocommerce-loop-product__link, a.woocommerce-LoopProduct-link');
+        if (imageLink) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.handleVariableProductClick(variableBtn);
+          return;
         }
       }
-    }, true); // Use capture phase
+
+      // Title click - let it navigate to product page (DO NOT preventDefault)
+      // No code needed - browser will handle navigation naturally
+    });
   }
+
 
   /**
    * Handle variable product click

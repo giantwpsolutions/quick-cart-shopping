@@ -34,37 +34,14 @@
   transform: scale(0.95);
 }
 
-/* Position variants */
-.qc-cart-toggle.qc-position-bottom-right {
-  bottom: 20px;
-  right: 20px;
-}
-
-.qc-cart-toggle.qc-position-bottom-left {
-  bottom: 20px;
-  left: 20px;
-}
-
-.qc-cart-toggle.qc-position-top-right {
-  top: 20px;
-  right: 20px;
-}
-
-.qc-cart-toggle.qc-position-top-left {
-  top: 20px;
-  left: 20px;
-}
-
-.qc-cart-toggle.qc-position-center-right {
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-}
-
+/* Position variants - positions will be set via JavaScript dynamically */
+.qc-cart-toggle.qc-position-bottom-right,
+.qc-cart-toggle.qc-position-bottom-left,
+.qc-cart-toggle.qc-position-top-right,
+.qc-cart-toggle.qc-position-top-left,
+.qc-cart-toggle.qc-position-center-right,
 .qc-cart-toggle.qc-position-center-left {
-  top: 50%;
-  left: 20px;
-  transform: translateY(-50%);
+  /* Positions are applied dynamically via inline styles */
 }
 
 .qc-cart-toggle.qc-position-center-right:hover,
@@ -160,23 +137,10 @@
   display: none;
 }
 
-/* Mobile responsive */
+/* Mobile responsive - offsets are handled via JavaScript */
 @media (max-width: 768px) {
-  .qc-cart-toggle {
-    bottom: 15px !important;
-    right: 15px !important;
-  }
-
-  .qc-cart-toggle.qc-position-bottom-left,
-  .qc-cart-toggle.qc-position-top-left,
-  .qc-cart-toggle.qc-position-center-left {
-    left: 15px !important;
-  }
-
-  .qc-cart-toggle.qc-position-top-right,
-  .qc-cart-toggle.qc-position-top-left {
-    top: 15px !important;
-  }
+  /* Mobile-specific adjustments can be added here if needed */
+  /* Position offsets are controlled via admin settings */
 }
 
 /* Accessibility */

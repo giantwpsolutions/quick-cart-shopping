@@ -157,6 +157,17 @@ export const DOM = {
   },
 
   /**
+   * Create element from HTML string
+   * @param {string} htmlString - HTML string
+   * @returns {HTMLElement}
+   */
+  createFromHTML(htmlString) {
+    const template = document.createElement('template');
+    template.innerHTML = htmlString.trim();
+    return template.content.firstChild;
+  },
+
+  /**
    * Remove element from DOM
    * @param {HTMLElement} element
    */

@@ -38,6 +38,87 @@ onMounted(() => {
 <template>
   <div class="tw-space-y-6 tw-pt-4 tw-pb-2">
 
+    <!-- Multi-Step Checkout Configuration -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Multi-Step Checkout Steps", "quick-cart-shopping")}}</h3>
+
+      <p class="tw-text-xs tw-text-gray-600 tw-mb-4">
+        {{__("Configure the steps for your multi-step checkout process. You can enable/disable steps and customize their labels.", "quick-cart-shopping")}}
+      </p>
+
+      <div class="tw-space-y-3">
+        <!-- Step 1: Billing & Shipping -->
+        <div class="tw-flex tw-items-center tw-justify-between tw-p-3 tw-bg-gray-50 tw-rounded-md">
+          <div class="tw-flex-1">
+            <div class="tw-flex tw-items-center tw-gap-2">
+              <span class="tw-inline-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-bg-[#05291B] tw-text-white tw-text-xs tw-font-semibold tw-rounded-full">1</span>
+              <el-input
+                v-model="model.step1Label"
+                :placeholder="__('Billing & Shipping', 'quick-cart-shopping')"
+                size="small"
+                style="max-width: 200px;"
+              />
+            </div>
+            <p class="tw-text-[11px] tw-text-gray-500 tw-mt-1 tw-ml-8">{{__("Enter billing and shipping details", "quick-cart-shopping")}}</p>
+          </div>
+          <el-switch
+            v-model="model.enableStep1"
+            size="default"
+            active-color="#05291B"
+            inactive-color="#d1d5db"
+          />
+        </div>
+
+        <!-- Step 2: Order Review -->
+        <div class="tw-flex tw-items-center tw-justify-between tw-p-3 tw-bg-gray-50 tw-rounded-md">
+          <div class="tw-flex-1">
+            <div class="tw-flex tw-items-center tw-gap-2">
+              <span class="tw-inline-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-bg-[#05291B] tw-text-white tw-text-xs tw-font-semibold tw-rounded-full">2</span>
+              <el-input
+                v-model="model.step2Label"
+                :placeholder="__('Order Review', 'quick-cart-shopping')"
+                size="small"
+                style="max-width: 200px;"
+              />
+            </div>
+            <p class="tw-text-[11px] tw-text-gray-500 tw-mt-1 tw-ml-8">{{__("Review cart items and totals with dynamic shipping", "quick-cart-shopping")}}</p>
+          </div>
+          <el-switch
+            v-model="model.enableStep2"
+            size="default"
+            active-color="#05291B"
+            inactive-color="#d1d5db"
+          />
+        </div>
+
+        <!-- Step 3: Payment -->
+        <div class="tw-flex tw-items-center tw-justify-between tw-p-3 tw-bg-gray-50 tw-rounded-md">
+          <div class="tw-flex-1">
+            <div class="tw-flex tw-items-center tw-gap-2">
+              <span class="tw-inline-flex tw-items-center tw-justify-center tw-w-6 tw-h-6 tw-bg-[#05291B] tw-text-white tw-text-xs tw-font-semibold tw-rounded-full">3</span>
+              <el-input
+                v-model="model.step3Label"
+                :placeholder="__('Payment', 'quick-cart-shopping')"
+                size="small"
+                style="max-width: 200px;"
+              />
+            </div>
+            <p class="tw-text-[11px] tw-text-gray-500 tw-mt-1 tw-ml-8">{{__("Choose payment method and place order", "quick-cart-shopping")}}</p>
+          </div>
+          <el-switch
+            v-model="model.enableStep3"
+            size="default"
+            active-color="#05291B"
+            inactive-color="#d1d5db"
+          />
+        </div>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-3">
+        {{__("All steps are required for checkout process.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
     <!-- Progress Bar Style -->
     <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
       <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Progress Bar Style", "quick-cart-shopping")}}</h3>

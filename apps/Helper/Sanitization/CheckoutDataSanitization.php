@@ -30,6 +30,12 @@ class CheckoutDataSanitization
             'id'                      => sanitize_text_field( $data['id'] ?? time() ),
             'createdAt'               => sanitize_text_field( $data['createdAt'] ?? current_time('c') ),
             'status'                  => isset( $data['status'] ) && in_array( $data['status'], ['on', 'off'] ) ? $data['status'] : 'on',
+            'enableStep1'             => isset( $data['enableStep1'] ) ? (bool) $data['enableStep1'] : true,
+            'step1Label'              => sanitize_text_field( $data['step1Label'] ?? 'Billing & Shipping' ),
+            'enableStep2'             => isset( $data['enableStep2'] ) ? (bool) $data['enableStep2'] : true,
+            'step2Label'              => sanitize_text_field( $data['step2Label'] ?? 'Order Review' ),
+            'enableStep3'             => isset( $data['enableStep3'] ) ? (bool) $data['enableStep3'] : true,
+            'step3Label'              => sanitize_text_field( $data['step3Label'] ?? 'Payment' ),
             'progressBarStyle'        => isset( $data['progressBarStyle'] ) && in_array( $data['progressBarStyle'], ['style1', 'style2', 'style3'] )
                                          ? $data['progressBarStyle'] : 'style1',
             'progressBarColor'        => sanitize_text_field( $data['progressBarColor'] ?? '#05291B' ),
