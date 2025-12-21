@@ -71,6 +71,8 @@ use QuickCartShopping\Traits\SingletonTrait;
             'nonce'     => wp_create_nonce( 'wp_rest' ),
             'proUrl'    => esc_url( 'https://giantwpsolutions.com/' ),
             'proActive' => defined( 'QUICK_CART_SHOPPING_PRO_ACTIVE' ) && QUICK_CART_SHOPPING_PRO_ACTIVE,
+            'primekit_search_url' => esc_url( admin_url( 'plugin-install.php?s=PrimeKit%20Addons&tab=search&type=term' ) ),
+            'giantwp_discount_rules_url' => esc_url( admin_url( 'plugin-install.php?s=giantwp%20discount%20rules&tab=search&type=term' ) ),
         ] );
 
     }

@@ -111,6 +111,8 @@ class SettingsProvider{
             'couponBtnTextColor' => '#ffffff',
             'checkoutBtnBgColor' => '#05291B',
             'checkoutBtnTextColor' => '#ffffff',
+            'viewCartBtnBgColor' => '#ffffff',
+            'viewCartBtnTextColor' => '#05291B',
             'showCheckoutBtn' => true,
         ];
 
@@ -136,6 +138,12 @@ class SettingsProvider{
             'progressBarColor' => '#05291B',
             'progressLabelTextColor' => '#ffffff',
             'progressLabelBgColor' => '#3498db',
+            'nextBtnBgColor' => '#05291B',
+            'nextBtnTextColor' => '#ffffff',
+            'previousBtnBgColor' => '#6b7280',
+            'previousBtnTextColor' => '#ffffff',
+            'backToCartBtnBgColor' => '#e5e7eb',
+            'backToCartBtnTextColor' => '#374151',
         ];
 
         return wp_parse_args( $settings, $defaults );

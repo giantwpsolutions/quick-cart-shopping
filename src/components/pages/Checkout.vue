@@ -243,6 +243,120 @@ onMounted(() => {
       </p>
     </div>
 
+    <!-- Next Button Background Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Next Button Background Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="model.nextBtnBgColor"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.nextBtnBgColor || '#05291B' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the background color for the Next step button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- Next Button Text Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Next Button Text Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="model.nextBtnTextColor"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.nextBtnTextColor || '#ffffff' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the text color for the Next step button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- Previous Button Background Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Previous Button Background Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="model.previousBtnBgColor"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.previousBtnBgColor || '#6b7280' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the background color for the Previous step button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- Previous Button Text Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Previous Button Text Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="model.previousBtnTextColor"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.previousBtnTextColor || '#ffffff' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the text color for the Previous step button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- Back to Cart Button Background Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Back to Cart Button Background Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="model.backToCartBtnBgColor"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.backToCartBtnBgColor || '#e5e7eb' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the background color for the Back to Cart button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- Back to Cart Button Text Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Back to Cart Button Text Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="model.backToCartBtnTextColor"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.backToCartBtnTextColor || '#374151' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the text color for the Back to Cart button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
     <!-- Enable Thank You Page -->
     <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
       <div class="tw-flex tw-items-center">

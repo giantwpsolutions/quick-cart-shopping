@@ -938,12 +938,13 @@ export class CartPanel {
         }
       }
 
-      // Update shipping (if exists)
+      // Update shipping amount from server (this is the actual shipping cost)
       if (shipping_total !== undefined) {
         const shippingEl = DOM.qs('.qc-cart-shipping-amount', this.panel);
         if (shippingEl) {
-          if (parseFloat(shipping_total) > 0) {
-            shippingEl.textContent = `$${parseFloat(shipping_total).toFixed(2)}`;
+          const shippingValue = parseFloat(shipping_total);
+          if (shippingValue > 0) {
+            shippingEl.textContent = `$${shippingValue.toFixed(2)}`;
           } else {
             shippingEl.textContent = 'Free';
           }
@@ -958,7 +959,7 @@ export class CartPanel {
         }
       }
 
-      // Update total
+      // Update total from server - this is the correct total including all calculations
       const totalEl = DOM.qs('.qc-cart-total-amount', this.panel);
       if (totalEl && total) {
         totalEl.innerHTML = total;

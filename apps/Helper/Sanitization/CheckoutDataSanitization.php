@@ -41,6 +41,12 @@ class CheckoutDataSanitization
             'progressBarColor'        => sanitize_text_field( $data['progressBarColor'] ?? '#05291B' ),
             'progressLabelTextColor'  => sanitize_text_field( $data['progressLabelTextColor'] ?? '#ffffff' ),
             'progressLabelBgColor'    => sanitize_text_field( $data['progressLabelBgColor'] ?? '#3498db' ),
+            'nextBtnBgColor'          => sanitize_text_field( $data['nextBtnBgColor'] ?? '#05291B' ),
+            'nextBtnTextColor'        => sanitize_text_field( $data['nextBtnTextColor'] ?? '#ffffff' ),
+            'previousBtnBgColor'      => sanitize_text_field( $data['previousBtnBgColor'] ?? '#6b7280' ),
+            'previousBtnTextColor'    => sanitize_text_field( $data['previousBtnTextColor'] ?? '#ffffff' ),
+            'backToCartBtnBgColor'    => sanitize_text_field( $data['backToCartBtnBgColor'] ?? '#e5e7eb' ),
+            'backToCartBtnTextColor'  => sanitize_text_field( $data['backToCartBtnTextColor'] ?? '#374151' ),
             'enableThankYouPage'      => isset( $data['enableThankYouPage'] ) ? (bool) $data['enableThankYouPage'] : true,
             'thankYouDisplay'         => isset( $data['thankYouDisplay'] ) && in_array( $data['thankYouDisplay'], ['popup', 'page'] )
                                          ? $data['thankYouDisplay'] : 'popup',

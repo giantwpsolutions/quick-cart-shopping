@@ -2,8 +2,7 @@
 /**
  * Promo Panel Component
  *
- * Displays recommended add-ons, customization offer, and help links
- * in the sidebar area.
+ * Displays recommended add-ons and help links in the sidebar area.
  *
  * @component PromoPanel
  * @since 1.0.0
@@ -12,58 +11,122 @@
 -->
 <script setup>
 import PromoCard from './cards/PromoCard.vue'
+import { computed } from 'vue'
 
-const promos = [
-  { title: 'Hydra',  subtitle: 'All-in-One Booking System', free: true },
-  { title: 'BEAF',   subtitle: 'Before/After Image Gallery', free: true },
-  { title: 'Tourfic',subtitle: 'Travel & Hotel Booking', free: true },
+// Get plugin URL from WordPress localized data
+const pluginUrl = computed(() => {
+  return window.qcshoppingPluginData?.pluginUrl || ''
+})
+
+const promos = computed(() => [
+  {
+    title: 'PrimeKit Addons',
+    subtitle: 'Powerful Elementor Addons for WordPress',
+    icon: `${pluginUrl.value}assets/images/primekit.png`,
+    installUrl: window.qcshoppingPluginData?.primekit_search_url || 'https://wordpress.org/plugins/primekit-addons/'
+  },
+  {
+    title: 'GiantWP Discount Rules',
+    subtitle: 'Advanced WooCommerce Discount & Pricing Plugin',
+    icon: `${pluginUrl.value}assets/images/giantwpdiscountrules.png`,
+    installUrl: window.qcshoppingPluginData?.giantwp_discount_rules_url || 'https://wordpress.org/plugins/giantwp-discount-rules/'
+  },
+])
+
+const helpLinks = [
+  {
+    url: '#',
+    icon: '📚'
+  },
+  {
+    url: '#',
+    icon: '💬'
+  },
+  {
+    url: '#',
+    icon: '👥'
+  }
 ]
 </script>
 
 <template>
-  <aside class="tw-bg-white tw-rounded-2xl tw-border tw-border-[#05291B]/10
-         tw-shadow-[0_8px_24px_rgba(5,41,27,0.08)] tw-h-fit">
-    <div class="tw-px-4 sm:tw-px-5 tw-py-2.5 sm:tw-py-3 tw-border-b tw-border-[#05291B]/10">
-      <h3 class="tw-text-base sm:tw-text-lg tw-font-semibold tw-text-gray-800">Recommended Add-ons</h3>
-      <p class="tw-text-xs sm:tw-text-sm tw-text-slate-500">Curated tools that work well with Quick Cart</p>
+  <aside class="tw-bg-white tw-rounded-lg tw-border tw-border-gray-200
+         tw-shadow-md tw-h-fit tw-sticky tw-top-4">
+    <!-- Header -->
+    <div class="tw-px-4 sm:tw-px-5 tw-py-3.5 sm:tw-py-4 tw-border-b tw-border-gray-200">
+      <h3 class="tw-text-base sm:tw-text-lg tw-font-bold tw-text-gray-800">{{__("Our Other Plugins", "quick-cart-shopping")}}</h3>
+      <p class="tw-text-xs sm:tw-text-sm tw-text-slate-500 tw-mt-0.5">{{__("Explore more tools to enhance your store", "quick-cart-shopping")}}</p>
     </div>
 
+    <!-- Promo Cards -->
     <div class="tw-p-3 sm:tw-p-4 tw-space-y-3">
       <PromoCard
         v-for="p in promos"
         :key="p.title"
         :title="p.title"
-        :subtitle="p.subtitle"
-        :free="p.free"
-        @install="$emit('contact')"
+        :subtitle="__(p.subtitle, 'quick-cart-shopping')"
+        :icon="p.icon"
+        :install-url="p.installUrl"
       />
 
-      <div class="tw-border tw-border-dashed tw-border-[#05291B]/20 tw-rounded-xl tw-p-4">
-        <div class="tw-text-sm tw-font-medium tw-mb-1">Need Customization?</div>
-        <p class="tw-text-xs tw-text-slate-500 tw-mb-3">Our team can tailor the checkout to your exact needs.</p>
-        <el-button class="brand-outline" plain @click="$emit('contact')">Get Free Quote</el-button>
-      </div>
-
-      <div class="tw-space-y-2">
-        <a href="#" class="help-link">Documentation</a>
-        <a href="#" class="help-link">Get Support</a>
-        <a href="#" class="help-link">Join our Community</a>
+      <!-- Help Links Section -->
+      <div class="tw-pt-3 tw-mt-3 tw-border-t tw-border-gray-200">
+        <h4 class="tw-text-sm tw-font-semibold tw-text-gray-800 tw-mb-2.5">{{__("Need Help?", "quick-cart-shopping")}}</h4>
+        <div class="tw-space-y-2">
+          <a
+            :href="helpLinks[0].url"
+            class="help-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="tw-mr-2">{{ helpLinks[0].icon }}</span>
+            <span>{{__("Documentation", "quick-cart-shopping")}}</span>
+          </a>
+          <a
+            :href="helpLinks[1].url"
+            class="help-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="tw-mr-2">{{ helpLinks[1].icon }}</span>
+            <span>{{__("Get Support", "quick-cart-shopping")}}</span>
+          </a>
+          <a
+            :href="helpLinks[2].url"
+            class="help-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="tw-mr-2">{{ helpLinks[2].icon }}</span>
+            <span>{{__("Join Community", "quick-cart-shopping")}}</span>
+          </a>
+        </div>
       </div>
     </div>
   </aside>
 </template>
 
 <style scoped>
-.brand-outline { --el-color-primary:#05291B; }
-
-/* Replace @apply with plain CSS so it always works */
-.help-link {
-  font-size: 0.875rem;        /* tw-text-sm */
-  line-height: 1.25rem;       /* tw-text-sm line-height */
-  color: #05291B;             /* tw-text-[#05291B] */
-  text-decoration: none;
+.brand-outline {
+  --el-color-primary: #05291B;
 }
+
+/* Help links styling */
+.help-link {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #05291B;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  background-color: transparent;
+}
+
 .help-link:hover {
-  text-decoration: underline; /* hover:tw-underline */
+  background-color: rgba(5, 41, 27, 0.05);
+  transform: translateX(4px);
 }
 </style>

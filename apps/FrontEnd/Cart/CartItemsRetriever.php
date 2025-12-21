@@ -26,6 +26,10 @@ class CartItemsRetriever {
         }
 
         $cart = WC()->cart;
+
+        // Ensure cart totals are calculated before returning data
+        $cart->calculate_totals();
+
         $items = [];
         $subtotal = 0;
 

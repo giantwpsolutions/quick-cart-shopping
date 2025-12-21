@@ -71,6 +71,9 @@ class FrontEnd_Assets{
             $plugin_version
         );
 
+        // Add dynamic CSS for checkout settings
+        $this->add_checkout_dynamic_css();
+
         // Enqueue WooCommerce variation scripts (required for variable products)
         if ( class_exists( 'WooCommerce' ) ) {
             wp_enqueue_script( 'wc-add-to-cart-variation' );
@@ -135,6 +138,16 @@ class FrontEnd_Assets{
             background-color: {$settings['checkoutBtnBgColor']} !important;
             opacity: 0.9;
         }
+
+        .qc-cart-view-cart-btn {
+            background-color: {$settings['viewCartBtnBgColor']} !important;
+            color: {$settings['viewCartBtnTextColor']} !important;
+        }
+
+        .qc-cart-view-cart-btn:hover {
+            background-color: {$settings['viewCartBtnBgColor']} !important;
+            opacity: 0.9;
+        }
         ";
 
         wp_add_inline_style( 'qc-cart-panel', $css );
@@ -177,5 +190,48 @@ class FrontEnd_Assets{
         ";
 
         wp_add_inline_style( 'qc-variable-popup', $css );
+    }
+
+    /**
+     * Add dynamic CSS for checkout settings
+     *
+     * @return void
+     */
+    private function add_checkout_dynamic_css() {
+        $settings = SettingsProvider::get_checkout_settings();
+
+        $css = "
+        .qc-checkout-next-btn {
+            background-color: {$settings['nextBtnBgColor']} !important;
+            color: {$settings['nextBtnTextColor']} !important;
+        }
+
+        .qc-checkout-next-btn:hover {
+            background-color: {$settings['nextBtnBgColor']} !important;
+            opacity: 0.9;
+        }
+
+        .qc-checkout-previous-btn {
+            background-color: {$settings['previousBtnBgColor']} !important;
+            color: {$settings['previousBtnTextColor']} !important;
+        }
+
+        .qc-checkout-previous-btn:hover {
+            background-color: {$settings['previousBtnBgColor']} !important;
+            opacity: 0.9;
+        }
+
+        .qc-checkout-back-to-cart-btn {
+            background-color: {$settings['backToCartBtnBgColor']} !important;
+            color: {$settings['backToCartBtnTextColor']} !important;
+        }
+
+        .qc-checkout-back-to-cart-btn:hover {
+            background-color: {$settings['backToCartBtnBgColor']} !important;
+            opacity: 0.9;
+        }
+        ";
+
+        wp_add_inline_style( 'qc-multi-step-checkout', $css );
     }
 }

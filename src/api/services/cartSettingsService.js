@@ -46,6 +46,8 @@ export const cartSettingsService = {
         couponBtnTextColor: settingsData.couponBtnTextColor ?? '#ffffff',
         checkoutBtnBgColor: settingsData.checkoutBtnBgColor ?? '#05291B',
         checkoutBtnTextColor: settingsData.checkoutBtnTextColor ?? '#ffffff',
+        viewCartBtnBgColor: settingsData.viewCartBtnBgColor ?? '#ffffff',
+        viewCartBtnTextColor: settingsData.viewCartBtnTextColor ?? '#05291B',
         showCheckoutBtn: settingsData.showCheckoutBtn ?? true,
       };
 

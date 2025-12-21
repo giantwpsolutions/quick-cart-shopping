@@ -29,8 +29,8 @@ const defaults = {
   general  : { enableQuickCart: true, enableVarProduct: true, enableDragAndDrop: true, enableDirectCheckout: true },
   layout   : { cartOption: 'side', cartWidth: 400, animation: 'slide' },
   toggle   : { iconPosition: 'bottom-right', iconStyle: 'cart', iconSize: 60, showBadge: true, badgeBgColor: '#3498db', badgeTextColor: '#ffffff', iconBgColor: '#05291B', iconColor: '#ffffff', hideOnPages: [], borderShape: 'circle', offsetTop: 20, offsetBottom: 20, offsetLeft: 20, offsetRight: 20 },
-  cart     : { showShipping: true, showCouponField: true, couponBtnBgColor: '#05291B', couponBtnTextColor: '#ffffff', checkoutBtnBgColor: '#05291B', checkoutBtnTextColor: '#ffffff', showCheckoutBtn: true },
-  checkout : { enableStep1: true, step1Label: 'Cart Review', enableStep2: true, step2Label: 'Billing Details', enableStep3: true, step3Label: 'Shipping Details', enableStep4: true, step4Label: 'Payment', progressBarStyle: 'style1', progressBarColor: '#05291B', progressLabelTextColor: '#ffffff', progressLabelBgColor: '#3498db', enableThankYouPage: true, thankYouDisplay: 'popup', popupBgColor: '#ffffff', showOrderSummary: true, thankYouPage: null },
+  cart     : { showShipping: true, showCouponField: true, couponBtnBgColor: '#05291B', couponBtnTextColor: '#ffffff', checkoutBtnBgColor: '#05291B', checkoutBtnTextColor: '#ffffff', viewCartBtnBgColor: '#ffffff', viewCartBtnTextColor: '#05291B', showCheckoutBtn: true },
+  checkout : { enableStep1: true, step1Label: 'Cart Review', enableStep2: true, step2Label: 'Billing Details', enableStep3: true, step3Label: 'Shipping Details', enableStep4: true, step4Label: 'Payment', progressBarStyle: 'style1', progressBarColor: '#05291B', progressLabelTextColor: '#ffffff', progressLabelBgColor: '#3498db', nextBtnBgColor: '#05291B', nextBtnTextColor: '#ffffff', previousBtnBgColor: '#6b7280', previousBtnTextColor: '#ffffff', backToCartBtnBgColor: '#e5e7eb', backToCartBtnTextColor: '#374151', enableThankYouPage: true, thankYouDisplay: 'popup', popupBgColor: '#ffffff', showOrderSummary: true, thankYouPage: null },
   variationPopup : { closeButtonBgColor: '#f5f5f5', closeButtonIconColor: '#666666', popupWidth: 1000, addToCartButtonBgColor: '#05291B', addToCartButtonTextColor: '#ffffff' },
   settings : { enableAdvancedSettings: false },
 }
@@ -177,6 +177,8 @@ onMounted(async () => {
       if (data.couponBtnTextColor !== undefined) settings.cart.couponBtnTextColor = data.couponBtnTextColor
       if (data.checkoutBtnBgColor !== undefined) settings.cart.checkoutBtnBgColor = data.checkoutBtnBgColor
       if (data.checkoutBtnTextColor !== undefined) settings.cart.checkoutBtnTextColor = data.checkoutBtnTextColor
+      if (data.viewCartBtnBgColor !== undefined) settings.cart.viewCartBtnBgColor = data.viewCartBtnBgColor
+      if (data.viewCartBtnTextColor !== undefined) settings.cart.viewCartBtnTextColor = data.viewCartBtnTextColor
       if (data.showCheckoutBtn !== undefined) settings.cart.showCheckoutBtn = data.showCheckoutBtn
       dirty.cart = false
     }
@@ -197,6 +199,12 @@ onMounted(async () => {
       if (data.progressBarColor !== undefined) settings.checkout.progressBarColor = data.progressBarColor
       if (data.progressLabelTextColor !== undefined) settings.checkout.progressLabelTextColor = data.progressLabelTextColor
       if (data.progressLabelBgColor !== undefined) settings.checkout.progressLabelBgColor = data.progressLabelBgColor
+      if (data.nextBtnBgColor !== undefined) settings.checkout.nextBtnBgColor = data.nextBtnBgColor
+      if (data.nextBtnTextColor !== undefined) settings.checkout.nextBtnTextColor = data.nextBtnTextColor
+      if (data.previousBtnBgColor !== undefined) settings.checkout.previousBtnBgColor = data.previousBtnBgColor
+      if (data.previousBtnTextColor !== undefined) settings.checkout.previousBtnTextColor = data.previousBtnTextColor
+      if (data.backToCartBtnBgColor !== undefined) settings.checkout.backToCartBtnBgColor = data.backToCartBtnBgColor
+      if (data.backToCartBtnTextColor !== undefined) settings.checkout.backToCartBtnTextColor = data.backToCartBtnTextColor
       if (data.enableThankYouPage !== undefined) settings.checkout.enableThankYouPage = data.enableThankYouPage
       if (data.thankYouDisplay !== undefined) settings.checkout.thankYouDisplay = data.thankYouDisplay
       if (data.popupBgColor !== undefined) settings.checkout.popupBgColor = data.popupBgColor

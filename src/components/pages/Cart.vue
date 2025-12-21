@@ -132,6 +132,44 @@ const model = defineModel({ type: Object, required: true })
       </p>
     </div>
 
+    <!-- View Cart Button Background Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("View Cart Button Background Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="model.viewCartBtnBgColor"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.viewCartBtnBgColor || '#ffffff' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the background color for the View Cart button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- View Cart Button Text Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("View Cart Button Text Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="model.viewCartBtnTextColor"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.viewCartBtnTextColor || '#05291B' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the text color for the View Cart button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
     <!-- Show Checkout Button -->
     <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
       <div class="tw-flex tw-items-center">

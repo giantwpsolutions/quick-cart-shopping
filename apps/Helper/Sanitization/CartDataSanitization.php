@@ -36,6 +36,8 @@ class CartDataSanitization
             'couponBtnTextColor'   => sanitize_text_field( $data['couponBtnTextColor'] ?? '#ffffff' ),
             'checkoutBtnBgColor'   => sanitize_text_field( $data['checkoutBtnBgColor'] ?? '#05291B' ),
             'checkoutBtnTextColor' => sanitize_text_field( $data['checkoutBtnTextColor'] ?? '#ffffff' ),
+            'viewCartBtnBgColor'   => sanitize_text_field( $data['viewCartBtnBgColor'] ?? '#ffffff' ),
+            'viewCartBtnTextColor' => sanitize_text_field( $data['viewCartBtnTextColor'] ?? '#05291B' ),
             'showCheckoutBtn'      => isset( $data['showCheckoutBtn'] ) ? (bool) $data['showCheckoutBtn'] : true,
         ];
     }
