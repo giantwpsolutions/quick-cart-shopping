@@ -32,6 +32,8 @@ class CartDataSanitization
             'status'               => isset( $data['status'] ) && in_array( $data['status'], ['on', 'off'] ) ? $data['status'] : 'on',
             'showShipping'         => isset( $data['showShipping'] ) ? (bool) $data['showShipping'] : true,
             'showCouponField'      => isset( $data['showCouponField'] ) ? (bool) $data['showCouponField'] : true,
+            'couponBtnBgColor'     => sanitize_text_field( $data['couponBtnBgColor'] ?? '#05291B' ),
+            'couponBtnTextColor'   => sanitize_text_field( $data['couponBtnTextColor'] ?? '#ffffff' ),
             'checkoutBtnBgColor'   => sanitize_text_field( $data['checkoutBtnBgColor'] ?? '#05291B' ),
             'checkoutBtnTextColor' => sanitize_text_field( $data['checkoutBtnTextColor'] ?? '#ffffff' ),
             'showCheckoutBtn'      => isset( $data['showCheckoutBtn'] ) ? (bool) $data['showCheckoutBtn'] : true,

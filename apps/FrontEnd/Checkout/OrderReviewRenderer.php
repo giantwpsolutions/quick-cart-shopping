@@ -14,7 +14,7 @@ defined('ABSPATH') || exit;
 class OrderReviewRenderer {
 
     /**
-     * Render order review (Step 1)
+     * Render order review (Step 2)
      *
      * @param object $checkout WooCommerce checkout object
      * @return void
@@ -23,13 +23,10 @@ class OrderReviewRenderer {
         echo '<div class="qc-order-review-fields qc-checkout-form">';
         echo '<h3>' . esc_html__( 'Order Review', 'quick-cart-shopping' ) . '</h3>';
 
-        echo '<div class="qc-order-review">';
+        echo '<div class="qc-order-review-table">';
 
-        // Display cart items
+        // Cart items table
         self::render_cart_items();
-
-        // Display totals
-        self::render_cart_totals();
 
         echo '</div>';
 
@@ -65,10 +62,15 @@ class OrderReviewRenderer {
         }
 
         echo '</tbody>';
+
+        // Totals
+        self::render_cart_totals();
+
+        echo '</table>';
     }
 
     /**
-     * Render cart totals (subtotal, shipping, total)
+     * Render cart totals
      *
      * @return void
      */
@@ -85,7 +87,7 @@ class OrderReviewRenderer {
         if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) {
             echo '<tr class="shipping">';
             echo '<th>' . esc_html__( 'Shipping', 'quick-cart-shopping' ) . '</th>';
-            echo '<td>' . ( WC()->cart->get_cart_shipping_total() ?: esc_html__( 'Calculated at next step', 'quick-cart-shopping' ) ) . '</td>';
+            echo '<td>' . WC()->cart->get_cart_shipping_total() . '</td>';
             echo '</tr>';
         }
 
@@ -96,6 +98,5 @@ class OrderReviewRenderer {
         echo '</tr>';
 
         echo '</tfoot>';
-        echo '</table>';
     }
 }

@@ -68,13 +68,21 @@ export class MultiStepCheckout {
   }
 
   /**
-   * Hide cart elements
+   * Hide cart elements during checkout
    */
   hideCartElements() {
-    const selectors = ['.qc-cart-table', '.qc-cart-totals-section', '.qc-cart-empty', '.qc-cart-footer'];
+    const selectors = [
+      '.qc-cart-table',
+      '.qc-cart-totals-section',
+      '.qc-cart-empty',
+      '.qc-cart-footer'
+    ];
     selectors.forEach(sel => {
       const el = DOM.qs(sel, this.panelBody);
-      if (el) el.style.display = 'none';
+      if (el) {
+        el.style.display = 'none';
+        el.setAttribute('data-checkout-hidden', 'true');
+      }
     });
   }
 
@@ -82,17 +90,31 @@ export class MultiStepCheckout {
    * Show cart elements
    */
   showCartElements() {
-    const elements = {
-      '.qc-cart-table': 'table',
-      '.qc-cart-totals-section': 'block',
-      '.qc-cart-empty': 'flex',
-      '.qc-cart-footer': 'block'
-    };
+    // Show cart table and totals section
+    const cartTable = DOM.qs('.qc-cart-table', this.panelBody);
+    if (cartTable) {
+      cartTable.style.display = 'table';
+      cartTable.removeAttribute('data-checkout-hidden');
+    }
 
-    Object.entries(elements).forEach(([sel, display]) => {
-      const el = DOM.qs(sel, this.panelBody);
-      if (el) el.style.display = display;
-    });
+    const totalsSection = DOM.qs('.qc-cart-totals-section', this.panelBody);
+    if (totalsSection) {
+      totalsSection.style.display = 'block';
+      totalsSection.removeAttribute('data-checkout-hidden');
+    }
+
+    const footer = DOM.qs('.qc-cart-footer', this.panelBody);
+    if (footer) {
+      footer.style.display = 'block';
+      footer.removeAttribute('data-checkout-hidden');
+    }
+
+    // Only show empty message if cart is actually empty
+    const emptyEl = DOM.qs('.qc-cart-empty', this.panelBody);
+    if (emptyEl) {
+      emptyEl.removeAttribute('data-checkout-hidden');
+      // Don't change display - let cartPanel logic handle it
+    }
   }
 
   /**

@@ -67,6 +67,18 @@ export const checkoutMessages = {
 }
 
 /**
+ * Variation Popup Settings Messages
+ */
+export const variationPopupMessages = {
+  saveSuccess: 'Variation popup settings saved successfully!',
+  saveFailed: 'Failed to save variation popup settings',
+  updateSuccess: 'Variation popup settings updated successfully!',
+  updateFailed: 'Failed to update variation popup settings',
+  loadFailed: 'Failed to load variation popup settings',
+  resetSuccess: 'Reset to defaults',
+}
+
+/**
  * Common Messages
  */
 export const commonMessages = {

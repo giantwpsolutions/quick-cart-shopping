@@ -24,6 +24,7 @@ const items = [
   { key: 'toggle',   label: 'Toggle' },
   { key: 'cart',     label: 'Cart' },
   { key: 'checkout', label: 'Checkout' },
+  { key: 'variationPopup', label: 'Variation Popup' },
   { key: 'settings', label: 'Settings' },
 ]
 

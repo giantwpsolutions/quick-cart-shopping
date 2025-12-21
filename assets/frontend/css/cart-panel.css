@@ -972,3 +972,8 @@
     transform: scale(1) rotate(0deg);
   }
 }
+
+/* Hide cart elements during checkout mode */
+[data-checkout-hidden="true"] {
+  display: none !important;
+}

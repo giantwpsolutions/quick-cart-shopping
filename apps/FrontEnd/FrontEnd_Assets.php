@@ -51,12 +51,18 @@ class FrontEnd_Assets{
             $plugin_version
         );
 
+        // Add dynamic CSS for cart settings
+        $this->add_cart_dynamic_css();
+
         wp_enqueue_style(
             'qc-variable-popup',
             $plugin_url . 'assets/frontend/css/variable-product-popup.css',
             [],
             $plugin_version
         );
+
+        // Add dynamic CSS for variation popup settings
+        $this->add_variation_popup_dynamic_css();
 
         wp_enqueue_style(
             'qc-multi-step-checkout',
@@ -99,5 +105,77 @@ class FrontEnd_Assets{
             $tag = str_replace( '<script ', '<script type="module" ', $tag );
         }
         return $tag;
+    }
+
+    /**
+     * Add dynamic CSS for cart settings
+     *
+     * @return void
+     */
+    private function add_cart_dynamic_css() {
+        $settings = SettingsProvider::get_cart_settings();
+
+        $css = "
+        .qc-cart-coupon-btn {
+            background-color: {$settings['couponBtnBgColor']} !important;
+            color: {$settings['couponBtnTextColor']} !important;
+        }
+
+        .qc-cart-coupon-btn:hover {
+            background-color: {$settings['couponBtnBgColor']} !important;
+            opacity: 0.9;
+        }
+
+        .qc-cart-checkout-btn {
+            background-color: {$settings['checkoutBtnBgColor']} !important;
+            color: {$settings['checkoutBtnTextColor']} !important;
+        }
+
+        .qc-cart-checkout-btn:hover {
+            background-color: {$settings['checkoutBtnBgColor']} !important;
+            opacity: 0.9;
+        }
+        ";
+
+        wp_add_inline_style( 'qc-cart-panel', $css );
+    }
+
+    /**
+     * Add dynamic CSS for variation popup settings
+     *
+     * @return void
+     */
+    private function add_variation_popup_dynamic_css() {
+        $settings = SettingsProvider::get_variation_popup_settings();
+
+        $css = "
+        .qc-variable-popup {
+            max-width: {$settings['popupWidth']}px !important;
+        }
+
+        .qc-variable-close {
+            background: {$settings['closeButtonBgColor']} !important;
+        }
+
+        .qc-variable-close svg {
+            stroke: {$settings['closeButtonIconColor']} !important;
+        }
+
+        .qc-variable-form .single_add_to_cart_button {
+            background: {$settings['addToCartButtonBgColor']} !important;
+            color: {$settings['addToCartButtonTextColor']} !important;
+        }
+
+        .qc-variable-form .single_add_to_cart_button:hover {
+            background: {$settings['addToCartButtonBgColor']} !important;
+            opacity: 0.9;
+        }
+
+        .qc-variable-form .single_add_to_cart_button:disabled:hover {
+            background: {$settings['addToCartButtonBgColor']} !important;
+        }
+        ";
+
+        wp_add_inline_style( 'qc-variable-popup', $css );
     }
 }

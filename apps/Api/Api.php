@@ -13,6 +13,7 @@ use QuickCartShopping\Api\Controllers\Settings\LayoutData;
 use QuickCartShopping\Api\Controllers\Settings\ToggleData;
 use QuickCartShopping\Api\Controllers\Settings\CartData;
 use QuickCartShopping\Api\Controllers\Settings\CheckoutData;
+use QuickCartShopping\Api\Controllers\Settings\VariationPopupData;
 use QuickCartShopping\Traits\SingletonTrait;
 
 /**
@@ -54,5 +55,8 @@ class Api{
 
         $checkout_settings_controller = new CheckoutData();
         $checkout_settings_controller->register_routes();
+
+        $variation_popup_settings_controller = new VariationPopupData();
+        $variation_popup_settings_controller->register_routes();
     }
 }

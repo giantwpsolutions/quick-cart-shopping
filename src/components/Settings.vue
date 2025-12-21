@@ -22,14 +22,16 @@ import { layoutSettingsService } from '@/api/services/layoutSettingsService'
 import { toggleSettingsService } from '@/api/services/toggleSettingsService'
 import { cartSettingsService } from '@/api/services/cartSettingsService'
 import { checkoutSettingsService } from '@/api/services/checkoutSettingsService'
-import { generalMessages, layoutMessages, toggleMessages, cartMessages, checkoutMessages, commonMessages } from '@/data/messages'
+import { variationPopupSettingsService } from '@/api/services/variationPopupSettingsService'
+import { generalMessages, layoutMessages, toggleMessages, cartMessages, checkoutMessages, variationPopupMessages, commonMessages } from '@/data/messages'
 
 const defaults = {
   general  : { enableQuickCart: true, enableVarProduct: true, enableDragAndDrop: true, enableDirectCheckout: true },
   layout   : { cartOption: 'side', cartWidth: 400, animation: 'slide' },
   toggle   : { iconPosition: 'bottom-right', iconStyle: 'cart', iconSize: 60, showBadge: true, badgeBgColor: '#3498db', badgeTextColor: '#ffffff', iconBgColor: '#05291B', iconColor: '#ffffff', hideOnPages: [], borderShape: 'circle', offsetTop: 20, offsetBottom: 20, offsetLeft: 20, offsetRight: 20 },
-  cart     : { showShipping: true, showCouponField: true, checkoutBtnBgColor: '#05291B', checkoutBtnTextColor: '#ffffff', showCheckoutBtn: true },
+  cart     : { showShipping: true, showCouponField: true, couponBtnBgColor: '#05291B', couponBtnTextColor: '#ffffff', checkoutBtnBgColor: '#05291B', checkoutBtnTextColor: '#ffffff', showCheckoutBtn: true },
   checkout : { enableStep1: true, step1Label: 'Cart Review', enableStep2: true, step2Label: 'Billing Details', enableStep3: true, step3Label: 'Shipping Details', enableStep4: true, step4Label: 'Payment', progressBarStyle: 'style1', progressBarColor: '#05291B', progressLabelTextColor: '#ffffff', progressLabelBgColor: '#3498db', enableThankYouPage: true, thankYouDisplay: 'popup', popupBgColor: '#ffffff', showOrderSummary: true, thankYouPage: null },
+  variationPopup : { closeButtonBgColor: '#f5f5f5', closeButtonIconColor: '#666666', popupWidth: 1000, addToCartButtonBgColor: '#05291B', addToCartButtonTextColor: '#ffffff' },
   settings : { enableAdvancedSettings: false },
 }
 
@@ -85,6 +87,10 @@ async function save() {
       await checkoutSettingsService.save(settings.checkout)
       dirty[sectionKey.value] = false
       ElMessage.success({ message: checkoutMessages.saveSuccess, offset: 120 })
+    } else if (sectionKey.value === 'variationPopup') {
+      await variationPopupSettingsService.save(settings.variationPopup)
+      dirty[sectionKey.value] = false
+      ElMessage.success({ message: variationPopupMessages.saveSuccess, offset: 120 })
     } else {
       dirty[sectionKey.value] = false
       ElMessage.success({ message: commonMessages.settingsSaved, offset: 120 })
@@ -95,6 +101,7 @@ async function save() {
                      sectionKey.value === 'toggle' ? toggleMessages.saveFailed :
                      sectionKey.value === 'cart' ? cartMessages.saveFailed :
                      sectionKey.value === 'checkout' ? checkoutMessages.saveFailed :
+                     sectionKey.value === 'variationPopup' ? variationPopupMessages.saveFailed :
                      'Failed to save settings'
     ElMessage.error({ message: error.message || errorMsg, offset: 120 })
   } finally {
@@ -111,6 +118,7 @@ function reset() {
                    sectionKey.value === 'toggle' ? toggleMessages.resetSuccess :
                    sectionKey.value === 'cart' ? cartMessages.resetSuccess :
                    sectionKey.value === 'checkout' ? checkoutMessages.resetSuccess :
+                   sectionKey.value === 'variationPopup' ? variationPopupMessages.resetSuccess :
                    'Reset to defaults'
   ElMessage.info({ message: resetMsg, offset: 120 })
 }
@@ -165,6 +173,8 @@ onMounted(async () => {
       const data = cartResponse.settings
       if (data.showShipping !== undefined) settings.cart.showShipping = data.showShipping
       if (data.showCouponField !== undefined) settings.cart.showCouponField = data.showCouponField
+      if (data.couponBtnBgColor !== undefined) settings.cart.couponBtnBgColor = data.couponBtnBgColor
+      if (data.couponBtnTextColor !== undefined) settings.cart.couponBtnTextColor = data.couponBtnTextColor
       if (data.checkoutBtnBgColor !== undefined) settings.cart.checkoutBtnBgColor = data.checkoutBtnBgColor
       if (data.checkoutBtnTextColor !== undefined) settings.cart.checkoutBtnTextColor = data.checkoutBtnTextColor
       if (data.showCheckoutBtn !== undefined) settings.cart.showCheckoutBtn = data.showCheckoutBtn
@@ -193,6 +203,18 @@ onMounted(async () => {
       if (data.showOrderSummary !== undefined) settings.checkout.showOrderSummary = data.showOrderSummary
       if (data.thankYouPage !== undefined) settings.checkout.thankYouPage = data.thankYouPage
       dirty.checkout = false
+    }
+
+    // Load variation popup settings
+    const variationPopupResponse = await variationPopupSettingsService.get()
+    if (variationPopupResponse.success && variationPopupResponse.settings && Object.keys(variationPopupResponse.settings).length > 0) {
+      const data = variationPopupResponse.settings
+      if (data.closeButtonBgColor !== undefined) settings.variationPopup.closeButtonBgColor = data.closeButtonBgColor
+      if (data.closeButtonIconColor !== undefined) settings.variationPopup.closeButtonIconColor = data.closeButtonIconColor
+      if (data.popupWidth !== undefined) settings.variationPopup.popupWidth = data.popupWidth
+      if (data.addToCartButtonBgColor !== undefined) settings.variationPopup.addToCartButtonBgColor = data.addToCartButtonBgColor
+      if (data.addToCartButtonTextColor !== undefined) settings.variationPopup.addToCartButtonTextColor = data.addToCartButtonTextColor
+      dirty.variationPopup = false
     }
   } catch (error) {
     console.error('Failed to load settings:', error)

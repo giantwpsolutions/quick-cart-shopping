@@ -56,6 +56,44 @@ const model = defineModel({ type: Object, required: true })
       </p>
     </div>
 
+    <!-- Coupon Button Background Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Coupon Button Background Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="model.couponBtnBgColor"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.couponBtnBgColor || '#05291B' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the background color for the coupon apply button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- Coupon Button Text Color -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Coupon Button Text Color", "quick-cart-shopping")}}</h3>
+
+      <div class="tw-flex tw-items-center tw-gap-3">
+        <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
+        <el-color-picker
+          v-model="model.couponBtnTextColor"
+          size="default"
+          show-alpha
+        />
+        <span class="tw-text-xs tw-text-gray-600 tw-font-mono">{{ model.couponBtnTextColor || '#ffffff' }}</span>
+      </div>
+
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Choose the text color for the coupon apply button.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
     <!-- Checkout Button Background Color -->
     <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
       <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Checkout Button Background Color", "quick-cart-shopping")}}</h3>

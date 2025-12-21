@@ -1,9 +1,9 @@
 /**
- * Cart Settings Service Module
+ * Variation Popup Settings Service Module
  *
- * Handles API requests for cart plugin settings.
+ * Handles API requests for variation popup settings.
  *
- * @module api/services/cartSettingsService
+ * @module api/services/variationPopupSettingsService
  * @since 1.0.0
  * @package Quick Cart Shopping
  */
@@ -26,11 +26,11 @@ const validateStatus = (status) =>
   ['on', 'off'].includes(status) ? status : 'on';
 
 /**
- * Cart Settings Service
+ * Variation Popup Settings Service
  */
-export const cartSettingsService = {
+export const variationPopupSettingsService = {
   /**
-   * Save cart settings
+   * Save variation popup settings
    * @param {Object} settingsData - Settings data
    * @returns {Promise<Object>} Response
    */
@@ -40,38 +40,36 @@ export const cartSettingsService = {
         id: generateUniqueId(),
         createdAt: new Date().toISOString(),
         status: validateStatus(settingsData.status || 'on'),
-        showShipping: settingsData.showShipping ?? true,
-        showCouponField: settingsData.showCouponField ?? true,
-        couponBtnBgColor: settingsData.couponBtnBgColor ?? '#05291B',
-        couponBtnTextColor: settingsData.couponBtnTextColor ?? '#ffffff',
-        checkoutBtnBgColor: settingsData.checkoutBtnBgColor ?? '#05291B',
-        checkoutBtnTextColor: settingsData.checkoutBtnTextColor ?? '#ffffff',
-        showCheckoutBtn: settingsData.showCheckoutBtn ?? true,
+        closeButtonBgColor: settingsData.closeButtonBgColor ?? '#f5f5f5',
+        closeButtonIconColor: settingsData.closeButtonIconColor ?? '#666666',
+        popupWidth: settingsData.popupWidth ?? 1000,
+        addToCartButtonBgColor: settingsData.addToCartButtonBgColor ?? '#05291B',
+        addToCartButtonTextColor: settingsData.addToCartButtonTextColor ?? '#ffffff',
       };
 
-      const response = await apiClient.post('/save-cart-settings', payload);
+      const response = await apiClient.post('/save-variation-popup-settings', payload);
       return response;
     } catch (error) {
-      console.error('[cartSettingsService] Save error:', error);
+      console.error('[variationPopupSettingsService] Save error:', error);
       throw new Error(`Failed to save settings: ${error.message}`);
     }
   },
 
   /**
-   * Get all cart settings
+   * Get all variation popup settings
    * @returns {Promise<Object>} Settings data
    */
   async get() {
     try {
-      return await apiClient.get('/get-cart-settings');
+      return await apiClient.get('/get-variation-popup-settings');
     } catch (error) {
-      console.error('[cartSettingsService] Get error:', error);
+      console.error('[variationPopupSettingsService] Get error:', error);
       throw new Error(`Failed to get settings: ${error.message}`);
     }
   },
 
   /**
-   * Update cart settings
+   * Update variation popup settings
    * @param {string} id - Settings ID
    * @param {Object} updatedFields - Updated fields
    * @returns {Promise<Object>} Response
@@ -83,10 +81,10 @@ export const cartSettingsService = {
         status: validateStatus(updatedFields.status),
       };
 
-      const response = await apiClient.put(`/update-cart-settings/${id}`, payload);
+      const response = await apiClient.put(`/update-variation-popup-settings/${id}`, payload);
       return response;
     } catch (error) {
-      console.error('[cartSettingsService] Update error:', error);
+      console.error('[variationPopupSettingsService] Update error:', error);
       throw new Error(`Failed to update settings: ${error.message}`);
     }
   },

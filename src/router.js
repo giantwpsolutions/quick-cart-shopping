@@ -16,6 +16,7 @@ import Layout   from '@/components/pages/Layout.vue'
 import Toggle   from '@/components/pages/Toggle.vue'
 import Cart    from '@/components/pages/Cart.vue'
 import Checkout from '@/components/pages/Checkout.vue'
+import VariationPopup from '@/components/pages/VariationPopup.vue'
 import Settings from '@/components/pages/Settings.vue'
 
 export const router = createRouter({
@@ -27,6 +28,7 @@ export const router = createRouter({
     { path: '/toggle',   name: 'toggle',   component: Toggle },
     { path: '/cart',     name: 'cart',     component: Cart },
     { path: '/checkout', name: 'checkout', component: Checkout },
+    { path: '/variationPopup', name: 'variationPopup', component: VariationPopup },
     { path: '/settings', name: 'settings', component: Settings },
   ],
   scrollBehavior: () => ({ top: 0 })

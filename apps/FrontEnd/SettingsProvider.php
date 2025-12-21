@@ -27,6 +27,7 @@ class SettingsProvider{
             'layout' => self::get_layout_settings(),
             'cart' => self::get_cart_settings(),
             'checkout' => self::get_checkout_settings(),
+            'variationPopup' => self::get_variation_popup_settings(),
             'meta' => self::get_meta_data(),
             'i18n' => self::get_translations(),
         ];
@@ -106,6 +107,8 @@ class SettingsProvider{
         $defaults = [
             'showShipping' => true,
             'showCouponField' => true,
+            'couponBtnBgColor' => '#05291B',
+            'couponBtnTextColor' => '#ffffff',
             'checkoutBtnBgColor' => '#05291B',
             'checkoutBtnTextColor' => '#ffffff',
             'showCheckoutBtn' => true,
@@ -133,6 +136,25 @@ class SettingsProvider{
             'progressBarColor' => '#05291B',
             'progressLabelTextColor' => '#ffffff',
             'progressLabelBgColor' => '#3498db',
+        ];
+
+        return wp_parse_args( $settings, $defaults );
+    }
+
+    /**
+     * Get variation popup settings
+     *
+     * @return array
+     */
+    public static function get_variation_popup_settings(){
+        $settings = get_option( 'quick_cart_variation_popup_settings', [] );
+
+        $defaults = [
+            'closeButtonBgColor' => '#f5f5f5',
+            'closeButtonIconColor' => '#666666',
+            'popupWidth' => 1000,
+            'addToCartButtonBgColor' => '#05291B',
+            'addToCartButtonTextColor' => '#ffffff',
         ];
 
         return wp_parse_args( $settings, $defaults );
