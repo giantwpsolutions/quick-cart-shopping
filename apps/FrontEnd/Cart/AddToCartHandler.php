@@ -14,11 +14,13 @@ defined('ABSPATH') || exit;
 class AddToCartHandler {
 
     /**
-     * AJAX Add to Cart for variable products
+     * AJAX Add to Cart for both simple and variable products
      *
      * @return void
      */
     public static function ajax_add_to_cart() {
+        check_ajax_referer( 'qcshopping_nonce', 'nonce' );
+
         if ( ! class_exists( 'WooCommerce' ) ) {
             wp_send_json_error( [ 'error' => 'WooCommerce not active' ] );
         }
@@ -31,42 +33,40 @@ class AddToCartHandler {
             wp_send_json_error( [ 'error' => 'Invalid product' ] );
         }
 
-        // For variable products, we need the variation ID
-        if ( $variation_id ) {
-            $variation_data = [];
+        $variation_data = [];
 
-            // Get variation attributes from POST
+        // Get variation attributes from POST if this is a variable product
+        if ( $variation_id ) {
             foreach ( $_POST as $key => $value ) {
                 if ( strpos( $key, 'attribute_' ) === 0 ) {
                     $variation_data[ $key ] = sanitize_text_field( $value );
                 }
             }
+        }
 
-            $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity, $variation_id, $variation_data );
+        // Validate before adding to cart
+        $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity, $variation_id, $variation_data );
 
-            if ( $passed_validation ) {
-                $cart_item_key = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation_data );
+        if ( $passed_validation ) {
+            $cart_item_key = WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation_data );
 
-                if ( $cart_item_key ) {
-                    do_action( 'woocommerce_ajax_added_to_cart', $product_id );
+            if ( $cart_item_key ) {
+                do_action( 'woocommerce_ajax_added_to_cart', $product_id );
 
-                    // Return cart fragments
-                    if ( class_exists( 'WC_AJAX' ) ) {
-                        \WC_AJAX::get_refreshed_fragments();
-                    } else {
-                        wp_send_json_success( [
-                            'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', [] ),
-                            'cart_hash' => WC()->cart->get_cart_hash(),
-                        ] );
-                    }
+                // Return cart fragments
+                if ( class_exists( 'WC_AJAX' ) ) {
+                    \WC_AJAX::get_refreshed_fragments();
                 } else {
-                    wp_send_json_error( [ 'error' => 'Failed to add to cart' ] );
+                    wp_send_json_success( [
+                        'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', [] ),
+                        'cart_hash' => WC()->cart->get_cart_hash(),
+                    ] );
                 }
             } else {
-                wp_send_json_error( [ 'error' => 'Product validation failed' ] );
+                wp_send_json_error( [ 'error' => 'Failed to add to cart' ] );
             }
         } else {
-            wp_send_json_error( [ 'error' => 'Please select product options' ] );
+            wp_send_json_error( [ 'error' => 'Product validation failed' ] );
         }
     }
 }

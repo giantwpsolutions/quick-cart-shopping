@@ -19,7 +19,7 @@ class CouponHandler {
      * @return void
      */
     public static function apply_coupon() {
-        check_ajax_referer( 'qc_shopping_nonce', 'nonce' );
+        check_ajax_referer( 'qcshopping_nonce', 'nonce' );
 
         if ( ! class_exists( 'WooCommerce' ) ) {
             wp_send_json_error( [ 'message' => 'WooCommerce not active' ] );
@@ -74,7 +74,7 @@ class CouponHandler {
      * @return void
      */
     public static function remove_coupon() {
-        check_ajax_referer( 'qc_shopping_nonce', 'nonce' );
+        check_ajax_referer( 'qcshopping_nonce', 'nonce' );
 
         if ( ! class_exists( 'WooCommerce' ) ) {
             wp_send_json_error( [ 'message' => 'WooCommerce not active' ] );

@@ -124,13 +124,13 @@ final class Quick_Cart_Shopping{
             );
         }
 
-        $install_time = get_option( 'qcshop_installation_time' );
+        $install_time = get_option( 'qcshopping_installation_time' );
 
         if ( ! $install_time ) {
-            update_option( 'qcshop_installation_time', time() );
+            update_option( 'qcshopping_installation_time', time() );
         }
 
-        update_option( 'qcshop_version', self::version );
+        update_option( 'qcshopping_version', self::version );
     }
 
     /*

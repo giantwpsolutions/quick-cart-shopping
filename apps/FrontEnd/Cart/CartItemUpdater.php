@@ -19,7 +19,7 @@ class CartItemUpdater {
      * @return void
      */
     public static function update_cart_item() {
-        check_ajax_referer( 'qc_shopping_nonce', 'nonce' );
+        check_ajax_referer( 'qcshopping_nonce', 'nonce' );
 
         if ( ! class_exists( 'WooCommerce' ) ) {
             wp_send_json_error( [ 'message' => 'WooCommerce not active' ] );

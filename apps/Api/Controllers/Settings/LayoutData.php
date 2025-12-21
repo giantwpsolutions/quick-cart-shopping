@@ -108,9 +108,9 @@ class LayoutData extends WP_REST_Controller {
         }
 
         // Save to Database
-        $saved = update_option( 'quick_cart_layout_settings', $sanitized_data );
+        $saved = update_option( 'qcshopping_layout_settings', $sanitized_data );
 
-        if ( ! $saved && get_option( 'quick_cart_layout_settings' ) === false ) {
+        if ( ! $saved && get_option( 'qcshopping_layout_settings' ) === false ) {
             return new WP_Error(
                 'save_failed',
                 __( 'Failed to save data.', 'quick-cart-shopping' ),
@@ -142,7 +142,7 @@ class LayoutData extends WP_REST_Controller {
         }
 
         // Retrieve Existing Settings
-        $existing_data = get_option( 'quick_cart_layout_settings', [] );
+        $existing_data = get_option( 'qcshopping_layout_settings', [] );
         if ( ! is_array( $existing_data ) ) {
             $existing_data = [];
         }
@@ -161,7 +161,7 @@ class LayoutData extends WP_REST_Controller {
             $existing_data = array_merge( $existing_data, $sanitized_data );
         }
 
-        update_option( 'quick_cart_layout_settings', $existing_data );
+        update_option( 'qcshopping_layout_settings', $existing_data );
         return new WP_REST_Response( ['success' => true, 'message' => __( 'Data updated successfully.', 'quick-cart-shopping' ) ], 200 );
     }
 
@@ -174,7 +174,7 @@ class LayoutData extends WP_REST_Controller {
      */
     public function get_settings( WP_REST_Request $request ) {
         // Pull option
-        $raw = get_option( 'quick_cart_layout_settings', [] );
+        $raw = get_option( 'qcshopping_layout_settings', [] );
 
         // Guarantee an array for the response
         if ( ! is_array( $raw ) ) {

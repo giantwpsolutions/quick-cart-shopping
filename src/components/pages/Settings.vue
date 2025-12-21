@@ -66,30 +66,9 @@ async function toggleLicense() {
 <template>
   <div class="tw-space-y-6 tw-pt-4 tw-pb-2">
 
-    <!-- Enable Advanced Settings -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <div class="tw-flex tw-items-center">
-        <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Enable Advanced Settings", "quick-cart-shopping")}}</h4>
-        <el-switch
-          v-model="form.enableAdvancedSettings"
-          @change="val => update('enableAdvancedSettings', val)"
-          class="ml-2"
-          size="large"
-          inline-prompt
-          active-color="#05291B"
-          inactive-color="#d1d5db"
-          active-text="Yes"
-          inactive-text="No"
-        />
-      </div>
-      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
-        {{__("Enable advanced configuration options for the plugin.", "quick-cart-shopping")}}
-      </p>
-    </div>
-
-    <!-- License Section - Only show when Pro is active -->
+        <!-- License Section - Only show when Pro is active -->
     <div v-if="isProActive" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-4">
+      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">
         {{__("Pro License", "quick-cart-shopping")}}
       </h3>
 
@@ -116,17 +95,32 @@ async function toggleLicense() {
         </span>
       </div>
 
-      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-3">
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
         {{__("Enter your license key to activate premium features and receive updates.", "quick-cart-shopping")}}
       </p>
     </div>
-
-    <!-- Placeholder for future settings -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-6 tw-bg-white tw-shadow-sm tw-text-center">
-      <p class="tw-text-sm tw-text-gray-600">
-        {{__("More settings options coming soon...", "quick-cart-shopping")}}
+    <!-- Enable Advanced Settings -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <div class="tw-flex tw-items-center">
+        <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Enable Advanced Settings", "quick-cart-shopping")}}</h4>
+        <el-switch
+          v-model="form.enableAdvancedSettings"
+          @change="val => update('enableAdvancedSettings', val)"
+          class="ml-2"
+          size="large"
+          inline-prompt
+          active-color="#05291B"
+          inactive-color="#d1d5db"
+          active-text="Yes"
+          inactive-text="No"
+        />
+      </div>
+      <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Enable advanced configuration options for the plugin.", "quick-cart-shopping")}}
       </p>
     </div>
+
+
 
   </div>
 </template>

@@ -27,7 +27,7 @@ import { generalMessages, layoutMessages, toggleMessages, cartMessages, checkout
 
 const defaults = {
   general  : { enableQuickCart: true, enableVarProduct: true, enableDragAndDrop: true, enableDirectCheckout: true },
-  layout   : { cartOption: 'side', cartWidth: 400, animation: 'slide' },
+  layout   : { cartOption: 'side', cartWidth: 650, animation: 'slide' },
   toggle   : { iconPosition: 'bottom-right', iconStyle: 'cart', iconSize: 60, showBadge: true, badgeBgColor: '#3498db', badgeTextColor: '#ffffff', iconBgColor: '#05291B', iconColor: '#ffffff', hideOnPages: [], borderShape: 'circle', offsetTop: 20, offsetBottom: 20, offsetLeft: 20, offsetRight: 20 },
   cart     : { showShipping: true, showCouponField: true, couponBtnBgColor: '#05291B', couponBtnTextColor: '#ffffff', checkoutBtnBgColor: '#05291B', checkoutBtnTextColor: '#ffffff', viewCartBtnBgColor: '#ffffff', viewCartBtnTextColor: '#05291B', showCheckoutBtn: true },
   checkout : { enableStep1: true, step1Label: 'Cart Review', enableStep2: true, step2Label: 'Billing Details', enableStep3: true, step3Label: 'Shipping Details', enableStep4: true, step4Label: 'Payment', progressBarStyle: 'style1', progressBarColor: '#05291B', progressLabelTextColor: '#ffffff', progressLabelBgColor: '#3498db', nextBtnBgColor: '#05291B', nextBtnTextColor: '#ffffff', previousBtnBgColor: '#6b7280', previousBtnTextColor: '#ffffff', backToCartBtnBgColor: '#e5e7eb', backToCartBtnTextColor: '#374151', enableThankYouPage: true, thankYouDisplay: 'popup', popupBgColor: '#ffffff', showOrderSummary: true, thankYouPage: null },

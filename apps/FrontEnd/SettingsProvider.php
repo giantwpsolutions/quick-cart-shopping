@@ -39,7 +39,7 @@ class SettingsProvider{
      * @return array
      */
     public static function get_general_settings(){
-        $settings = get_option( 'quick_cart_general_settings', [] );
+        $settings = get_option( 'qcshopping_general_settings', [] );
 
         $defaults = [
             'enableQuickCart' => true,
@@ -57,7 +57,7 @@ class SettingsProvider{
      * @return array
      */
     public static function get_toggle_settings(){
-        $settings = get_option( 'quick_cart_toggle_settings', [] );
+        $settings = get_option( 'qcshopping_toggle_settings', [] );
 
         $defaults = [
             'iconPosition' => 'bottom-right',
@@ -85,11 +85,11 @@ class SettingsProvider{
      * @return array
      */
     public static function get_layout_settings(){
-        $settings = get_option( 'quick_cart_layout_settings', [] );
+        $settings = get_option( 'qcshopping_layout_settings', [] );
 
         $defaults = [
             'cartOption' => 'side',
-            'cartWidth' => 400,
+            'cartWidth' => 650,
             'animation' => 'slide',
         ];
 
@@ -102,7 +102,7 @@ class SettingsProvider{
      * @return array
      */
     public static function get_cart_settings(){
-        $settings = get_option( 'quick_cart_cart_settings', [] );
+        $settings = get_option( 'qcshopping_cart_settings', [] );
 
         $defaults = [
             'showShipping' => true,
@@ -125,7 +125,7 @@ class SettingsProvider{
      * @return array
      */
     public static function get_checkout_settings(){
-        $settings = get_option( 'quick_cart_checkout_settings', [] );
+        $settings = get_option( 'qcshopping_checkout_settings', [] );
 
         $defaults = [
             'enableStep1' => true,
@@ -155,7 +155,7 @@ class SettingsProvider{
      * @return array
      */
     public static function get_variation_popup_settings(){
-        $settings = get_option( 'quick_cart_variation_popup_settings', [] );
+        $settings = get_option( 'qcshopping_variation_popup_settings', [] );
 
         $defaults = [
             'closeButtonBgColor' => '#f5f5f5',
@@ -177,7 +177,7 @@ class SettingsProvider{
         return [
             'pluginUrl' => plugin_dir_url( dirname( dirname( __FILE__ ) ) ),
             'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-            'nonce' => wp_create_nonce( 'qc_shopping_nonce' ),
+            'nonce' => wp_create_nonce( 'qcshopping_nonce' ),
             'currentPageId' => get_the_ID(),
             'isAdmin' => is_admin(),
             'isUserLoggedIn' => is_user_logged_in(),

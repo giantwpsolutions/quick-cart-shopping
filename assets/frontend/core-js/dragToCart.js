@@ -196,7 +196,7 @@ export class DragToCart {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          action: 'qc_get_variable_product',
+          action: 'qcshopping_get_variable_product',
           nonce: nonce,
           product_id: productId
         })
@@ -255,6 +255,7 @@ export class DragToCart {
    */
   async addVariationToCart(productId, variationId, attributes) {
     const ajaxUrl = this.settings.meta?.ajaxUrl;
+    const nonce = this.settings.meta?.nonce;
 
     if (!ajaxUrl) {
       return;
@@ -263,6 +264,7 @@ export class DragToCart {
     try {
       const formData = new URLSearchParams();
       formData.append('action', 'woocommerce_ajax_add_to_cart');
+      formData.append('nonce', nonce);
       formData.append('product_id', productId);
       formData.append('variation_id', variationId);
       formData.append('quantity', 1);

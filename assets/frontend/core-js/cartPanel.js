@@ -6,7 +6,6 @@
  */
 
 import { DOM } from '../utils/dom.js';
-import { MultiStepCheckout } from './multiStepCheckout.js';
 
 export class CartPanel {
   constructor(settings) {
@@ -16,7 +15,7 @@ export class CartPanel {
     this.isOpen = false;
     this.cartItems = [];
     this.draggedItem = null; // Store dragged item reference
-    this.multiStepCheckout = null;
+    this.multiStepCheckout = null; // Will be initialized if Pro is active
 
     this.init();
   }
@@ -77,14 +76,47 @@ export class CartPanel {
 
     document.body.appendChild(this.panel);
 
-    // Initialize side cart checkout if direct checkout is enabled
-    const { general } = this.settings;
-    if (general?.enableDirectCheckout) {
-      this.multiStepCheckout = new MultiStepCheckout(this.settings, body);
-    }
+    // Initialize Pro checkout if available
+    this.initProCheckout(body);
 
     // Bind checkout button click handler
     this.bindCheckoutButton();
+  }
+
+  /**
+   * Initialize Pro checkout feature if Pro plugin is active
+   * @param {HTMLElement} body Panel body element
+   */
+  initProCheckout(body) {
+    const { general } = this.settings;
+
+    // Function to initialize checkout
+    const initCheckout = () => {
+      if (window.QCProCheckout?.MultiStepCheckout) {
+        this.multiStepCheckout = new window.QCProCheckout.MultiStepCheckout(this.settings, body);
+        console.log('[QC] Pro checkout initialized');
+      }
+    };
+
+    // Check if Pro checkout is available and direct checkout is enabled
+    if (general?.enableDirectCheckout) {
+      if (window.QCProCheckout?.MultiStepCheckout) {
+        // Pro is already loaded
+        initCheckout();
+      } else {
+        // Wait for Pro to load
+        console.log('[QC] Waiting for Pro checkout to load...');
+        const checkInterval = setInterval(() => {
+          if (window.QCProCheckout?.MultiStepCheckout) {
+            clearInterval(checkInterval);
+            initCheckout();
+          }
+        }, 100);
+
+        // Stop checking after 3 seconds
+        setTimeout(() => clearInterval(checkInterval), 3000);
+      }
+    }
   }
 
   /**
@@ -792,7 +824,7 @@ export class CartPanel {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        action: 'qc_update_cart_item',
+        action: 'qcshopping_update_cart_item',
         nonce: nonce,
         cart_item_key: cartItemKey,
         quantity: quantity
@@ -885,7 +917,7 @@ export class CartPanel {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        action: 'qc_remove_cart_item',
+        action: 'qcshopping_remove_cart_item',
         nonce: nonce,
         cart_item_key: cartItemKey
       })
@@ -1018,7 +1050,7 @@ export class CartPanel {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          action: 'qc_apply_coupon',
+          action: 'qcshopping_apply_coupon',
           nonce: nonce,
           coupon_code: couponCode.trim()
         })
@@ -1072,7 +1104,7 @@ export class CartPanel {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          action: 'qc_remove_coupon',
+          action: 'qcshopping_remove_coupon',
           nonce: nonce,
           coupon_code: couponCode.trim()
         })
@@ -1163,7 +1195,7 @@ export class CartPanel {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          action: 'qc_update_shipping_method',
+          action: 'qcshopping_update_shipping_method',
           nonce: nonce,
           shipping_method: shippingMethodId
         })
@@ -1226,7 +1258,7 @@ export class CartPanel {
     DOM.on(checkoutBtn, 'click', () => {
       const { general, meta } = this.settings;
 
-      // If direct checkout is enabled, show side cart checkout
+      // If Pro checkout is available and direct checkout is enabled, show it
       if (general?.enableDirectCheckout && this.multiStepCheckout) {
         this.multiStepCheckout.show();
       } else {

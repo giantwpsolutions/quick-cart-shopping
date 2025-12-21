@@ -139,7 +139,7 @@ class QuickCartShopping {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        action: 'qc_get_cart_items',
+        action: 'qcshopping_get_cart_items',
         nonce: nonce
       })
     })

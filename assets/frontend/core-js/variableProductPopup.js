@@ -140,7 +140,7 @@ export class VariableProductPopup {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          action: 'qc_get_variable_product',
+          action: 'qcshopping_get_variable_product',
           nonce: nonce,
           product_id: productId
         })
@@ -451,6 +451,7 @@ export class VariableProductPopup {
 
     try {
       const ajaxUrl = this.settings.meta?.ajaxUrl;
+      const nonce = this.settings.meta?.nonce;
 
       if (!ajaxUrl) {
         throw new Error('AJAX URL not found');
@@ -459,6 +460,7 @@ export class VariableProductPopup {
       // Build form data
       const formData = new URLSearchParams();
       formData.append('action', 'woocommerce_ajax_add_to_cart');
+      formData.append('nonce', nonce);
       formData.append('product_id', productId.value);
       formData.append('variation_id', variationId.value);
       formData.append('quantity', form.querySelector('input[name="quantity"]')?.value || 1);

@@ -121,7 +121,7 @@ class ToggleData extends WP_REST_Controller
 
         $sanitized_data = ToggleDataSanitization::sanitize_toggle_settings( $params );
 
-        $saved = update_option( 'quick_cart_toggle_settings', $sanitized_data );
+        $saved = update_option( 'qcshopping_toggle_settings', $sanitized_data );
 
         if ( false === $saved ) {
             return new WP_REST_Response(
@@ -150,7 +150,7 @@ class ToggleData extends WP_REST_Controller
      */
     public function get_form_data( WP_REST_Request $request )
     {
-        $raw = get_option( 'quick_cart_toggle_settings', [] );
+        $raw = get_option( 'qcshopping_toggle_settings', [] );
 
         return new WP_REST_Response(
             [
@@ -182,7 +182,7 @@ class ToggleData extends WP_REST_Controller
             );
         }
 
-        $existing = get_option( 'quick_cart_toggle_settings', [] );
+        $existing = get_option( 'qcshopping_toggle_settings', [] );
 
         if ( empty( $existing ) || ! isset( $existing['id'] ) || $existing['id'] !== $id ) {
             return new WP_REST_Response(
@@ -197,7 +197,7 @@ class ToggleData extends WP_REST_Controller
         $merged         = array_merge( $existing, $params );
         $sanitized_data = ToggleDataSanitization::sanitize_toggle_settings( $merged );
 
-        $updated = update_option( 'quick_cart_toggle_settings', $sanitized_data );
+        $updated = update_option( 'qcshopping_toggle_settings', $sanitized_data );
 
         if ( false === $updated ) {
             return new WP_REST_Response(
