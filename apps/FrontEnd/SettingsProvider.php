@@ -28,6 +28,7 @@ class SettingsProvider{
             'cart' => self::get_cart_settings(),
             'checkout' => self::get_checkout_settings(),
             'variationPopup' => self::get_variation_popup_settings(),
+            'upsell' => self::get_upsell_settings(),
             'meta' => self::get_meta_data(),
             'i18n' => self::get_translations(),
         ];
@@ -169,6 +170,22 @@ class SettingsProvider{
     }
 
     /**
+     * Get upsell settings
+     *
+     * @return array
+     */
+    public static function get_upsell_settings(){
+        $settings = get_option( 'qcshopping_general_settings', [] );
+
+        $defaults = [
+            'showUpsellProducts' => false,
+            'upsellProducts' => [],
+        ];
+
+        return wp_parse_args( $settings, $defaults );
+    }
+
+    /**
      * Get meta data (URLs, nonce, etc.)
      *
      * @return array
@@ -177,6 +194,7 @@ class SettingsProvider{
         return [
             'pluginUrl' => plugin_dir_url( dirname( dirname( __FILE__ ) ) ),
             'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'restUrl' => esc_url_raw( rest_url( 'quick-cart-shopping/v2/' ) ),
             'nonce' => wp_create_nonce( 'qcshopping_nonce' ),
             'currentPageId' => get_the_ID(),
             'isAdmin' => is_admin(),

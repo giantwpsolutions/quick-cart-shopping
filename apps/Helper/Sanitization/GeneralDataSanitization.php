@@ -26,7 +26,7 @@ class GeneralDataSanitization
             return [];
         }
 
-        return [
+        $sanitized = [
             'id'                          => sanitize_text_field( $data['id'] ?? time() ),
             'createdAt'                   => sanitize_text_field( $data['createdAt'] ?? current_time('c') ),
             'status'                      => isset( $data['status'] ) && in_array( $data['status'], ['on', 'off'] ) ? $data['status'] : 'on',
@@ -35,5 +35,22 @@ class GeneralDataSanitization
             'enableDragAndDrop'           => isset( $data['enableDragAndDrop'] ) ? (bool) $data['enableDragAndDrop'] : true,
             'enableDirectCheckout'        => isset( $data['enableDirectCheckout'] ) ? (bool) $data['enableDirectCheckout'] : true,
         ];
+
+        // Sanitize advanced settings if present
+        if ( isset( $data['enableAdvancedSettings'] ) ) {
+            $sanitized['enableAdvancedSettings'] = (bool) $data['enableAdvancedSettings'];
+        }
+
+        if ( isset( $data['showUpsellProducts'] ) ) {
+            $sanitized['showUpsellProducts'] = (bool) $data['showUpsellProducts'];
+        }
+
+        if ( isset( $data['upsellProducts'] ) && is_array( $data['upsellProducts'] ) ) {
+            $sanitized['upsellProducts'] = array_map( 'absint', $data['upsellProducts'] );
+            // Limit to 2 products
+            $sanitized['upsellProducts'] = array_slice( $sanitized['upsellProducts'], 0, 2 );
+        }
+
+        return $sanitized;
     }
 }

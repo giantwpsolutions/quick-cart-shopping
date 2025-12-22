@@ -8,11 +8,13 @@
 namespace QuickCartShopping\Api;
 
 use QuickCartShopping\Api\Controllers\Shared\Page_Controller;
+use QuickCartShopping\Api\Controllers\Shared\ProductData;
 use QuickCartShopping\Api\Controllers\Settings\GeneralData;
 use QuickCartShopping\Api\Controllers\Settings\LayoutData;
 use QuickCartShopping\Api\Controllers\Settings\ToggleData;
 use QuickCartShopping\Api\Controllers\Settings\CartData;
 use QuickCartShopping\Api\Controllers\Settings\VariationPopupData;
+use QuickCartShopping\Api\Controllers\Settings\SettingsData;
 use QuickCartShopping\Traits\SingletonTrait;
 
 /**
@@ -54,5 +56,11 @@ class Api{
 
         $variation_popup_settings_controller = new VariationPopupData();
         $variation_popup_settings_controller->register_routes();
+
+        $product_controller = new ProductData();
+        $product_controller->register_routes();
+
+        $settings_controller = new SettingsData();
+        $settings_controller->register_routes();
     }
 }

@@ -23,6 +23,7 @@ import { toggleSettingsService } from '@/api/services/toggleSettingsService'
 import { cartSettingsService } from '@/api/services/cartSettingsService'
 import { checkoutSettingsService } from '@/api/services/checkoutSettingsService'
 import { variationPopupSettingsService } from '@/api/services/variationPopupSettingsService'
+import { settingsService } from '@/api/services/settingsService'
 import { generalMessages, layoutMessages, toggleMessages, cartMessages, checkoutMessages, variationPopupMessages, commonMessages } from '@/data/messages'
 
 const defaults = {
@@ -32,7 +33,7 @@ const defaults = {
   cart     : { showShipping: true, showCouponField: true, couponBtnBgColor: '#05291B', couponBtnTextColor: '#ffffff', checkoutBtnBgColor: '#05291B', checkoutBtnTextColor: '#ffffff', viewCartBtnBgColor: '#ffffff', viewCartBtnTextColor: '#05291B', showCheckoutBtn: true },
   checkout : { enableStep1: true, step1Label: 'Cart Review', enableStep2: true, step2Label: 'Billing Details', enableStep3: true, step3Label: 'Shipping Details', enableStep4: true, step4Label: 'Payment', progressBarStyle: 'style1', progressBarColor: '#05291B', progressLabelTextColor: '#ffffff', progressLabelBgColor: '#3498db', nextBtnBgColor: '#05291B', nextBtnTextColor: '#ffffff', previousBtnBgColor: '#6b7280', previousBtnTextColor: '#ffffff', backToCartBtnBgColor: '#e5e7eb', backToCartBtnTextColor: '#374151', enableThankYouPage: true, thankYouDisplay: 'popup', popupBgColor: '#ffffff', showOrderSummary: true, thankYouPage: null },
   variationPopup : { closeButtonBgColor: '#f5f5f5', closeButtonIconColor: '#666666', popupWidth: 1000, addToCartButtonBgColor: '#05291B', addToCartButtonTextColor: '#ffffff' },
-  settings : { enableAdvancedSettings: false },
+  settings : { enableAdvancedSettings: false, showUpsellProducts: false, upsellProducts: [] },
 }
 
 const settings = reactive(structuredClone(defaults))
@@ -91,6 +92,10 @@ async function save() {
       await variationPopupSettingsService.save(settings.variationPopup)
       dirty[sectionKey.value] = false
       ElMessage.success({ message: variationPopupMessages.saveSuccess, offset: 120 })
+    } else if (sectionKey.value === 'settings') {
+      await settingsService.save(settings.settings)
+      dirty[sectionKey.value] = false
+      ElMessage.success({ message: 'Settings saved successfully', offset: 120 })
     } else {
       dirty[sectionKey.value] = false
       ElMessage.success({ message: commonMessages.settingsSaved, offset: 120 })
@@ -102,6 +107,7 @@ async function save() {
                      sectionKey.value === 'cart' ? cartMessages.saveFailed :
                      sectionKey.value === 'checkout' ? checkoutMessages.saveFailed :
                      sectionKey.value === 'variationPopup' ? variationPopupMessages.saveFailed :
+                     sectionKey.value === 'settings' ? 'Failed to save settings' :
                      'Failed to save settings'
     ElMessage.error({ message: error.message || errorMsg, offset: 120 })
   } finally {
@@ -223,6 +229,16 @@ onMounted(async () => {
       if (data.addToCartButtonBgColor !== undefined) settings.variationPopup.addToCartButtonBgColor = data.addToCartButtonBgColor
       if (data.addToCartButtonTextColor !== undefined) settings.variationPopup.addToCartButtonTextColor = data.addToCartButtonTextColor
       dirty.variationPopup = false
+    }
+
+    // Load advanced settings (upsell products, etc.)
+    const settingsResponse = await settingsService.get()
+    if (settingsResponse.success && settingsResponse.settings && Object.keys(settingsResponse.settings).length > 0) {
+      const data = settingsResponse.settings
+      if (data.enableAdvancedSettings !== undefined) settings.settings.enableAdvancedSettings = data.enableAdvancedSettings
+      if (data.showUpsellProducts !== undefined) settings.settings.showUpsellProducts = data.showUpsellProducts
+      if (data.upsellProducts !== undefined) settings.settings.upsellProducts = data.upsellProducts
+      dirty.settings = false
     }
   } catch (error) {
     console.error('Failed to load settings:', error)

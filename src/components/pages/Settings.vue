@@ -10,8 +10,9 @@
  */
 -->
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
+import { productService } from '@/api/services/productService'
 
 const props = defineProps({ modelValue: { type: Object, required: true } })
 const emit = defineEmits(['update:modelValue'])
@@ -26,6 +27,33 @@ function update(k, v) {
 
 // Initialize default values
 if (form.value.enableAdvancedSettings === undefined) update('enableAdvancedSettings', false)
+if (form.value.showUpsellProducts === undefined) update('showUpsellProducts', false)
+if (form.value.upsellProducts === undefined) update('upsellProducts', [])
+
+// Products list for select
+const products = ref([])
+const loadingProducts = ref(false)
+
+// Fetch products using productService
+async function fetchProducts() {
+  loadingProducts.value = true
+  try {
+    const data = await productService.getProducts({ per_page: 100 })
+    products.value = data.map(product => ({
+      value: product.id,
+      label: product.name
+    }))
+  } catch (error) {
+    console.error('Failed to fetch products:', error)
+    ElMessage.error({ message: 'Failed to load products', offset: 120 })
+  } finally {
+    loadingProducts.value = false
+  }
+}
+
+onMounted(() => {
+  fetchProducts()
+})
 
 // License management
 const licenseKey = ref('')
@@ -117,6 +145,56 @@ async function toggleLicense() {
       </div>
       <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
         {{__("Enable advanced configuration options for the plugin.", "quick-cart-shopping")}}
+      </p>
+    </div>
+
+    <!-- Upsell Products Show on Cart Panel -->
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+      <div class="tw-flex tw-items-center tw-mb-3">
+        <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Upsell Products Show on Cart Panel", "quick-cart-shopping")}}</h4>
+        <el-switch
+          v-model="form.showUpsellProducts"
+          @change="val => update('showUpsellProducts', val)"
+          class="ml-2"
+          size="large"
+          inline-prompt
+          active-color="#05291B"
+          inactive-color="#d1d5db"
+          active-text="Yes"
+          inactive-text="No"
+        />
+      </div>
+
+      <!-- Show product selection when enabled -->
+      <div v-if="form.showUpsellProducts" class="tw-mt-4">
+        <h5 class="tw-text-sm tw-font-medium tw-mb-2">{{__("Related Products", "quick-cart-shopping")}}</h5>
+        <el-select
+          v-model="form.upsellProducts"
+          multiple
+          :placeholder="__('Select up to 2 products', 'quick-cart-shopping')"
+          :loading="loadingProducts"
+          size="large"
+          class="tw-w-full"
+          :max-collapse-tags="2"
+          collapse-tags
+          collapse-tags-tooltip
+          @change="val => update('upsellProducts', val)"
+        >
+          <el-option
+            v-for="product in products"
+            :key="product.value"
+            :label="product.label"
+            :value="product.value"
+            :disabled="form.upsellProducts.length >= 2 && !form.upsellProducts.includes(product.value)"
+          />
+        </el-select>
+        <p class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+          {{__("Select up to 2 products to display as upsell in the cart panel. Products will use your theme's default styling.", "quick-cart-shopping")}}
+        </p>
+      </div>
+
+      <p v-if="!form.showUpsellProducts" class="tw-text-xs tw-text-gray-500 tw-italic tw-mt-2">
+        {{__("Display related products in the cart panel to encourage additional purchases.", "quick-cart-shopping")}}
       </p>
     </div>
 

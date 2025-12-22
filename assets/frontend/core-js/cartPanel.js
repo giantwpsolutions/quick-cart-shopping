@@ -74,6 +74,12 @@ export class CartPanel {
     const footer = this.createFooter();
     this.panel.appendChild(footer);
 
+    // Upsell products section (Pro feature - inside body, after cart items)
+    const upsellSection = this.createUpsellSection();
+    if (upsellSection) {
+      body.appendChild(upsellSection);
+    }
+
     document.body.appendChild(this.panel);
 
     // Initialize Pro checkout if available
@@ -230,6 +236,258 @@ export class CartPanel {
    * Create panel footer
    * @returns {HTMLElement}
    */
+  /**
+   * Create upsell products section (Pro feature)
+   * @returns {HTMLElement|null}
+   */
+  createUpsellSection() {
+    const { upsell } = this.settings;
+
+    // Debug logging
+    console.log('[Upsell Debug] Pro Active:', window.qcshoppingPluginData?.proActive);
+    console.log('[Upsell Debug] Upsell Settings:', upsell);
+
+    // Check if Pro plugin is active and upsell is enabled
+    const isProActive = window.qcshoppingPluginData?.proActive || false;
+    if (!isProActive || !upsell?.showUpsellProducts || !upsell?.upsellProducts || upsell.upsellProducts.length === 0) {
+      console.log('[Upsell Debug] Not showing upsell - Pro Active:', isProActive, 'Show Upsell:', upsell?.showUpsellProducts, 'Products:', upsell?.upsellProducts);
+      return null;
+    }
+
+    const upsellSection = DOM.createElement('div', {
+      class: 'qc-upsell-section'
+    });
+
+    const title = DOM.createElement('h2', {
+      class: 'qc-upsell-title'
+    }, 'Related Products');
+
+    upsellSection.appendChild(title);
+
+    const productsContainer = DOM.createElement('ul', {
+      class: 'qc-upsell-products products columns-2'
+    });
+
+    upsellSection.appendChild(productsContainer);
+
+    // Fetch and render upsell products
+    console.log('[Upsell Debug] Creating upsell section with products:', upsell.upsellProducts);
+    this.loadUpsellProducts(productsContainer, upsell.upsellProducts);
+
+    return upsellSection;
+  }
+
+  /**
+   * Load upsell products via AJAX
+   * @param {HTMLElement} container Container element
+   * @param {Array} productIds Array of product IDs
+   */
+  async loadUpsellProducts(container, productIds) {
+    if (!productIds || productIds.length === 0) return;
+
+    container.innerHTML = '<div class="qc-loading">Loading products...</div>';
+
+    try {
+      // Get REST URL from settings
+      const restUrl = this.settings.meta.restUrl;
+
+      // Fetch products from custom REST API
+      const promises = productIds.slice(0, 2).map(async (productId) => {
+        const response = await fetch(`${restUrl}products/${productId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        return await response.json();
+      });
+
+      const products = await Promise.all(promises);
+      container.innerHTML = '';
+
+      // Render each product using theme's default WooCommerce styling
+      products.forEach(product => {
+        if (product && product.id) {
+          const productEl = this.createUpsellProductElement(product);
+          container.appendChild(productEl);
+        }
+      });
+    } catch (error) {
+      console.error('Failed to load upsell products:', error);
+      container.innerHTML = '';
+    }
+  }
+
+  /**
+   * Create upsell product element with theme's default styling
+   * @param {Object} product Product data
+   * @returns {HTMLElement}
+   */
+  createUpsellProductElement(product) {
+    const productEl = DOM.createElement('li', {
+      class: `product type-product post-${product.id} status-publish`
+    });
+
+    const image = product.images && product.images[0] ? product.images[0].thumbnail : this.settings.meta.placeholderImage;
+    const price = product.price_html || '';
+    const isVariable = product.type === 'variable';
+
+    productEl.innerHTML = `
+      <a href="${product.permalink}" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+        <img width="150" height="150" src="${image}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="${product.name}" loading="lazy" />
+        <h2 class="woocommerce-loop-product__title">${product.name}</h2>
+        <span class="price">${price}</span>
+      </a>
+      <a href="#"
+         class="button product_type_${product.type} add_to_cart_button ajax_add_to_cart"
+         data-product_id="${product.id}"
+         data-product_type="${product.type}"
+         data-quantity="1"
+         aria-label="Add "${product.name}" to your cart"
+         rel="nofollow">
+        ${isVariable ? 'Select options' : 'Add to cart'}
+      </a>
+    `;
+
+    // Prevent product link from navigating
+    const productLink = productEl.querySelector('.woocommerce-LoopProduct-link');
+    if (productLink) {
+      DOM.on(productLink, 'click', (e) => {
+        e.preventDefault();
+      });
+    }
+
+    // Add click handler for add to cart button
+    const addToCartBtn = productEl.querySelector('.add_to_cart_button');
+    if (!addToCartBtn) {
+      console.error('[Upsell] Add to cart button not found');
+      return productEl;
+    }
+
+    // Handler function for add to cart
+    const handleAddToCart = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      console.log('[Upsell] Add to cart clicked, Product ID:', addToCartBtn.dataset.product_id);
+
+      const productId = parseInt(addToCartBtn.dataset.product_id);
+      const productType = addToCartBtn.dataset.product_type;
+
+      if (!productId) {
+        console.error('[Upsell] Invalid product ID');
+        return;
+      }
+
+      if (productType === 'variable') {
+        console.log('[Upsell] Opening variable product popup');
+        // Open variable product popup
+        if (window.VariableProductPopup) {
+          window.VariableProductPopup.open(productId);
+        } else {
+          console.error('[Upsell] VariableProductPopup not available');
+        }
+      } else {
+        console.log('[Upsell] Adding simple product to cart');
+        // Add loading state
+        addToCartBtn.classList.add('loading');
+        addToCartBtn.textContent = 'Adding...';
+
+        // Add simple product to cart
+        this.addSimpleProductToCart(productId, addToCartBtn);
+      }
+    };
+
+    // Add both click and touchend listeners for better mobile support
+    DOM.on(addToCartBtn, 'click', handleAddToCart);
+    DOM.on(addToCartBtn, 'touchend', handleAddToCart);
+
+    return productEl;
+  }
+
+  /**
+   * Add simple product to cart
+   * @param {number} productId Product ID
+   * @param {HTMLElement} button Optional button element for state management
+   */
+  async addSimpleProductToCart(productId, button = null) {
+    const { meta } = this.settings;
+
+    console.log('[Upsell] addSimpleProductToCart called with:', {
+      productId,
+      ajaxUrl: meta.ajaxUrl,
+      hasNonce: !!meta.nonce
+    });
+
+    try {
+      const response = await fetch(meta.ajaxUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          action: 'woocommerce_ajax_add_to_cart',
+          nonce: meta.nonce,
+          product_id: productId,
+          quantity: 1
+        })
+      });
+
+      console.log('[Upsell] Response status:', response.status);
+      const result = await response.json();
+      console.log('[Upsell] Response result:', JSON.stringify(result, null, 2));
+
+      // Check for WP error response or explicit error
+      if (result.data?.error || result.error) {
+        console.error('[Upsell] Add to cart error:', result.data?.error || result.error);
+        alert(result.data?.error || result.error || 'Failed to add product to cart');
+
+        // Reset button state
+        if (button) {
+          button.classList.remove('loading');
+          button.textContent = 'Add to cart';
+        }
+      } else {
+        console.log('[Upsell] Product added to cart successfully!');
+
+        // Reset button state with success
+        if (button) {
+          button.classList.remove('loading');
+          button.classList.add('added');
+          button.textContent = 'Added!';
+
+          // Reset back to original text after 2 seconds
+          setTimeout(() => {
+            button.classList.remove('added');
+            button.textContent = 'Add to cart';
+          }, 2000);
+        }
+
+        // Get fragments from response (WC_AJAX::get_refreshed_fragments returns fragments directly)
+        const fragments = result.fragments || result.data?.fragments || {};
+        const cart_hash = result.cart_hash || result.data?.cart_hash || '';
+
+        console.log('[Upsell] Fragments:', fragments);
+        console.log('[Upsell] Cart hash:', cart_hash);
+
+        // Trigger WooCommerce events with proper data
+        console.log('[Upsell] Triggering WooCommerce events');
+        DOM.trigger(document.body, 'added_to_cart', [fragments, cart_hash]);
+        DOM.trigger(document.body, 'wc_fragments_refreshed');
+
+        console.log('[Upsell] All events triggered successfully');
+      }
+    } catch (error) {
+      console.error('[Upsell] Failed to add product to cart:', error);
+      alert('Failed to add product to cart');
+
+      // Reset button state
+      if (button) {
+        button.classList.remove('loading');
+        button.textContent = 'Add to cart';
+      }
+    }
+  }
+
   createFooter() {
     const { cart, i18n, meta } = this.settings;
     const footer = DOM.createElement('div', {
@@ -471,6 +729,7 @@ export class CartPanel {
     const emptyMsg = DOM.qs('.qc-cart-empty', this.panel);
     const totalsSection = DOM.qs('.qc-cart-totals-section', this.panel);
     const footer = DOM.qs('.qc-cart-footer', this.panel);
+    const upsellSection = DOM.qs('.qc-upsell-section', this.panel);
 
     if (items.length === 0) {
       emptyMsg.style.display = 'flex';
@@ -482,6 +741,10 @@ export class CartPanel {
       if (footer) {
         footer.style.display = 'none';
       }
+      // Hide upsell section when cart is empty
+      if (upsellSection) {
+        upsellSection.style.display = 'none';
+      }
     } else {
       emptyMsg.style.display = 'none';
       tableWrapper.style.display = 'block';
@@ -491,6 +754,10 @@ export class CartPanel {
       // Show footer buttons when cart has items
       if (footer) {
         footer.style.display = 'block';
+      }
+      // Show upsell section when cart has items
+      if (upsellSection) {
+        upsellSection.style.display = 'block';
       }
       tbody.innerHTML = '';
 
