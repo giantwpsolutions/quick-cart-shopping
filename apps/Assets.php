@@ -22,7 +22,6 @@ use QuickCartShopping\Traits\SingletonTrait;
         add_action( 'wp_enqueue_scripts', [ $this, 'qcshopping_assets_register' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'qcshopping_admin_assets_register' ] );
         add_filter( 'script_loader_tag',     [ $this, 'add_attribute_type' ], 10, 3 );
-        add_action( 'in_admin_header',       [ $this, 'disable_core_update_notifications' ] );
 
     }
 
@@ -31,8 +30,8 @@ use QuickCartShopping\Traits\SingletonTrait;
      */
     public function qcshopping_assets_register(){
 
-        wp_enqueue_style( 'qcs-shopping-cart-positions', plugin_dir_url(__DIR__). 'assets/css/qcs-cart-position.css', array(), time() );
-        wp_enqueue_script('qcs-script', plugin_dir_url(__DIR__) . 'assets/js/qcs-cart-position.js', ['jquery'], null, true);
+        wp_enqueue_style( 'qcs-shopping-cart-positions', plugin_dir_url(__DIR__). 'assets/css/qcs-cart-position.css', array(), QCSHOP_VERSION );
+        wp_enqueue_script('qcs-script', plugin_dir_url(__DIR__) . 'assets/js/qcs-cart-position.js', ['jquery'], QCSHOP_VERSION, true);
 
 
           wp_localize_script('qcs-script', 'wc_add_to_cart_params', [
@@ -98,20 +97,7 @@ use QuickCartShopping\Traits\SingletonTrait;
                 $tag
             );
         }
-    
-        return $tag;
-    }
 
-    /**
-     * Removes all admin notices from plugin settings page.
-     * 
-     * Ensures a clean experience inside GiantWP Discount Rules's admin interface.
-     */
-    public function disable_core_update_notifications() {
-        $screen = get_current_screen();
-        if ( $screen && $screen->id === 'woocommerce_page_quick-cart-shopping' ) {
-            remove_all_actions( 'admin_notices' );
-            remove_all_actions( 'network_admin_notices' );
-        }
+        return $tag;
     }
  }

@@ -32,13 +32,38 @@ class CartDataSanitization
             'status'               => isset( $data['status'] ) && in_array( $data['status'], ['on', 'off'] ) ? $data['status'] : 'on',
             'showShipping'         => isset( $data['showShipping'] ) ? (bool) $data['showShipping'] : true,
             'showCouponField'      => isset( $data['showCouponField'] ) ? (bool) $data['showCouponField'] : true,
-            'couponBtnBgColor'     => sanitize_text_field( $data['couponBtnBgColor'] ?? '#05291B' ),
-            'couponBtnTextColor'   => sanitize_text_field( $data['couponBtnTextColor'] ?? '#ffffff' ),
-            'checkoutBtnBgColor'   => sanitize_text_field( $data['checkoutBtnBgColor'] ?? '#05291B' ),
-            'checkoutBtnTextColor' => sanitize_text_field( $data['checkoutBtnTextColor'] ?? '#ffffff' ),
-            'viewCartBtnBgColor'   => sanitize_text_field( $data['viewCartBtnBgColor'] ?? '#ffffff' ),
-            'viewCartBtnTextColor' => sanitize_text_field( $data['viewCartBtnTextColor'] ?? '#05291B' ),
+            'couponBtnBgColor'     => self::sanitize_color( $data['couponBtnBgColor'] ?? '#05291B' ),
+            'couponBtnTextColor'   => self::sanitize_color( $data['couponBtnTextColor'] ?? '#ffffff' ),
+            'checkoutBtnBgColor'   => self::sanitize_color( $data['checkoutBtnBgColor'] ?? '#05291B' ),
+            'checkoutBtnTextColor' => self::sanitize_color( $data['checkoutBtnTextColor'] ?? '#ffffff' ),
+            'viewCartBtnBgColor'   => self::sanitize_color( $data['viewCartBtnBgColor'] ?? '#ffffff' ),
+            'viewCartBtnTextColor' => self::sanitize_color( $data['viewCartBtnTextColor'] ?? '#05291B' ),
             'showCheckoutBtn'      => isset( $data['showCheckoutBtn'] ) ? (bool) $data['showCheckoutBtn'] : true,
         ];
+    }
+
+    /**
+     * Sanitize color value (hex or rgba)
+     *
+     * @param string $color Color value
+     * @return string Sanitized color
+     */
+    private static function sanitize_color( $color )
+    {
+        // Remove any whitespace
+        $color = trim( $color );
+
+        // Check if it's a valid hex color
+        if ( preg_match( '/^#[a-fA-F0-9]{6}$/', $color ) || preg_match( '/^#[a-fA-F0-9]{3}$/', $color ) ) {
+            return $color;
+        }
+
+        // Check if it's a valid rgba color
+        if ( preg_match( '/^rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*(,\s*[\d.]+\s*)?\)$/', $color ) ) {
+            return $color;
+        }
+
+        // Return default if invalid
+        return '#000000';
     }
 }

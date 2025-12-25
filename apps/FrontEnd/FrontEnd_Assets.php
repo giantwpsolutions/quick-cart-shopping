@@ -34,7 +34,7 @@ class FrontEnd_Assets{
         }
 
         $plugin_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
-        $plugin_version = time(); // Use timestamp to prevent caching during development
+        $plugin_version = QCSHOP_VERSION;
 
         // Enqueue CSS
         wp_enqueue_style(
@@ -110,32 +110,32 @@ class FrontEnd_Assets{
 
         $css = "
         .qc-cart-coupon-btn {
-            background-color: {$settings['couponBtnBgColor']} !important;
-            color: {$settings['couponBtnTextColor']} !important;
+            background-color: " . esc_attr( $settings['couponBtnBgColor'] ) . " !important;
+            color: " . esc_attr( $settings['couponBtnTextColor'] ) . " !important;
         }
 
         .qc-cart-coupon-btn:hover {
-            background-color: {$settings['couponBtnBgColor']} !important;
+            background-color: " . esc_attr( $settings['couponBtnBgColor'] ) . " !important;
             opacity: 0.9;
         }
 
         .qc-cart-checkout-btn {
-            background-color: {$settings['checkoutBtnBgColor']} !important;
-            color: {$settings['checkoutBtnTextColor']} !important;
+            background-color: " . esc_attr( $settings['checkoutBtnBgColor'] ) . " !important;
+            color: " . esc_attr( $settings['checkoutBtnTextColor'] ) . " !important;
         }
 
         .qc-cart-checkout-btn:hover {
-            background-color: {$settings['checkoutBtnBgColor']} !important;
+            background-color: " . esc_attr( $settings['checkoutBtnBgColor'] ) . " !important;
             opacity: 0.9;
         }
 
         .qc-cart-view-cart-btn {
-            background-color: {$settings['viewCartBtnBgColor']} !important;
-            color: {$settings['viewCartBtnTextColor']} !important;
+            background-color: " . esc_attr( $settings['viewCartBtnBgColor'] ) . " !important;
+            color: " . esc_attr( $settings['viewCartBtnTextColor'] ) . " !important;
         }
 
         .qc-cart-view-cart-btn:hover {
-            background-color: {$settings['viewCartBtnBgColor']} !important;
+            background-color: " . esc_attr( $settings['viewCartBtnBgColor'] ) . " !important;
             opacity: 0.9;
         }
         ";
@@ -153,29 +153,29 @@ class FrontEnd_Assets{
 
         $css = "
         .qc-variable-popup {
-            max-width: {$settings['popupWidth']}px !important;
+            max-width: " . absint( $settings['popupWidth'] ) . "px !important;
         }
 
         .qc-variable-close {
-            background: {$settings['closeButtonBgColor']} !important;
+            background: " . esc_attr( $settings['closeButtonBgColor'] ) . " !important;
         }
 
         .qc-variable-close svg {
-            stroke: {$settings['closeButtonIconColor']} !important;
+            stroke: " . esc_attr( $settings['closeButtonIconColor'] ) . " !important;
         }
 
         .qc-variable-form .single_add_to_cart_button {
-            background: {$settings['addToCartButtonBgColor']} !important;
-            color: {$settings['addToCartButtonTextColor']} !important;
+            background: " . esc_attr( $settings['addToCartButtonBgColor'] ) . " !important;
+            color: " . esc_attr( $settings['addToCartButtonTextColor'] ) . " !important;
         }
 
         .qc-variable-form .single_add_to_cart_button:hover {
-            background: {$settings['addToCartButtonBgColor']} !important;
+            background: " . esc_attr( $settings['addToCartButtonBgColor'] ) . " !important;
             opacity: 0.9;
         }
 
         .qc-variable-form .single_add_to_cart_button:disabled:hover {
-            background: {$settings['addToCartButtonBgColor']} !important;
+            background: " . esc_attr( $settings['addToCartButtonBgColor'] ) . " !important;
         }
         ";
 

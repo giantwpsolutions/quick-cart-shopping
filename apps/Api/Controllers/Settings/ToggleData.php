@@ -96,6 +96,19 @@ class ToggleData extends WP_REST_Controller
             );
         }
 
+        // Verify nonce for write operations (POST, PUT, DELETE)
+        $method = $request->get_method();
+        if ( in_array( $method, [ 'POST', 'PUT', 'DELETE', 'PATCH' ], true ) ) {
+            $nonce = $request->get_header( 'X-WP-Nonce' );
+            if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
+                return new WP_Error(
+                    'rest_cookie_invalid_nonce',
+                    __( 'Cookie nonce is invalid', 'quick-cart-shopping' ),
+                    [ 'status' => 403 ]
+                );
+            }
+        }
+
         return true;
     }
 

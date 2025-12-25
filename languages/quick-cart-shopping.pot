@@ -1,0 +1,812 @@
+# Copyright (C) 2025 Giant WP Solutions
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Quick Cart Shopping 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/quick-cart-shopping\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-12-25T19:06:47+01:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: quick-cart-shopping\n"
+
+#. Plugin Name of the plugin
+#: quick-cart-shopping.php
+#: apps/Admin/Menu.php:45
+msgid "Quick Cart Shopping"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: quick-cart-shopping.php
+msgid "https://giantwpsolutions.com/plugins/quick-cart-shopping"
+msgstr ""
+
+#. Description of the plugin
+#: quick-cart-shopping.php
+msgid "A modern WooCommerce UX booster — adds floating cart, variation popups, and drag  &drop shopping experience. Convert more customers with smooth, app-like interactions."
+msgstr ""
+
+#. Author of the plugin
+#: quick-cart-shopping.php
+msgid "Giant WP Solutions"
+msgstr ""
+
+#. Author URI of the plugin
+#: quick-cart-shopping.php
+msgid "https://giantwpsolutions.com"
+msgstr ""
+
+#: apps/Api/Controllers/Settings/CartData.php:75
+#: apps/Api/Controllers/Settings/ToggleData.php:75
+#: apps/Api/Controllers/Settings/VariationPopupData.php:75
+msgid "The setting ID to update."
+msgstr ""
+
+#: apps/Api/Controllers/Settings/CartData.php:94
+#: apps/Api/Controllers/Settings/ToggleData.php:94
+#: apps/Api/Controllers/Settings/VariationPopupData.php:94
+msgid "You do not have permission to access this resource."
+msgstr ""
+
+#: apps/Api/Controllers/Settings/CartData.php:106
+#: apps/Api/Controllers/Settings/GeneralData.php:93
+#: apps/Api/Controllers/Settings/LayoutData.php:93
+#: apps/Api/Controllers/Settings/SettingsData.php:84
+#: apps/Api/Controllers/Settings/ToggleData.php:106
+#: apps/Api/Controllers/Settings/VariationPopupData.php:106
+msgid "Cookie nonce is invalid"
+msgstr ""
+
+#: apps/Api/Controllers/Settings/CartData.php:129
+#: apps/Api/Controllers/Settings/CartData.php:192
+#: apps/Api/Controllers/Settings/ToggleData.php:129
+#: apps/Api/Controllers/Settings/ToggleData.php:192
+#: apps/Api/Controllers/Settings/VariationPopupData.php:129
+#: apps/Api/Controllers/Settings/VariationPopupData.php:192
+msgid "Invalid or empty data provided."
+msgstr ""
+
+#: apps/Api/Controllers/Settings/CartData.php:143
+#: apps/Api/Controllers/Settings/GeneralData.php:133
+#: apps/Api/Controllers/Settings/LayoutData.php:133
+#: apps/Api/Controllers/Settings/ToggleData.php:143
+#: apps/Api/Controllers/Settings/VariationPopupData.php:143
+msgid "Failed to save data."
+msgstr ""
+
+#: apps/Api/Controllers/Settings/CartData.php:152
+#: apps/Api/Controllers/Settings/GeneralData.php:139
+#: apps/Api/Controllers/Settings/LayoutData.php:139
+#: apps/Api/Controllers/Settings/ToggleData.php:152
+#: apps/Api/Controllers/Settings/VariationPopupData.php:152
+msgid "Data saved successfully."
+msgstr ""
+
+#: apps/Api/Controllers/Settings/CartData.php:204
+#: apps/Api/Controllers/Settings/ToggleData.php:204
+#: apps/Api/Controllers/Settings/VariationPopupData.php:204
+msgid "Setting not found."
+msgstr ""
+
+#: apps/Api/Controllers/Settings/CartData.php:219
+#: apps/Api/Controllers/Settings/ToggleData.php:219
+#: apps/Api/Controllers/Settings/VariationPopupData.php:219
+msgid "Failed to update data."
+msgstr ""
+
+#: apps/Api/Controllers/Settings/CartData.php:228
+#: apps/Api/Controllers/Settings/GeneralData.php:182
+#: apps/Api/Controllers/Settings/LayoutData.php:182
+#: apps/Api/Controllers/Settings/ToggleData.php:228
+#: apps/Api/Controllers/Settings/VariationPopupData.php:228
+msgid "Data updated successfully."
+msgstr ""
+
+#: apps/Api/Controllers/Settings/GeneralData.php:115
+#: apps/Api/Controllers/Settings/GeneralData.php:158
+#: apps/Api/Controllers/Settings/LayoutData.php:115
+#: apps/Api/Controllers/Settings/LayoutData.php:158
+#: apps/Api/Controllers/Settings/SettingsData.php:106
+msgid "No data received."
+msgstr ""
+
+#: apps/Api/Controllers/Settings/SettingsData.php:133
+msgid "Failed to save settings."
+msgstr ""
+
+#: apps/Api/Controllers/Settings/SettingsData.php:141
+msgid "Settings saved successfully."
+msgstr ""
+
+#: apps/Api/Controllers/Shared/Page_Controller.php:58
+msgid "Sorry, you are not allowed to access pages."
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:215
+msgid "Shopping Cart"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:216
+msgid "Close cart"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:217
+msgid "Your cart is empty"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:218
+msgid "Add some products to get started!"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:219
+msgid "Product"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:220
+msgid "Price"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:221
+msgid "Quantity"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:222
+msgid "Subtotal"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:223
+msgid "Remove item"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:224
+msgid "Subtotal:"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:225
+msgid "Shipping:"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:226
+msgid "Calculated at checkout"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:227
+msgid "Flat rate:"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:228
+msgid "Local pickup"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:229
+msgid "Shipping to"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:230
+msgid "your location"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:231
+msgid "Total:"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:232
+msgid "Coupon code"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:233
+msgid "Apply"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:234
+msgid "Proceed to Checkout"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:235
+msgid "View Cart"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:236
+msgid "Empty Cart"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:238
+msgid "Loading..."
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:239
+msgid "Back to Cart"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:240
+msgid "Previous"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:241
+msgid "Next"
+msgstr ""
+
+#: apps/FrontEnd/SettingsProvider.php:242
+msgid "Place Order"
+msgstr ""
+
+#: apps/functions.php:18
+msgid "WooCommerce is deactivated! The \"Quick Cart Shopping\" plugin requires WooCommerce to function properly. Please reactivate WooCommerce."
+msgstr ""
+
+#: apps/functions.php:33
+#: quick-cart-shopping.php:122
+msgid "Quick Cart Shopping requires WooCommerce to be installed and active."
+msgstr ""
+
+#: quick-cart-shopping.php:123
+msgid "Plugin dependency check"
+msgstr ""
+
+#: quick-cart-shopping.php:156
+msgid "Settings"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enable Quick Cart Shopping"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Turn on the Quick Cart system to allow customers to add products and manage their cart instantly without page reloads."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enable popup for variable product"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Automatically show a quick popup for variable products so customers can select variations before adding to the cart."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enable drag and drop cart"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Allow customers to drag products directly into the cart for a faster and more interactive shopping experience."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enable direct checkout"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Skip the cart page and send customers directly to checkout to reduce friction and increase conversions."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose Cart Option"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Selected"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the layout style for your shopping cart display."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Cart Width"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Width"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Set the width of the cart in pixels (300-800)"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Animation Style"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Animation"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Slide In"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Fade In"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Slide & Fade"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Bounce In"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose how the cart appears when opened."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Cart Icon Position"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Position"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose where the cart toggle button appears on your site."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Icon Style"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Select the icon design for the cart toggle button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Icon Size"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Size"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Set the size of the cart icon in pixels (40-120)."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Show Item Count Badge"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Display the number of items in the cart on the toggle icon."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Badge Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the background color for the item count badge."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Badge Text Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the text color for the item count badge."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Icon Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the background color for the cart icon button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Icon Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the color for the cart icon itself."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Icon Border Shape"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Select the border style for the cart icon button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Position Offset"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Top"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Bottom"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Left"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Right"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Adjust the distance of the cart icon from the edges of the screen. Note: Only the relevant offset values (based on icon position) will be applied."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Hide on Pages"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Pages"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Select pages where the cart icon should not be displayed."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Show Shipping"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Display shipping information in the cart summary."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Show Apply Coupon Field"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Allow customers to apply discount coupons in the cart."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Coupon Button Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the background color for the coupon apply button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Coupon Button Text Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the text color for the coupon apply button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Checkout Button Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the background color for the checkout button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Checkout Button Text Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the text color for the checkout button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "View Cart Button Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the background color for the View Cart button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "View Cart Button Text Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the text color for the View Cart button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Show Checkout Button"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Display the checkout button in the cart."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Multi-Step Checkout Steps"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Configure the steps for your multi-step checkout process. You can enable/disable steps and customize their labels."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Billing & Shipping"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enter billing and shipping details"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Order Review"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Review cart items and totals with dynamic shipping"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Payment"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose payment method and place order"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "All steps are required for checkout process."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Progress Bar Style"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Select the progress bar design for checkout steps."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Progress Bar Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the color for the progress bar."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Progress Label Text Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the text color for progress step labels."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Progress Label Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the background color for progress step labels."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Next Button Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the background color for the Next step button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Next Button Text Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the text color for the Next step button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Previous Button Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the background color for the Previous step button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Previous Button Text Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the text color for the Previous step button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Back to Cart Button Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the background color for the Back to Cart button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Back to Cart Button Text Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the text color for the Back to Cart button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enable Thank You Page"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enable custom thank you page after order completion."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Thank You Display"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose how to display the thank you message."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Popup Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Choose the background color for the thank you popup."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Show Order Summary"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Display order summary in the thank you popup."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Select Thank You Page"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Page"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Select the page to redirect after order completion."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Close Button Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Set the background color for the popup close button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Close Button Icon Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Set the icon color for the popup close button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Popup Width"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Width (px)"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Set the maximum width of the popup (in pixels). Default: 1000px"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Add to Cart Button Background Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Set the background color for the add to cart button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Add to Cart Button Text Color"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Set the text color for the add to cart button."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Pro License"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enter your license key"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Deactivate"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Activate"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Active"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enter your license key to activate premium features and receive updates."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enable Advanced Settings"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Enable advanced configuration options for the plugin."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Upsell Products Show on Cart Panel"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Related Products"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Select up to 2 products"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Select up to 2 products to display as upsell in the cart panel. Products will use your theme's default styling."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Display related products in the cart panel to encourage additional purchases."
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Install"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Our Other Plugins"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Explore more tools to enhance your store"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Need Help?"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Documentation"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Get Support"
+msgstr ""
+
+#: dist/assets/main.js:57
+msgid "Join Community"
+msgstr ""

@@ -37,10 +37,10 @@ class ToggleDataSanitization
             'iconSize'        => isset( $data['iconSize'] ) && is_numeric( $data['iconSize'] )
                                  ? max( 40, min( 120, intval( $data['iconSize'] ) ) ) : 60,
             'showBadge'       => isset( $data['showBadge'] ) ? (bool) $data['showBadge'] : true,
-            'badgeBgColor'    => sanitize_text_field( $data['badgeBgColor'] ?? '#3498db' ),
-            'badgeTextColor'  => sanitize_text_field( $data['badgeTextColor'] ?? '#ffffff' ),
-            'iconBgColor'     => sanitize_text_field( $data['iconBgColor'] ?? '#05291B' ),
-            'iconColor'       => sanitize_text_field( $data['iconColor'] ?? '#ffffff' ),
+            'badgeBgColor'    => self::sanitize_color( $data['badgeBgColor'] ?? '#3498db' ),
+            'badgeTextColor'  => self::sanitize_color( $data['badgeTextColor'] ?? '#ffffff' ),
+            'iconBgColor'     => self::sanitize_color( $data['iconBgColor'] ?? '#05291B' ),
+            'iconColor'       => self::sanitize_color( $data['iconColor'] ?? '#ffffff' ),
             'hideOnPages'     => isset( $data['hideOnPages'] ) && is_array( $data['hideOnPages'] )
                                  ? array_map( 'intval', $data['hideOnPages'] ) : [],
             'borderShape'     => isset( $data['borderShape'] ) && in_array( $data['borderShape'], ['none', 'circle', 'rounded'] )
@@ -54,5 +54,30 @@ class ToggleDataSanitization
             'offsetRight'     => isset( $data['offsetRight'] ) && is_numeric( $data['offsetRight'] )
                                  ? (int) max( 0, min( 500, $data['offsetRight'] ) ) : 20,
         ];
+    }
+
+    /**
+     * Sanitize color value (hex or rgba)
+     *
+     * @param string $color Color value
+     * @return string Sanitized color
+     */
+    private static function sanitize_color( $color )
+    {
+        // Remove any whitespace
+        $color = trim( $color );
+
+        // Check if it's a valid hex color
+        if ( preg_match( '/^#[a-fA-F0-9]{6}$/', $color ) || preg_match( '/^#[a-fA-F0-9]{3}$/', $color ) ) {
+            return $color;
+        }
+
+        // Check if it's a valid rgba color
+        if ( preg_match( '/^rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*(,\s*[\d.]+\s*)?\)$/', $color ) ) {
+            return $color;
+        }
+
+        // Return default if invalid
+        return '#000000';
     }
 }

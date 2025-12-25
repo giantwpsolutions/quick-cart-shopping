@@ -1,15 +1,15 @@
 <?php
 /**
 * Plugin Name: Quick Cart Shopping
-* Plugin URI: https                                               :                                                                                                                    //giantwpsolutions.com/plugins/quick-cart-shopping
-* Description: A modern WooCommerce UX booster — adds floating cart, variation popups, and drag & drop shopping experience. Convert more customers with smooth, app-like interactions.
+* Plugin URI: https://giantwpsolutions.com/plugins/quick-cart-shopping
+* Description: A modern WooCommerce UX booster — adds floating cart, variation popups, and drag  &drop shopping experience. Convert more customers with smooth, app-like interactions.
 * Version: 1.0.0
 * Author: Giant WP Solutions
-* Author URI: https                                               :                                                                                                                    //giantwpsolutions.com
+* Author URI: https://giantwpsolutions.com
 * License: GPLv2 or later
 * Text Domain: quick-cart-shopping
 * WC requires at least: 3.0.0
-* WC tested up to: 9.5.1
+* WC tested up to: 10.4.3
 * Requires PHP: 7.4
 * WooCommerce HPOS support: yes
 * Domain Path: /languages
@@ -32,7 +32,7 @@ final class Quick_Cart_Shopping{
       /**
      * The plugin version
      */
-    const version = '1.1.0';
+    const version = '1.0.0';
 
     /**
      * Class Constructor
@@ -42,7 +42,7 @@ final class Quick_Cart_Shopping{
         register_activation_hook( __FILE__ , [ $this, 'activate' ] );
         add_action( 'plugins_loaded', [ $this, 'on_plugins_loaded'] );
         add_action( 'admin_notices', [ $this, 'check_woocommerce_active' ] );
-        add_filter( 'plugin_action_links_quick-cart-shopping/quick-cart-shopping.php', [ $this, 'qcshop_discount_settings_link' ] );
+        add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), [ $this, 'qcshop_discount_settings_link' ] );
         $this->declare_hpos_compatibility();
         $this->define_constants();
     }
@@ -81,6 +81,7 @@ final class Quick_Cart_Shopping{
      */
     public function on_plugins_loaded()
     {
+        load_plugin_textdomain( 'quick-cart-shopping', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
         if ( class_exists( 'WooCommerce' ) ) {
 
