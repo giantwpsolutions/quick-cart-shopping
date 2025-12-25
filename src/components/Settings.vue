@@ -24,7 +24,13 @@ import { cartSettingsService } from '@/api/services/cartSettingsService'
 import { checkoutSettingsService } from '@/api/services/checkoutSettingsService'
 import { variationPopupSettingsService } from '@/api/services/variationPopupSettingsService'
 import { settingsService } from '@/api/services/settingsService'
+import { licenseService } from '@/api/services/licenseService'
 import { generalMessages, layoutMessages, toggleMessages, cartMessages, checkoutMessages, variationPopupMessages, commonMessages } from '@/data/messages'
+
+// License state
+const isProPluginInstalled = ref(false)
+const licenseStatus = ref('inactive')
+const isProActive = ref(false)
 
 const defaults = {
   general  : { enableQuickCart: true, enableVarProduct: true, enableDragAndDrop: true, enableDirectCheckout: true },
@@ -131,6 +137,28 @@ function reset() {
 
 onMounted(async () => {
   try {
+    // Check license status first
+    try {
+      const licenseResponse = await licenseService.getStatus()
+      if (licenseResponse && licenseResponse.license_status !== undefined) {
+        // Pro plugin is installed
+        isProPluginInstalled.value = true
+        licenseStatus.value = licenseResponse.license_status
+        isProActive.value = licenseResponse.license_status === 'valid'
+      } else {
+        // Pro plugin not installed
+        isProPluginInstalled.value = false
+        licenseStatus.value = 'inactive'
+        isProActive.value = false
+      }
+    } catch (error) {
+      // API call failed - Pro plugin likely not installed
+      console.log('License check failed or Pro not installed:', error)
+      isProPluginInstalled.value = false
+      licenseStatus.value = 'inactive'
+      isProActive.value = false
+    }
+
     // Load general settings
     const generalResponse = await generalSettingsService.get()
     if (generalResponse.success && generalResponse.settings && Object.keys(generalResponse.settings).length > 0) {
@@ -268,7 +296,14 @@ onMounted(async () => {
 
         <!-- IMPORTANT: pass v-model to the route component -->
         <RouterView v-else v-slot="{ Component }">
-          <component :is="Component" v-if="settings[sectionKey]" v-model="settings[sectionKey]" />
+          <component
+            :is="Component"
+            v-if="settings[sectionKey]"
+            v-model="settings[sectionKey]"
+            :isProPluginInstalled="isProPluginInstalled"
+            :isProActive="isProActive"
+            :licenseStatus="licenseStatus"
+          />
           <div v-else class="tw-text-sm tw-text-red-600">Section not initialized.</div>
         </RouterView>
       </CardFrame>

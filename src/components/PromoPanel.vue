@@ -33,20 +33,23 @@ const promos = computed(() => [
   },
 ])
 
-const helpLinks = [
+const helpLinks = computed(() => [
   {
-    url: '#',
-    icon: '📚'
+    url: window.qcshoppingPluginData?.docsUrl || 'https://www.docs.giantwpsolutions.com/',
+    icon: '📚',
+    label: 'Documentation'
   },
   {
-    url: '#',
-    icon: '💬'
+    url: window.qcshoppingPluginData?.supportUrl || 'https://www.giantwpsolutions.com/support/',
+    icon: '💬',
+    label: 'Get Support'
   },
   {
-    url: '#',
-    icon: '👥'
+    url: window.qcshoppingPluginData?.communityUrl || 'https://www.facebook.com/groups/giantwpsolutions',
+    icon: '👥',
+    label: 'Join Community'
   }
-]
+])
 </script>
 
 <template>
@@ -74,31 +77,15 @@ const helpLinks = [
         <h4 class="tw-text-sm tw-font-semibold tw-text-gray-800 tw-mb-2.5">{{__("Need Help?", "quick-cart-shopping")}}</h4>
         <div class="tw-space-y-2">
           <a
-            :href="helpLinks[0].url"
+            v-for="link in helpLinks"
+            :key="link.label"
+            :href="link.url"
             class="help-link"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span class="tw-mr-2">{{ helpLinks[0].icon }}</span>
-            <span>{{__("Documentation", "quick-cart-shopping")}}</span>
-          </a>
-          <a
-            :href="helpLinks[1].url"
-            class="help-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="tw-mr-2">{{ helpLinks[1].icon }}</span>
-            <span>{{__("Get Support", "quick-cart-shopping")}}</span>
-          </a>
-          <a
-            :href="helpLinks[2].url"
-            class="help-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span class="tw-mr-2">{{ helpLinks[2].icon }}</span>
-            <span>{{__("Join Community", "quick-cart-shopping")}}</span>
+            <span class="tw-mr-2">{{ link.icon }}</span>
+            <span>{{__(link.label, "quick-cart-shopping")}}</span>
           </a>
         </div>
       </div>

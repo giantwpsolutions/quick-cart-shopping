@@ -12,6 +12,22 @@
 -->
 <script setup>
 const model = defineModel({ type: Object, required: true })
+
+// Props from parent Settings component
+const props = defineProps({
+  isProPluginInstalled: {
+    type: Boolean,
+    default: false
+  },
+  isProActive: {
+    type: Boolean,
+    default: false
+  },
+  licenseStatus: {
+    type: String,
+    default: 'inactive'
+  }
+})
 </script>
 
 <template>
@@ -73,9 +89,10 @@ const model = defineModel({ type: Object, required: true })
       </p>
     </div>
 
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
       <div class="tw-flex tw-items-center">
-        <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Enable direct checkout", "quick-cart-shopping")}}</h4>
+        <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Enable checkout on floating cart", "quick-cart-shopping")}}</h4>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded tw-ml-2">PRO</span>
         <el-switch
           v-model="model.enableDirectCheckout"
           class="ml-2"

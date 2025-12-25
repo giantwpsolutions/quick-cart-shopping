@@ -15,6 +15,22 @@ import { pagesData, isLoadingPagesData, loadPagesData } from '@/data/pageDataFet
 
 const model = defineModel({ type: Object, required: true })
 
+// Props from parent Settings component
+const props = defineProps({
+  isProPluginInstalled: {
+    type: Boolean,
+    default: false
+  },
+  isProActive: {
+    type: Boolean,
+    default: false
+  },
+  licenseStatus: {
+    type: String,
+    default: 'inactive'
+  }
+})
+
 const base = (typeof qcshoppingPluginData !== 'undefined' && qcshoppingPluginData.pluginUrl)
   ? (qcshoppingPluginData.pluginUrl.endsWith('/') ? qcshoppingPluginData.pluginUrl : qcshoppingPluginData.pluginUrl + '/')
   : '/';
@@ -38,9 +54,30 @@ onMounted(() => {
 <template>
   <div class="tw-space-y-6 tw-pt-4 tw-pb-2">
 
+    <!-- License Warning (only show if Pro plugin installed but license not active) -->
+    <div v-if="isProPluginInstalled && !isProActive" class="tw-border tw-border-red-500 tw-rounded-lg tw-p-4 tw-bg-red-50 tw-shadow-sm">
+      <div class="tw-flex tw-items-start tw-gap-3">
+        <svg class="tw-w-6 tw-h-6 tw-text-red-600 tw-flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
+        <div>
+          <h4 class="tw-font-semibold tw-text-red-800 tw-mb-1">Pro License Required</h4>
+          <p class="tw-text-sm tw-text-red-700">
+            Multi-step checkout is a Pro feature. Please activate your license to use these settings.
+            <span v-if="licenseStatus" class="tw-block tw-mt-1 tw-text-xs">
+              Current license status: <strong>{{ licenseStatus }}</strong>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
     <!-- Multi-Step Checkout Configuration -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Multi-Step Checkout Steps", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Multi-Step Checkout Steps", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <p class="tw-text-xs tw-text-gray-600 tw-mb-4">
         {{__("Configure the steps for your multi-step checkout process. You can enable/disable steps and customize their labels.", "quick-cart-shopping")}}
@@ -120,8 +157,11 @@ onMounted(() => {
     </div>
 
     <!-- Progress Bar Style -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Progress Bar Style", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Progress Bar Style", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-3 tw-gap-3">
         <label
@@ -187,8 +227,11 @@ onMounted(() => {
     </div>
 
     <!-- Progress Bar Color -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Progress Bar Color", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Progress Bar Color", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
@@ -206,8 +249,11 @@ onMounted(() => {
     </div>
 
     <!-- Progress Label Text Color -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Progress Label Text Color", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Progress Label Text Color", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
@@ -225,8 +271,11 @@ onMounted(() => {
     </div>
 
     <!-- Progress Label Background Color -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Progress Label Background Color", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Progress Label Background Color", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
@@ -244,8 +293,11 @@ onMounted(() => {
     </div>
 
     <!-- Next Button Background Color -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Next Button Background Color", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Next Button Background Color", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
@@ -263,8 +315,11 @@ onMounted(() => {
     </div>
 
     <!-- Next Button Text Color -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Next Button Text Color", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Next Button Text Color", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
@@ -282,8 +337,11 @@ onMounted(() => {
     </div>
 
     <!-- Previous Button Background Color -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Previous Button Background Color", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Previous Button Background Color", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
@@ -301,8 +359,11 @@ onMounted(() => {
     </div>
 
     <!-- Previous Button Text Color -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Previous Button Text Color", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Previous Button Text Color", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
@@ -320,8 +381,11 @@ onMounted(() => {
     </div>
 
     <!-- Back to Cart Button Background Color -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Back to Cart Button Background Color", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Back to Cart Button Background Color", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
@@ -339,8 +403,11 @@ onMounted(() => {
     </div>
 
     <!-- Back to Cart Button Text Color -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Back to Cart Button Text Color", "quick-cart-shopping")}}</h3>
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Back to Cart Button Text Color", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
@@ -358,9 +425,10 @@ onMounted(() => {
     </div>
 
     <!-- Enable Thank You Page -->
-    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+    <div class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Enable Thank You Page", "quick-cart-shopping")}}</h4>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded tw-ml-2">PRO</span>
         <el-switch
           v-model="model.enableThankYouPage"
           class="ml-2"
@@ -378,8 +446,11 @@ onMounted(() => {
     </div>
 
     <!-- Thank You Display Options (Conditional) -->
-    <div v-if="model.enableThankYouPage" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Thank You Display", "quick-cart-shopping")}}</h3>
+    <div v-if="model.enableThankYouPage" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Thank You Display", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <el-radio-group
         v-model="model.thankYouDisplay"
@@ -403,8 +474,11 @@ onMounted(() => {
     </div>
 
     <!-- Popup Background Color (Conditional) -->
-    <div v-if="model.enableThankYouPage && model.thankYouDisplay === 'popup'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Popup Background Color", "quick-cart-shopping")}}</h3>
+    <div v-if="model.enableThankYouPage && model.thankYouDisplay === 'popup'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Popup Background Color", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-center tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap">{{__("Color", "quick-cart-shopping")}}</label>
@@ -422,9 +496,10 @@ onMounted(() => {
     </div>
 
     <!-- Show Order Summary (Conditional - Popup only) -->
-    <div v-if="model.enableThankYouPage && model.thankYouDisplay === 'popup'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
+    <div v-if="model.enableThankYouPage && model.thankYouDisplay === 'popup'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
       <div class="tw-flex tw-items-center">
         <h4 class="tw-text-sm tw-font-medium tw-pr-2">{{__("Show Order Summary", "quick-cart-shopping")}}</h4>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded tw-ml-2">PRO</span>
         <el-switch
           v-model="model.showOrderSummary"
           class="ml-2"
@@ -442,8 +517,11 @@ onMounted(() => {
     </div>
 
     <!-- Select Thank You Page (Conditional - Page only) -->
-    <div v-if="model.enableThankYouPage && model.thankYouDisplay === 'page'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm">
-      <h3 class="tw-text-base tw-font-semibold tw-text-gray-800 tw-mb-3">{{__("Select Thank You Page", "quick-cart-shopping")}}</h3>
+    <div v-if="model.enableThankYouPage && model.thankYouDisplay === 'page'" class="tw-border tw-border-gray-400 tw-rounded-lg tw-p-4 tw-bg-white tw-shadow-sm" :class="{ 'tw-opacity-60 tw-pointer-events-none tw-select-none': !isProActive }">
+      <div class="tw-flex tw-items-center tw-gap-2 tw-mb-3">
+        <h3 class="tw-text-base tw-font-semibold tw-text-gray-800">{{__("Select Thank You Page", "quick-cart-shopping")}}</h3>
+        <span v-if="!isProActive" class="tw-px-2 tw-py-0.5 tw-text-xs tw-font-bold tw-text-white tw-bg-red-600 tw-rounded">PRO</span>
+      </div>
 
       <div class="tw-flex tw-items-start tw-gap-3">
         <label class="tw-text-sm tw-text-gray-700 tw-font-medium tw-whitespace-nowrap tw-pt-2">{{__("Page", "quick-cart-shopping")}}</label>
