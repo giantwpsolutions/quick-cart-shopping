@@ -25,7 +25,7 @@ class ShippingHandler {
             wp_send_json_error( [ 'message' => 'WooCommerce not active' ] );
         }
 
-        $shipping_method = isset( $_POST['shipping_method'] ) ? sanitize_text_field( $_POST['shipping_method'] ) : '';
+        $shipping_method = isset( $_POST['shipping_method'] ) ? sanitize_text_field( wp_unslash( $_POST['shipping_method'] ) ) : '';
 
         if ( empty( $shipping_method ) ) {
             wp_send_json_error( [ 'message' => 'Please select a shipping method' ] );

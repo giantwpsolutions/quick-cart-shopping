@@ -1,14 +1,14 @@
 === Quick Cart Shopping ===
 Contributors: giantwpsolutions, developerhabib
-Tags: woocommerce cart, floating cart, side cart, popup cart, quick checkout, drag and drop cart
+Tags: woocommerce cart, floating cart, side cart, popup cart, quick checkout,
 Requires at least: 6.0
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Quick Cart Shopping adds a fast, modern floating cart system to WooCommerce with side cart, popup cart, drag & drop support, and instant product interaction.
+Quick Cart Shopping adds a fast floating cart to WooCommerce with side cart, popup cart, drag & drop support, and instant product interaction.
 
 == Description ==
 

@@ -25,7 +25,7 @@ class CouponHandler {
             wp_send_json_error( [ 'message' => 'WooCommerce not active' ] );
         }
 
-        $coupon_code = isset( $_POST['coupon_code'] ) ? sanitize_text_field( $_POST['coupon_code'] ) : '';
+        $coupon_code = isset( $_POST['coupon_code'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon_code'] ) ) : '';
 
         if ( empty( $coupon_code ) ) {
             wp_send_json_error( [ 'message' => 'Please enter a coupon code' ] );
@@ -80,7 +80,7 @@ class CouponHandler {
             wp_send_json_error( [ 'message' => 'WooCommerce not active' ] );
         }
 
-        $coupon_code = isset( $_POST['coupon_code'] ) ? sanitize_text_field( $_POST['coupon_code'] ) : '';
+        $coupon_code = isset( $_POST['coupon_code'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon_code'] ) ) : '';
 
         if ( empty( $coupon_code ) ) {
             wp_send_json_error( [ 'message' => 'Please provide a coupon code to remove' ] );

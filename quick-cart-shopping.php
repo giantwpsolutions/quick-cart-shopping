@@ -81,7 +81,6 @@ final class Quick_Cart_Shopping{
      */
     public function on_plugins_loaded()
     {
-        load_plugin_textdomain( 'quick-cart-shopping', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
         if ( class_exists( 'WooCommerce' ) ) {
 

@@ -79,16 +79,16 @@ class VariableProductHandler {
             'gallery_images'    => $gallery_images,
         ];
 
-        // Set up global post and product for template rendering
-        global $post, $product;
+        // Set up global post for template rendering
+        global $post;
 
-        // Store original values
+        // Store original value
         $original_post = $post;
-        $original_product = $product;
 
         // Set globals for template
         $post = get_post( $product_id );
-        $product = $variable_product;
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+        $GLOBALS['product'] = $variable_product;
 
         // Setup post data
         setup_postdata( $post );
@@ -108,7 +108,6 @@ class VariableProductHandler {
 
             // Restore globals
             $post = $original_post;
-            $product = $original_product;
             wp_reset_postdata();
 
             wp_send_json_error( [ 'message' => 'Failed to render variations form: ' . $e->getMessage() ] );
@@ -116,7 +115,6 @@ class VariableProductHandler {
 
         // Restore globals
         $post = $original_post;
-        $product = $original_product;
         wp_reset_postdata();
 
         // Add variations form to product data

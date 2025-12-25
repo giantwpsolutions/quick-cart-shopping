@@ -25,7 +25,7 @@ class CartItemUpdater {
             wp_send_json_error( [ 'message' => 'WooCommerce not active' ] );
         }
 
-        $cart_item_key = isset( $_POST['cart_item_key'] ) ? sanitize_text_field( $_POST['cart_item_key'] ) : '';
+        $cart_item_key = isset( $_POST['cart_item_key'] ) ? sanitize_text_field( wp_unslash( $_POST['cart_item_key'] ) ) : '';
         $quantity = isset( $_POST['quantity'] ) ? absint( $_POST['quantity'] ) : 1;
 
         if ( empty( $cart_item_key ) ) {
