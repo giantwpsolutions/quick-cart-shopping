@@ -1,0 +1,79 @@
+/**
+ * Cart Panel - Base Styles
+ *
+ * Shared base styles for overlay and panel structure.
+ * Animation-specific styles are loaded separately based on settings.
+ *
+ * @package Quick Cart Shopping
+ * @since 1.0.0
+ */
+
+/* Overlay - Synchronized timing with panel animations */
+.qc-cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+  -moz-transition: opacity 0.3s ease, visibility 0.3s ease;
+  -o-transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.qc-cart-overlay.qc-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Panel Base - Structural styles without animation */
+.qc-cart-panel {
+  position: fixed;
+  background-color: #ffffff;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.qc-cart-panel.qc-active {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Side Cart Layout */
+.qc-cart-panel.qc-cart-side {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 90vw;
+}
+
+/* Popup Cart Layout */
+.qc-cart-panel.qc-cart-popup {
+  top: 50%;
+  left: 50%;
+  width: 90vw;
+  max-height: 90vh;
+  border-radius: 16px;
+}
+
+/* Mobile Responsive - Layout only */
+@media (max-width: 768px) {
+  .qc-cart-panel.qc-cart-side {
+    width: 100% !important;
+    max-width: 100vw;
+  }
+
+  .qc-cart-panel.qc-cart-popup {
+    width: 95vw;
+    max-height: 95vh;
+  }
+}

@@ -44,12 +44,34 @@ class FrontEnd_Assets{
             $plugin_version
         );
 
+        // Enqueue base cart panel styles (always loaded)
         wp_enqueue_style(
-            'qc-cart-panel',
-            $plugin_url . 'assets/frontend/css/cart-panel.css',
+            'qc-cart-panel-base',
+            $plugin_url . 'assets/frontend/css/cart-panel-base.css',
             [],
             $plugin_version
         );
+
+        // Enqueue main cart panel styles
+        wp_enqueue_style(
+            'qc-cart-panel',
+            $plugin_url . 'assets/frontend/css/cart-panel.css',
+            [ 'qc-cart-panel-base' ],
+            $plugin_version
+        );
+
+        // Conditionally enqueue animation-specific CSS based on layout settings
+        $settings = SettingsProvider::get_all_settings();
+        $animation = isset( $settings['layout']['animation'] ) ? $settings['layout']['animation'] : 'slide';
+
+        if ( in_array( $animation, [ 'slide', 'fade', 'bounce' ], true ) ) {
+            wp_enqueue_style(
+                'qc-cart-panel-' . $animation,
+                $plugin_url . 'assets/frontend/css/cart-panel-' . $animation . '.css',
+                [ 'qc-cart-panel-base' ],
+                $plugin_version
+            );
+        }
 
         // Add dynamic CSS for cart settings
         $this->add_cart_dynamic_css();

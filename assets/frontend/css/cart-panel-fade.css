@@ -1,0 +1,22 @@
+/**
+ * Cart Panel - Fade Animation
+ *
+ * Simple fade-in animation with opacity transition.
+ *
+ * @package Quick Cart Shopping
+ * @since 1.0.0
+ */
+
+/* Initial state - Panel invisible */
+.qc-cart-panel.qc-animation-fade {
+  opacity: 0 !important;
+  -webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+
+/* Active state - Panel fades into view */
+.qc-cart-panel.qc-animation-fade.qc-active {
+  opacity: 1 !important;
+}

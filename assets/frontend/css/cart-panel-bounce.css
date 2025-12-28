@@ -1,0 +1,51 @@
+/**
+ * Cart Panel - Bounce Animation
+ *
+ * Bounce animation with scale effect and spring easing.
+ * Uses elastic cubic-bezier for bounce effect.
+ *
+ * @package Quick Cart Shopping
+ * @since 1.0.0
+ */
+
+/* Side Cart - Bounce with scale */
+.qc-cart-panel.qc-cart-side.qc-animation-bounce {
+  -webkit-transform: scale(0.7) !important;
+  -moz-transform: scale(0.7) !important;
+  -ms-transform: scale(0.7) !important;
+  transform: scale(0.7) !important;
+  opacity: 0 !important;
+  -webkit-transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+  -moz-transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+  -o-transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+}
+
+.qc-cart-panel.qc-cart-side.qc-animation-bounce.qc-active {
+  -webkit-transform: scale(1) !important;
+  -moz-transform: scale(1) !important;
+  -ms-transform: scale(1) !important;
+  transform: scale(1) !important;
+  opacity: 1 !important;
+}
+
+/* Popup Cart - Bounce with center positioning maintained */
+.qc-cart-panel.qc-cart-popup.qc-animation-bounce {
+  -webkit-transform: translate(-50%, -50%) scale(0.7) !important;
+  -moz-transform: translate(-50%, -50%) scale(0.7) !important;
+  -ms-transform: translate(-50%, -50%) scale(0.7) !important;
+  transform: translate(-50%, -50%) scale(0.7) !important;
+  opacity: 0 !important;
+  -webkit-transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+  -moz-transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+  -o-transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+}
+
+.qc-cart-panel.qc-cart-popup.qc-animation-bounce.qc-active {
+  -webkit-transform: translate(-50%, -50%) scale(1) !important;
+  -moz-transform: translate(-50%, -50%) scale(1) !important;
+  -ms-transform: translate(-50%, -50%) scale(1) !important;
+  transform: translate(-50%, -50%) scale(1) !important;
+  opacity: 1 !important;
+}

@@ -64,5 +64,5 @@ const emit = defineEmits(['save','reset'])
 </template>
 
 <style scoped>
-.brand { --el-color-primary:#05291B; }
+.brand { --el-color-primary:#0598FB; }
 </style>

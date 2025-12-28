@@ -1,0 +1,47 @@
+/**
+ * Cart Panel - Slide Animation
+ *
+ * Slide animation from right to left with smooth easing.
+ * Uses transform for GPU-accelerated performance.
+ *
+ * @package Quick Cart Shopping
+ * @since 1.0.0
+ */
+
+/* Side Cart - Slide from right */
+.qc-cart-panel.qc-cart-side.qc-animation-slide {
+  -webkit-transform: translateX(100%) !important;
+  -moz-transform: translateX(100%) !important;
+  -ms-transform: translateX(100%) !important;
+  transform: translateX(100%) !important;
+  -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.qc-cart-panel.qc-cart-side.qc-animation-slide.qc-active {
+  -webkit-transform: translateX(0) !important;
+  -moz-transform: translateX(0) !important;
+  -ms-transform: translateX(0) !important;
+  transform: translateX(0) !important;
+}
+
+/* Popup Cart - Slide with center positioning maintained */
+.qc-cart-panel.qc-cart-popup.qc-animation-slide {
+  -webkit-transform: translate(-50%, -50%) translateX(100%) !important;
+  -moz-transform: translate(-50%, -50%) translateX(100%) !important;
+  -ms-transform: translate(-50%, -50%) translateX(100%) !important;
+  transform: translate(-50%, -50%) translateX(100%) !important;
+  -webkit-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.qc-cart-panel.qc-cart-popup.qc-animation-slide.qc-active {
+  -webkit-transform: translate(-50%, -50%) translateX(0) !important;
+  -moz-transform: translate(-50%, -50%) translateX(0) !important;
+  -ms-transform: translate(-50%, -50%) translateX(0) !important;
+  transform: translate(-50%, -50%) translateX(0) !important;
+}

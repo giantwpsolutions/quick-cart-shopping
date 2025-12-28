@@ -43,7 +43,7 @@ function toggleMobileMenu() {
 const logoUrl = `${qcshoppingPluginData.pluginUrl}assets/images/logo.png`;
 </script>
 <template>
-<header class="qc-header tw-bg-[#2c3e50] tw-text-white tw-shadow-lg tw-border-b tw-border-[#3498db]/20">
+<header class="qc-header tw-bg-[#1F2937] tw-text-white tw-shadow-lg tw-border-b tw-border-[#3498db]/20">
 
 
     <div class="tw-max-w-[1400px] tw-mx-auto tw-px-3 sm:tw-px-4">
@@ -71,8 +71,8 @@ const logoUrl = `${qcshoppingPluginData.pluginUrl}assets/images/logo.png`;
             :class="[
               'tw-relative tw-px-4 tw-py-2 tw-rounded-lg tw-text-sm tw-font-medium tw-whitespace-nowrap tw-transition-all tw-duration-200 tw-cursor-pointer',
               modelValue === i.key
-                ? 'tw-bg-gradient-to-r tw-from-[#3498db] tw-to-[#2980b9] tw-text-white tw-shadow-lg tw-shadow-[#3498db]/30'
-                : 'tw-bg-gray-600/50 tw-text-white hover:tw-bg-gray-600 hover:tw-shadow-md'
+                ? 'tw-bg-[#0598FB] tw-text-white tw-shadow-lg tw-shadow-[#0598FB]/30'
+                : 'tw-bg-gray-600/50 tw-text-white hover:tw-bg-[#0598FB] hover:tw-shadow-md'
             ]"
           >
             {{ i.label }}
@@ -84,10 +84,11 @@ const logoUrl = `${qcshoppingPluginData.pluginUrl}assets/images/logo.png`;
 
         <!-- Upgrade Button -->
         <button
-          class="tw-relative tw-px-2.5 sm:tw-px-3 tw-py-1.5 tw-rounded-lg tw-bg-gradient-to-r tw-from-[#3498db] tw-to-[#2980b9] tw-text-white tw-text-xs tw-font-semibold tw-shadow-md hover:tw-shadow-lg hover:tw-from-[#2980b9] hover:tw-to-[#21618c] tw-transition-all tw-duration-200 tw-flex-shrink-0 tw-whitespace-nowrap"
+          class="tw-relative tw-px-2.5 sm:tw-px-3 tw-py-1.5 tw-rounded-lg tw-bg-gradient-to-r tw-from-[#3498db] tw-to-[#2980b9] tw-text-white tw-text-xs tw-font-semibold tw-shadow-md hover:tw-shadow-lg hover:tw-from-[#2980b9] hover:tw-to-[#21618c] tw-transition-all tw-duration-200 tw-flex-shrink-0 tw-whitespace-nowrap tw-flex tw-items-center tw-gap-1.5"
           @click="emit('upgrade')"
         >
-          <span>Pro</span>
+          <span>Upgrade</span>
+          <span class="tw-inline-flex tw-items-center tw-px-1.5 tw-py-0.5 tw-rounded tw-text-[10px] tw-font-bold tw-bg-red-600 tw-text-white">Pro</span>
         </button>
       </div>
     </div>
@@ -105,8 +106,8 @@ const logoUrl = `${qcshoppingPluginData.pluginUrl}assets/images/logo.png`;
           :class="[
             'tw-w-full tw-text-left tw-px-4 tw-py-2.5 tw-rounded-lg tw-text-sm tw-font-medium tw-transition-all tw-duration-200',
             modelValue === i.key
-              ? 'tw-bg-gradient-to-r tw-from-[#3498db] tw-to-[#2980b9] tw-text-white tw-shadow-lg'
-              : 'tw-bg-gray-700/50 tw-text-white hover:tw-bg-gray-700'
+              ? 'tw-bg-[#0598FB] tw-text-white tw-shadow-lg'
+              : 'tw-bg-gray-700/50 tw-text-white hover:tw-bg-[#0598FB]'
           ]"
         >
           {{ i.label }}

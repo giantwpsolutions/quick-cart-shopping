@@ -5,7 +5,7 @@
  * @since 1.0.0
  */
 
-/* Overlay */
+/* Overlay - Synchronized with panel animations */
 .qc-cart-overlay {
   position: fixed;
   top: 0;
@@ -17,14 +17,15 @@
   z-index: 9998;
   opacity: 0;
   visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
+  -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+  -moz-transition: opacity 0.3s ease, visibility 0.3s ease;
+  -o-transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .qc-cart-overlay.qc-active {
   opacity: 1;
   visibility: visible;
-  pointer-events: auto;
 }
 
 /* Panel Base */
@@ -48,48 +49,26 @@
   right: 0;
   bottom: 0;
   max-width: 90vw;
-  transform: translateX(100%);
-  opacity: 0;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-}
-
-.qc-cart-panel.qc-cart-side.qc-active {
-  transform: translateX(0);
-  opacity: 1;
 }
 
 /* Popup Cart Layout */
 .qc-cart-panel.qc-cart-popup {
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
-  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 90vw;
   max-height: 90vh;
   border-radius: 16px;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
 }
 
-.qc-cart-panel.qc-cart-popup.qc-active {
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-}
-
-/* Animation Variants - Override timing for different animation types */
-.qc-cart-panel.qc-animation-slide {
-  transition-duration: 0.35s, 0.35s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1), ease;
-}
-
-.qc-cart-panel.qc-animation-fade {
-  transition-duration: 0.3s, 0.3s;
-  transition-timing-function: ease, ease;
-}
-
-.qc-cart-panel.qc-animation-bounce {
-  transition-duration: 0.5s, 0.35s;
-  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55), ease;
-}
+/* Animation-specific styles moved to separate files:
+ * - cart-panel-slide.css
+ * - cart-panel-fade.css
+ * - cart-panel-bounce.css
+ */
 
 /* Panel Header */
 .qc-cart-header {

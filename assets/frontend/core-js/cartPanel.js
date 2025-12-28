@@ -678,8 +678,18 @@ export class CartPanel {
     if (this.isOpen) return;
 
     this.isOpen = true;
-    DOM.addClass(this.overlay, 'qc-active');
-    DOM.addClass(this.panel, 'qc-active');
+
+    // Force browser to paint initial state before applying active class
+    // This ensures CSS transitions trigger properly
+    this.panel.offsetHeight; // Force reflow
+
+    // Use requestAnimationFrame to ensure browser paints the initial state
+    // before adding the active class to trigger the transition
+    requestAnimationFrame(() => {
+      DOM.addClass(this.overlay, 'qc-active');
+      DOM.addClass(this.panel, 'qc-active');
+    });
+
     document.body.style.overflow = 'hidden';
 
     // Trigger open event
