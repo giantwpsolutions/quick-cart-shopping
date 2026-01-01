@@ -44,9 +44,7 @@ const logoUrl = `${qcshoppingPluginData.pluginUrl}assets/images/logo.png`;
 </script>
 <template>
 <header class="qc-header tw-bg-[#1F2937] tw-text-white tw-shadow-lg tw-border-b tw-border-[#3498db]/20">
-
-
-    <div class="tw-max-w-[1400px] tw-mx-auto tw-px-3 sm:tw-px-4">
+    <div class="tw-max-w-7xl tw-mx-auto tw-px-4 sm:tw-px-6 lg:tw-px-8">
       <div class="tw-min-h-[60px] sm:tw-min-h-[70px] tw-flex tw-items-center tw-gap-3 sm:tw-gap-6">
         <img :src="logoUrl" alt="Logo" class="tw-h-8 sm:tw-h-10 tw-w-auto tw-drop-shadow-md tw-flex-shrink-0" />
 

@@ -276,7 +276,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="tw-min-h-screen tw-bg-gray-50 tw-pt-[93px]">
+  <div class="tw-min-h-screen tw-bg-gray-50 tw-pt-[75px]">
     <!--  header -->
     <TopHeader v-model="activeMenu" @upgrade="() => window.open(qcshoppingPluginData.proUrl, '_blank')" />
 
