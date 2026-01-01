@@ -90,7 +90,7 @@ class VariationPopupData extends WP_REST_Controller
     {
         if ( ! current_user_can( 'manage_options' ) ) {
             return new WP_Error(
-                'rest_forbidden',
+                'qcshopping_rest_forbidden',
                 __( 'You do not have permission to access this resource.', 'quick-cart-shopping' ),
                 [ 'status' => 403 ]
             );
@@ -102,7 +102,7 @@ class VariationPopupData extends WP_REST_Controller
             $nonce = $request->get_header( 'X-WP-Nonce' );
             if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
                 return new WP_Error(
-                    'rest_cookie_invalid_nonce',
+                    'qcshopping_rest_cookie_invalid_nonce',
                     __( 'Cookie nonce is invalid', 'quick-cart-shopping' ),
                     [ 'status' => 403 ]
                 );

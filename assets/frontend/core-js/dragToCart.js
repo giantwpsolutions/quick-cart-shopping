@@ -263,7 +263,7 @@ export class DragToCart {
 
     try {
       const formData = new URLSearchParams();
-      formData.append('action', 'woocommerce_ajax_add_to_cart');
+      formData.append('action', 'qcshopping_add_to_cart');
       formData.append('nonce', nonce);
       formData.append('product_id', productId);
       formData.append('variation_id', variationId);
@@ -313,7 +313,7 @@ export class DragToCart {
 
     try {
       const formData = new URLSearchParams();
-      formData.append('action', 'woocommerce_add_to_cart');
+      formData.append('action', 'qcshopping_add_to_cart');
       formData.append('product_id', productId);
       formData.append('quantity', 1);
 

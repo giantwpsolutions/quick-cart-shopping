@@ -31,12 +31,13 @@ use QuickCartShopping\Traits\SingletonTrait;
      */
     public function qcshopping_assets_register(){
 
-        wp_enqueue_style( 'qcs-shopping-cart-positions', plugin_dir_url(__DIR__). 'assets/css/qcs-cart-position.css', array(), QCSHOP_VERSION );
-        wp_enqueue_script('qcs-script', plugin_dir_url(__DIR__) . 'assets/js/qcs-cart-position.js', ['jquery'], QCSHOP_VERSION, true);
+        wp_enqueue_style( 'qcshopping-cart-positions', plugin_dir_url(__DIR__). 'assets/css/qcs-cart-position.css', array(), QCSHOPPING_VERSION );
+        wp_enqueue_script('qcshopping-script', plugin_dir_url(__DIR__) . 'assets/js/qcs-cart-position.js', ['jquery'], QCSHOPPING_VERSION, true);
 
 
-          wp_localize_script('qcs-script', 'wc_add_to_cart_params', [
+          wp_localize_script('qcshopping-script', 'qcshoppingParams', [
         'wc_ajax_url' => \WC_AJAX::get_endpoint('%%endpoint%%'),
+        'ajax_url' => admin_url('admin-ajax.php'),
     ]);
     }
 

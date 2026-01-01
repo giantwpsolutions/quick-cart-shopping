@@ -34,7 +34,7 @@ class FrontEnd_Assets{
         }
 
         $plugin_url = plugin_dir_url( dirname( dirname( __FILE__ ) ) );
-        $plugin_version = QCSHOP_VERSION;
+        $plugin_version = QCSHOPPING_VERSION;
 
         // Enqueue CSS
         wp_enqueue_style(

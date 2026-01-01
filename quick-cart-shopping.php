@@ -3,7 +3,7 @@
 * Plugin Name: Quick Cart Shopping
 * Plugin URI: https://giantwpsolutions.com/plugins/quick-cart-shopping
 * Description: A modern WooCommerce UX booster — adds floating cart, variation popups, and drag  &drop shopping experience. Convert more customers with smooth, app-like interactions.
-* Version: 1.0.0
+* Version: 1.0.1
 * Author: Giant WP Solutions
 * Author URI: https://giantwpsolutions.com
 * License: GPLv2 or later
@@ -32,7 +32,7 @@ final class Quick_Cart_Shopping{
       /**
      * The plugin version
      */
-    const version = '1.0.0';
+    const version = '1.0.1';
 
     /**
      * Class Constructor
@@ -42,7 +42,7 @@ final class Quick_Cart_Shopping{
         register_activation_hook( __FILE__ , [ $this, 'activate' ] );
         add_action( 'plugins_loaded', [ $this, 'on_plugins_loaded'] );
         add_action( 'admin_notices', [ $this, 'check_woocommerce_active' ] );
-        add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), [ $this, 'qcshop_discount_settings_link' ] );
+        add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), [ $this, 'qcshopping_discount_settings_link' ] );
         $this->declare_hpos_compatibility();
         $this->define_constants();
     }
@@ -69,10 +69,10 @@ final class Quick_Cart_Shopping{
      */
     public function define_constants()
     {
-        define( 'QCSHOP_VERSION', self::version );
-        define( 'QCSHOP_FILE', __FILE__ );
-        define( 'QCSHOP_PATH', plugin_dir_path(__FILE__) );
-        define( 'QCSHOP_LANG_DIR', plugin_basename( dirname(__FILE__) ) . '/languages' );
+        define( 'QCSHOPPING_VERSION', self::version );
+        define( 'QCSHOPPING_FILE', __FILE__ );
+        define( 'QCSHOPPING_PATH', plugin_dir_path(__FILE__) );
+        define( 'QCSHOPPING_LANG_DIR', plugin_basename( dirname(__FILE__) ) . '/languages' );
     }
 
       /**
@@ -140,7 +140,7 @@ final class Quick_Cart_Shopping{
      */
     public function woocommerce_missing_notice()
     {
-        qcshop_WoocommerceMissingAlert();
+        qcshopping_WoocommerceMissingAlert();
     }
 
       /**
@@ -151,7 +151,7 @@ final class Quick_Cart_Shopping{
      * @param array $links An array of existing action links.
      * @return array Modified array of action links with the added "Settings" link.
      */
-    public function qcshop_discount_settings_link( $links ) {
+    public function qcshopping_discount_settings_link( $links ) {
         $settings_link = '<a href="' . esc_url( admin_url( 'admin.php?page=quick-cart-shopping#' ) ) . '">' . esc_html__( 'Settings', 'quick-cart-shopping' ) . '</a>';
         array_unshift( $links, $settings_link );
         return $links;
@@ -163,7 +163,7 @@ final class Quick_Cart_Shopping{
     public function check_woocommerce_active()
     {
         if ( ! class_exists( 'WooCommerce' ) ) {
-            qcshop_WoocommerceDeactivationAlert();
+            qcshopping_WoocommerceDeactivationAlert();
         }
     }
 

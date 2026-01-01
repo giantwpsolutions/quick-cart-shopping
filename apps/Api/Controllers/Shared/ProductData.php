@@ -57,7 +57,7 @@ class ProductData extends WP_REST_Controller {
      */
     public function get_products( $request ) {
         if ( ! class_exists( 'WooCommerce' ) ) {
-            return new WP_Error( 'woocommerce_not_active', 'WooCommerce is not active', [ 'status' => 400 ] );
+            return new WP_Error( 'qcshopping_woocommerce_not_active', 'WooCommerce is not active', [ 'status' => 400 ] );
         }
 
         $per_page = $request->get_param( 'per_page' ) ?: 100;
@@ -116,14 +116,14 @@ class ProductData extends WP_REST_Controller {
      */
     public function get_product( $request ) {
         if ( ! class_exists( 'WooCommerce' ) ) {
-            return new WP_Error( 'woocommerce_not_active', 'WooCommerce is not active', [ 'status' => 400 ] );
+            return new WP_Error( 'qcshopping_woocommerce_not_active', 'WooCommerce is not active', [ 'status' => 400 ] );
         }
 
         $product_id = $request->get_param( 'id' );
         $product = wc_get_product( $product_id );
 
         if ( ! $product ) {
-            return new WP_Error( 'product_not_found', 'Product not found', [ 'status' => 404 ] );
+            return new WP_Error( 'qcshopping_product_not_found', 'Product not found', [ 'status' => 404 ] );
         }
 
         $data = [

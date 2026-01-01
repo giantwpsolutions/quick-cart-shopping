@@ -459,7 +459,7 @@ export class VariableProductPopup {
 
       // Build form data
       const formData = new URLSearchParams();
-      formData.append('action', 'woocommerce_ajax_add_to_cart');
+      formData.append('action', 'qcshopping_add_to_cart');
       formData.append('nonce', nonce);
       formData.append('product_id', productId.value);
       formData.append('variation_id', variationId.value);

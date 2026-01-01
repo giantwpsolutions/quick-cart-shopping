@@ -95,8 +95,8 @@ export class AddToCartHandler {
    * @param {HTMLElement} button
    */
   addToCart(data, button = null) {
-    const ajaxUrl = window.wc_add_to_cart_params?.wc_ajax_url?.toString().replace('%%endpoint%%', 'add_to_cart')
-                    || window.wc_add_to_cart_params?.ajax_url;
+    const ajaxUrl = window.qcshoppingParams?.wc_ajax_url?.toString().replace('%%endpoint%%', 'add_to_cart')
+                    || window.qcshoppingParams?.ajax_url;
 
     if (!ajaxUrl) {
       console.warn('WooCommerce AJAX URL not found');
@@ -104,7 +104,7 @@ export class AddToCartHandler {
     }
 
     const formData = new URLSearchParams({
-      action: 'woocommerce_add_to_cart',
+      action: 'qcshopping_add_to_cart',
       ...data
     });
 

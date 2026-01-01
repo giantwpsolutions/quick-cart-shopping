@@ -25,7 +25,7 @@ jQuery(function ($) {
     // Refresh WooCommerce mini cart on item add
     $(document.body).on('added_to_cart', function () {
         $.post(
-            wc_add_to_cart_params.wc_ajax_url.toString().replace('%%endpoint%%', 'get_refreshed_fragments'),
+            qcshoppingParams.wc_ajax_url.toString().replace('%%endpoint%%', 'get_refreshed_fragments'),
             {},
             function (response) {
                 $('#qcs-cart-content').html(response.fragments['div.widget_shopping_cart_content']);

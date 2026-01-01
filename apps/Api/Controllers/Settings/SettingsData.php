@@ -80,7 +80,7 @@ class SettingsData extends WP_REST_Controller {
             $nonce = $request->get_header( 'X-WP-Nonce' );
             if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
                 return new WP_Error(
-                    'rest_cookie_invalid_nonce',
+                    'qcshopping_rest_cookie_invalid_nonce',
                     __( 'Cookie nonce is invalid', 'quick-cart-shopping' ),
                     [ 'status' => 403 ]
                 );
@@ -102,7 +102,7 @@ class SettingsData extends WP_REST_Controller {
 
         if ( empty( $params ) ) {
             return new WP_Error(
-                'missing_data',
+                'qcshopping_missing_data',
                 __( 'No data received.', 'quick-cart-shopping' ),
                 ['status' => 400]
             );
@@ -129,7 +129,7 @@ class SettingsData extends WP_REST_Controller {
 
         if ( ! $saved && get_option( 'qcshopping_general_settings' ) === false ) {
             return new WP_Error(
-                'save_failed',
+                'qcshopping_save_failed',
                 __( 'Failed to save settings.', 'quick-cart-shopping' ),
                 ['status' => 500]
             );

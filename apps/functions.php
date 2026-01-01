@@ -1,6 +1,6 @@
 <?php
 
-function qcshop_check_woocommerce_hpos()
+function qcshopping_check_woocommerce_hpos()
 {
     if (class_exists(\Automattic\WooCommerce\Utilities\OrderUtil::class)) {
         if (\Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled()) {
@@ -10,7 +10,7 @@ function qcshop_check_woocommerce_hpos()
     return false;
 }
 
-function qcshop_WoocommerceDeactivationAlert()
+function qcshopping_WoocommerceDeactivationAlert()
 {
 ?>
     <div class="notice notice-error is-dismissible">
@@ -25,7 +25,7 @@ function qcshop_WoocommerceDeactivationAlert()
 }
 
 
-function qcshop_WoocommerceMissingAlert()
+function qcshopping_WoocommerceMissingAlert()
 {
 ?>
     <div class="notice notice-error is-dismissible">

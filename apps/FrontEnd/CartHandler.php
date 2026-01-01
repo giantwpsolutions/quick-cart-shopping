@@ -37,8 +37,8 @@ class CartHandler {
         add_action( 'wp_ajax_qcshopping_get_variable_product', [ VariableProductHandler::class, 'get_variable_product' ] );
         add_action( 'wp_ajax_nopriv_qcshopping_get_variable_product', [ VariableProductHandler::class, 'get_variable_product' ] );
 
-        add_action( 'wp_ajax_woocommerce_ajax_add_to_cart', [ AddToCartHandler::class, 'ajax_add_to_cart' ] );
-        add_action( 'wp_ajax_nopriv_woocommerce_ajax_add_to_cart', [ AddToCartHandler::class, 'ajax_add_to_cart' ] );
+        add_action( 'wp_ajax_qcshopping_add_to_cart', [ AddToCartHandler::class, 'ajax_add_to_cart' ] );
+        add_action( 'wp_ajax_nopriv_qcshopping_add_to_cart', [ AddToCartHandler::class, 'ajax_add_to_cart' ] );
 
         add_action( 'wp_ajax_qcshopping_apply_coupon', [ CouponHandler::class, 'apply_coupon' ] );
         add_action( 'wp_ajax_nopriv_qcshopping_apply_coupon', [ CouponHandler::class, 'apply_coupon' ] );

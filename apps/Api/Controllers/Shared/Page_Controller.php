@@ -54,7 +54,7 @@ class Page_Controller extends WP_REST_Controller {
 		}
 
 		return new WP_Error(
-			'qcs_rest_forbidden',
+			'qcshopping_rest_forbidden',
 			__( 'Sorry, you are not allowed to access pages.', 'quick-cart-shopping' ),
 			array( 'status' => 403 )
 		);

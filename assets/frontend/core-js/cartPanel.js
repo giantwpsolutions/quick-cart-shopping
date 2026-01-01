@@ -100,7 +100,6 @@ export class CartPanel {
     const initCheckout = () => {
       if (window.QCProCheckout?.MultiStepCheckout) {
         this.multiStepCheckout = new window.QCProCheckout.MultiStepCheckout(this.settings, body);
-        console.log('[QC] Pro checkout initialized');
       }
     };
 
@@ -111,7 +110,6 @@ export class CartPanel {
         initCheckout();
       } else {
         // Wait for Pro to load
-        console.log('[QC] Waiting for Pro checkout to load...');
         const checkInterval = setInterval(() => {
           if (window.QCProCheckout?.MultiStepCheckout) {
             clearInterval(checkInterval);
@@ -243,14 +241,9 @@ export class CartPanel {
   createUpsellSection() {
     const { upsell } = this.settings;
 
-    // Debug logging
-    console.log('[Upsell Debug] Pro Active:', window.qcshoppingPluginData?.proActive);
-    console.log('[Upsell Debug] Upsell Settings:', upsell);
-
     // Check if Pro plugin is active and upsell is enabled
     const isProActive = window.qcshoppingPluginData?.proActive || false;
     if (!isProActive || !upsell?.showUpsellProducts || !upsell?.upsellProducts || upsell.upsellProducts.length === 0) {
-      console.log('[Upsell Debug] Not showing upsell - Pro Active:', isProActive, 'Show Upsell:', upsell?.showUpsellProducts, 'Products:', upsell?.upsellProducts);
       return null;
     }
 
@@ -271,7 +264,6 @@ export class CartPanel {
     upsellSection.appendChild(productsContainer);
 
     // Fetch and render upsell products
-    console.log('[Upsell Debug] Creating upsell section with products:', upsell.upsellProducts);
     this.loadUpsellProducts(productsContainer, upsell.upsellProducts);
 
     return upsellSection;
@@ -368,26 +360,19 @@ export class CartPanel {
       e.preventDefault();
       e.stopPropagation();
 
-      console.log('[Upsell] Add to cart clicked, Product ID:', addToCartBtn.dataset.product_id);
-
       const productId = parseInt(addToCartBtn.dataset.product_id);
       const productType = addToCartBtn.dataset.product_type;
 
       if (!productId) {
-        console.error('[Upsell] Invalid product ID');
         return;
       }
 
       if (productType === 'variable') {
-        console.log('[Upsell] Opening variable product popup');
         // Open variable product popup
         if (window.VariableProductPopup) {
           window.VariableProductPopup.open(productId);
-        } else {
-          console.error('[Upsell] VariableProductPopup not available');
         }
       } else {
-        console.log('[Upsell] Adding simple product to cart');
         // Add loading state
         addToCartBtn.classList.add('loading');
         addToCartBtn.textContent = 'Adding...';
@@ -412,12 +397,6 @@ export class CartPanel {
   async addSimpleProductToCart(productId, button = null) {
     const { meta } = this.settings;
 
-    console.log('[Upsell] addSimpleProductToCart called with:', {
-      productId,
-      ajaxUrl: meta.ajaxUrl,
-      hasNonce: !!meta.nonce
-    });
-
     try {
       const response = await fetch(meta.ajaxUrl, {
         method: 'POST',
@@ -425,20 +404,17 @@ export class CartPanel {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          action: 'woocommerce_ajax_add_to_cart',
+          action: 'qcshopping_add_to_cart',
           nonce: meta.nonce,
           product_id: productId,
           quantity: 1
         })
       });
 
-      console.log('[Upsell] Response status:', response.status);
       const result = await response.json();
-      console.log('[Upsell] Response result:', JSON.stringify(result, null, 2));
 
       // Check for WP error response or explicit error
       if (result.data?.error || result.error) {
-        console.error('[Upsell] Add to cart error:', result.data?.error || result.error);
         alert(result.data?.error || result.error || 'Failed to add product to cart');
 
         // Reset button state
@@ -447,8 +423,6 @@ export class CartPanel {
           button.textContent = 'Add to cart';
         }
       } else {
-        console.log('[Upsell] Product added to cart successfully!');
-
         // Reset button state with success
         if (button) {
           button.classList.remove('loading');
@@ -466,18 +440,11 @@ export class CartPanel {
         const fragments = result.fragments || result.data?.fragments || {};
         const cart_hash = result.cart_hash || result.data?.cart_hash || '';
 
-        console.log('[Upsell] Fragments:', fragments);
-        console.log('[Upsell] Cart hash:', cart_hash);
-
         // Trigger WooCommerce events with proper data
-        console.log('[Upsell] Triggering WooCommerce events');
         DOM.trigger(document.body, 'added_to_cart', [fragments, cart_hash]);
         DOM.trigger(document.body, 'wc_fragments_refreshed');
-
-        console.log('[Upsell] All events triggered successfully');
       }
     } catch (error) {
-      console.error('[Upsell] Failed to add product to cart:', error);
       alert('Failed to add product to cart');
 
       // Reset button state

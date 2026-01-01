@@ -153,7 +153,6 @@ onMounted(async () => {
       }
     } catch (error) {
       // API call failed - Pro plugin likely not installed
-      console.log('License check failed or Pro not installed:', error)
       isProPluginInstalled.value = false
       licenseStatus.value = 'inactive'
       isProActive.value = false
@@ -277,9 +276,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="tw-min-h-screen tw-bg-gray-50 tw-pt-[20px] ">
+  <div class="tw-min-h-screen tw-bg-gray-50 tw-pt-[93px]">
     <!--  header -->
-    <TopHeader v-model="activeMenu" @upgrade="() => window.open('https://your-upgrade-url', '_blank')" />
+    <TopHeader v-model="activeMenu" @upgrade="() => window.open(qcshoppingPluginData.proUrl, '_blank')" />
 
 
     <!-- Content -->
