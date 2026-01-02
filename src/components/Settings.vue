@@ -135,6 +135,12 @@ function reset() {
   ElMessage.info({ message: resetMsg, offset: 120 })
 }
 
+function handleUpgrade() {
+  if (qcshoppingPluginData?.proUrl) {
+    window.open(qcshoppingPluginData.proUrl, '_blank');
+  }
+}
+
 onMounted(async () => {
   try {
     // Check license status first
@@ -216,9 +222,10 @@ onMounted(async () => {
       dirty.cart = false
     }
 
-    // Load checkout settings
-    const checkoutResponse = await checkoutSettingsService.get()
-    if (checkoutResponse.success && checkoutResponse.settings && Object.keys(checkoutResponse.settings).length > 0) {
+    // Load checkout settings (Pro feature only)
+    if (isProPluginInstalled.value) {
+      const checkoutResponse = await checkoutSettingsService.get()
+      if (checkoutResponse.success && checkoutResponse.settings && Object.keys(checkoutResponse.settings).length > 0) {
       const data = checkoutResponse.settings
       if (data.enableStep1 !== undefined) settings.checkout.enableStep1 = data.enableStep1
       if (data.step1Label !== undefined) settings.checkout.step1Label = data.step1Label
@@ -244,6 +251,7 @@ onMounted(async () => {
       if (data.showOrderSummary !== undefined) settings.checkout.showOrderSummary = data.showOrderSummary
       if (data.thankYouPage !== undefined) settings.checkout.thankYouPage = data.thankYouPage
       dirty.checkout = false
+      }
     }
 
     // Load variation popup settings
@@ -276,9 +284,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="tw-min-h-screen tw-bg-gray-50 tw-pt-[75px]">
+  <div class="tw-min-h-screen">
     <!--  header -->
-    <TopHeader v-model="activeMenu" @upgrade="() => window.open(qcshoppingPluginData.proUrl, '_blank')" />
+    <TopHeader v-model="activeMenu" @upgrade="handleUpgrade" />
 
 
     <!-- Content -->

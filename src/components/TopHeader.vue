@@ -41,6 +41,10 @@ function toggleMobileMenu() {
 }
 
 const logoUrl = `${qcshoppingPluginData.pluginUrl}assets/images/logo.png`;
+
+function handleUpgradeClick() {
+  emit('upgrade');
+}
 </script>
 <template>
 <header class="qc-header tw-bg-[#1F2937] tw-text-white tw-shadow-lg tw-border-b tw-border-[#3498db]/20">
@@ -83,7 +87,7 @@ const logoUrl = `${qcshoppingPluginData.pluginUrl}assets/images/logo.png`;
         <!-- Upgrade Button -->
         <button
           class="tw-relative tw-px-2.5 sm:tw-px-3 tw-py-1.5 tw-rounded-lg tw-bg-gradient-to-r tw-from-[#3498db] tw-to-[#2980b9] tw-text-white tw-text-xs tw-font-semibold tw-shadow-md hover:tw-shadow-lg hover:tw-from-[#2980b9] hover:tw-to-[#21618c] tw-transition-all tw-duration-200 tw-flex-shrink-0 tw-whitespace-nowrap tw-flex tw-items-center tw-gap-1.5"
-          @click="emit('upgrade')"
+          @click="handleUpgradeClick"
         >
           <span>Upgrade</span>
           <span class="tw-inline-flex tw-items-center tw-px-1.5 tw-py-0.5 tw-rounded tw-text-[10px] tw-font-bold tw-bg-red-600 tw-text-white">Pro</span>

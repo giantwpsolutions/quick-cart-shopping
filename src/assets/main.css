@@ -1,35 +1,20 @@
-@import './base.css';
+/* Quick Cart Shopping - Main Styles */
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+/* Remove WordPress admin default margins for our header */
+#quick-cart-shopping {
+  margin: 0 !important;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+.qc-header {
+  margin-left: -22px !important;
+  margin-right: -20px !important;
+  margin-top: -10px !important;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+/* Adjust for WordPress admin responsiveness */
+@media screen and (max-width: 782px) {
+  .qc-header {
+    margin-left: -10px !important;
+    margin-right: -10px !important;
   }
 }

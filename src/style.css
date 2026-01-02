@@ -1,31 +1,6 @@
 /* src/index.css */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
-/* Only on Quick Cart Shopping admin page - scoped to plugin page */
-body.woocommerce_page_quick-cart-shopping #wpcontent {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
-
-body.woocommerce_page_quick-cart-shopping #wpbody-content {
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-body.woocommerce_page_quick-cart-shopping #wpbody-content > .wrap {
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-/* WP notices gap control */
-body.woocommerce_page_quick-cart-shopping .notice,
-body.woocommerce_page_quick-cart-shopping .updated,
-body.woocommerce_page_quick-cart-shopping .error {
-  margin: 0 0 10px 0 !important;
-}
-
 /* Scoped reset for body - only on plugin page */
 body.woocommerce_page_quick-cart-shopping {
   margin: 0;
