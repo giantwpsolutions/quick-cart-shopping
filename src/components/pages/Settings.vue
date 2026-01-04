@@ -82,7 +82,7 @@ async function activateLicense() {
   try {
     const result = await licenseService.activate(licenseKey.value.trim())
 
-    if (result.success && result.status === 'valid') {
+    if (result.success && result.data && result.data.status === 'valid') {
       // Show license key as hashed
       const keyLength = licenseKey.value.length
       licenseKey.value = '*'.repeat(keyLength)
@@ -93,15 +93,12 @@ async function activateLicense() {
 
       ElMessage.success({ message: 'License activated successfully!', offset: 120 })
     } else {
-      const errorMessage = result.error === 'expired' ? 'License key has expired' :
-                          result.error === 'invalid' ? 'Invalid license key' :
-                          result.error === 'disabled' ? 'License key has been disabled' :
-                          'Failed to activate license'
+      const errorMessage = result.message || 'Failed to activate license'
       ElMessage.error({ message: errorMessage, offset: 120 })
     }
   } catch (error) {
     console.error('License activation error:', error)
-    ElMessage.error({ message: 'Failed to activate license', offset: 120 })
+    ElMessage.error({ message: error.message || 'Failed to activate license', offset: 120 })
   } finally {
     activatingLicense.value = false
   }

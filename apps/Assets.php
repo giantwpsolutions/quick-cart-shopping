@@ -34,11 +34,22 @@ use QuickCartShopping\Traits\SingletonTrait;
         wp_enqueue_style( 'qcshopping-cart-positions', plugin_dir_url(__DIR__). 'assets/css/qcs-cart-position.css', array(), QCSHOPPING_VERSION );
         wp_enqueue_script('qcshopping-script', plugin_dir_url(__DIR__) . 'assets/js/qcs-cart-position.js', ['jquery'], QCSHOPPING_VERSION, true);
 
+        // Check if Pro is active and license is valid for frontend
+        $is_pro_active_frontend = false;
+        if ( defined( 'QUICK_CART_SHOPPING_PRO_ACTIVE' ) && QUICK_CART_SHOPPING_PRO_ACTIVE ) {
+            // Check license status
+            $license_info = get_option( '__qcshopping_pro_license_info', [] );
+            $is_pro_active_frontend = isset( $license_info['status'] ) && $license_info['status'] === 'valid';
+        }
 
-          wp_localize_script('qcshopping-script', 'qcshoppingParams', [
-        'wc_ajax_url' => \WC_AJAX::get_endpoint('%%endpoint%%'),
-        'ajax_url' => admin_url('admin-ajax.php'),
-    ]);
+        wp_localize_script('qcshopping-script', 'qcshoppingParams', [
+            'wc_ajax_url' => \WC_AJAX::get_endpoint('%%endpoint%%'),
+            'ajax_url' => admin_url('admin-ajax.php'),
+        ]);
+
+        wp_localize_script('qcshopping-script', 'qcshoppingPluginData', [
+            'proActive' => $is_pro_active_frontend,
+        ]);
     }
 
     /**
@@ -66,6 +77,14 @@ use QuickCartShopping\Traits\SingletonTrait;
 
            
 
+        // Check if Pro is active and license is valid
+        $is_pro_active = false;
+        if ( defined( 'QUICK_CART_SHOPPING_PRO_ACTIVE' ) && QUICK_CART_SHOPPING_PRO_ACTIVE ) {
+            // Check license status
+            $license_info = get_option( '__qcshopping_pro_license_info', [] );
+            $is_pro_active = isset( $license_info['status'] ) && $license_info['status'] === 'valid';
+        }
+
         wp_localize_script( 'qcshopping-admin-vjs', 'qcshoppingPluginData', [
             'pluginUrl' => esc_url( plugin_dir_url(__DIR__) ),
             'restUrl'   => esc_url_raw( rest_url( trailingslashit('quick-cart-shopping/v2') ) ),
@@ -74,7 +93,7 @@ use QuickCartShopping\Traits\SingletonTrait;
             'docsUrl'   => esc_url( 'https://www.docs.giantwpsolutions.com/' ),
             'communityUrl' => esc_url( 'https://www.facebook.com/groups/giantwpsolutions' ),
             'supportUrl' => esc_url( 'https://www.giantwpsolutions.com/support/' ),
-            'proActive' => defined( 'QUICK_CART_SHOPPING_PRO_ACTIVE' ) && QUICK_CART_SHOPPING_PRO_ACTIVE,
+            'proActive' => $is_pro_active,
             'primekit_search_url' => esc_url( admin_url( 'plugin-install.php?s=PrimeKit%20Addons&tab=search&type=term' ) ),
             'giantwp_discount_rules_url' => esc_url( admin_url( 'plugin-install.php?s=giantwp%20discount%20rules&tab=search&type=term' ) ),
         ] );
