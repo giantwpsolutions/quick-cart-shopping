@@ -30,7 +30,7 @@ import { generalMessages, layoutMessages, toggleMessages, cartMessages, checkout
 // License state
 const isProPluginInstalled = ref(false)
 const licenseStatus = ref('inactive')
-const isProActive = ref(false)
+const isProActive = ref(window.qcshoppingPluginData?.proActive || false)
 
 const defaults = {
   general  : { enableQuickCart: true, enableVarProduct: true, enableDragAndDrop: true, enableDirectCheckout: true },
@@ -142,7 +142,7 @@ function handleUpgrade() {
 
 onMounted(async () => {
   try {
-    // Check license status first
+    // Check license status first (if Pro is installed)
     try {
       const licenseResponse = await licenseService.getStatus()
       if (licenseResponse && licenseResponse.license_status !== undefined) {
@@ -150,17 +150,11 @@ onMounted(async () => {
         isProPluginInstalled.value = true
         licenseStatus.value = licenseResponse.license_status
         isProActive.value = licenseResponse.license_status === 'valid'
-      } else {
-        // Pro plugin not installed
-        isProPluginInstalled.value = false
-        licenseStatus.value = 'inactive'
-        isProActive.value = false
       }
     } catch (error) {
-      // API call failed - Pro plugin likely not installed
-      isProPluginInstalled.value = false
-      licenseStatus.value = 'inactive'
-      isProActive.value = false
+      // License API not available - Pro plugin likely not installed
+      // Use the initial value from PHP
+      isProPluginInstalled.value = isProActive.value
     }
 
     // Load general settings
