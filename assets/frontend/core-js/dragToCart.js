@@ -306,14 +306,16 @@ export class DragToCart {
    */
   async addSimpleProductToCart(productId) {
     const ajaxUrl = this.settings.meta?.ajaxUrl;
+    const nonce = this.settings.meta?.nonce;
 
-    if (!ajaxUrl) {
+    if (!ajaxUrl || !nonce) {
       return;
     }
 
     try {
       const formData = new URLSearchParams();
       formData.append('action', 'qcshopping_add_to_cart');
+      formData.append('nonce', nonce);
       formData.append('product_id', productId);
       formData.append('quantity', 1);
 

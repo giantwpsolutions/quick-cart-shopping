@@ -103,8 +103,15 @@ export class AddToCartHandler {
       return;
     }
 
+    const nonce = window.qcShoppingData?.meta?.nonce;
+    if (!nonce) {
+      console.warn('Nonce not found');
+      return;
+    }
+
     const formData = new URLSearchParams({
       action: 'qcshopping_add_to_cart',
+      nonce: nonce,
       ...data
     });
 
