@@ -136,9 +136,8 @@ function reset() {
 }
 
 function handleUpgrade() {
-  if (qcshoppingPluginData?.proUrl) {
-    window.open(qcshoppingPluginData.proUrl, '_blank');
-  }
+  // Direct redirect to upgrade page
+  window.location.href = 'https://giantwpsolutions.com/quick-cart-shopping/'
 }
 
 onMounted(async () => {
@@ -224,33 +223,37 @@ onMounted(async () => {
 
     // Load checkout settings (Pro feature only)
     if (isProPluginInstalled.value) {
-      const checkoutResponse = await checkoutSettingsService.get()
-      if (checkoutResponse.success && checkoutResponse.settings && Object.keys(checkoutResponse.settings).length > 0) {
-      const data = checkoutResponse.settings
-      if (data.enableStep1 !== undefined) settings.checkout.enableStep1 = data.enableStep1
-      if (data.step1Label !== undefined) settings.checkout.step1Label = data.step1Label
-      if (data.enableStep2 !== undefined) settings.checkout.enableStep2 = data.enableStep2
-      if (data.step2Label !== undefined) settings.checkout.step2Label = data.step2Label
-      if (data.enableStep3 !== undefined) settings.checkout.enableStep3 = data.enableStep3
-      if (data.step3Label !== undefined) settings.checkout.step3Label = data.step3Label
-      if (data.enableStep4 !== undefined) settings.checkout.enableStep4 = data.enableStep4
-      if (data.step4Label !== undefined) settings.checkout.step4Label = data.step4Label
-      if (data.progressBarStyle !== undefined) settings.checkout.progressBarStyle = data.progressBarStyle
-      if (data.progressBarColor !== undefined) settings.checkout.progressBarColor = data.progressBarColor
-      if (data.progressLabelTextColor !== undefined) settings.checkout.progressLabelTextColor = data.progressLabelTextColor
-      if (data.progressLabelBgColor !== undefined) settings.checkout.progressLabelBgColor = data.progressLabelBgColor
-      if (data.nextBtnBgColor !== undefined) settings.checkout.nextBtnBgColor = data.nextBtnBgColor
-      if (data.nextBtnTextColor !== undefined) settings.checkout.nextBtnTextColor = data.nextBtnTextColor
-      if (data.previousBtnBgColor !== undefined) settings.checkout.previousBtnBgColor = data.previousBtnBgColor
-      if (data.previousBtnTextColor !== undefined) settings.checkout.previousBtnTextColor = data.previousBtnTextColor
-      if (data.backToCartBtnBgColor !== undefined) settings.checkout.backToCartBtnBgColor = data.backToCartBtnBgColor
-      if (data.backToCartBtnTextColor !== undefined) settings.checkout.backToCartBtnTextColor = data.backToCartBtnTextColor
-      if (data.enableThankYouPage !== undefined) settings.checkout.enableThankYouPage = data.enableThankYouPage
-      if (data.thankYouDisplay !== undefined) settings.checkout.thankYouDisplay = data.thankYouDisplay
-      if (data.popupBgColor !== undefined) settings.checkout.popupBgColor = data.popupBgColor
-      if (data.showOrderSummary !== undefined) settings.checkout.showOrderSummary = data.showOrderSummary
-      if (data.thankYouPage !== undefined) settings.checkout.thankYouPage = data.thankYouPage
-      dirty.checkout = false
+      try {
+        const checkoutResponse = await checkoutSettingsService.get()
+        if (checkoutResponse.success && checkoutResponse.settings && Object.keys(checkoutResponse.settings).length > 0) {
+          const data = checkoutResponse.settings
+          if (data.enableStep1 !== undefined) settings.checkout.enableStep1 = data.enableStep1
+          if (data.step1Label !== undefined) settings.checkout.step1Label = data.step1Label
+          if (data.enableStep2 !== undefined) settings.checkout.enableStep2 = data.enableStep2
+          if (data.step2Label !== undefined) settings.checkout.step2Label = data.step2Label
+          if (data.enableStep3 !== undefined) settings.checkout.enableStep3 = data.enableStep3
+          if (data.step3Label !== undefined) settings.checkout.step3Label = data.step3Label
+          if (data.enableStep4 !== undefined) settings.checkout.enableStep4 = data.enableStep4
+          if (data.step4Label !== undefined) settings.checkout.step4Label = data.step4Label
+          if (data.progressBarStyle !== undefined) settings.checkout.progressBarStyle = data.progressBarStyle
+          if (data.progressBarColor !== undefined) settings.checkout.progressBarColor = data.progressBarColor
+          if (data.progressLabelTextColor !== undefined) settings.checkout.progressLabelTextColor = data.progressLabelTextColor
+          if (data.progressLabelBgColor !== undefined) settings.checkout.progressLabelBgColor = data.progressLabelBgColor
+          if (data.nextBtnBgColor !== undefined) settings.checkout.nextBtnBgColor = data.nextBtnBgColor
+          if (data.nextBtnTextColor !== undefined) settings.checkout.nextBtnTextColor = data.nextBtnTextColor
+          if (data.previousBtnBgColor !== undefined) settings.checkout.previousBtnBgColor = data.previousBtnBgColor
+          if (data.previousBtnTextColor !== undefined) settings.checkout.previousBtnTextColor = data.previousBtnTextColor
+          if (data.backToCartBtnBgColor !== undefined) settings.checkout.backToCartBtnBgColor = data.backToCartBtnBgColor
+          if (data.backToCartBtnTextColor !== undefined) settings.checkout.backToCartBtnTextColor = data.backToCartBtnTextColor
+          if (data.enableThankYouPage !== undefined) settings.checkout.enableThankYouPage = data.enableThankYouPage
+          if (data.thankYouDisplay !== undefined) settings.checkout.thankYouDisplay = data.thankYouDisplay
+          if (data.popupBgColor !== undefined) settings.checkout.popupBgColor = data.popupBgColor
+          if (data.showOrderSummary !== undefined) settings.checkout.showOrderSummary = data.showOrderSummary
+          if (data.thankYouPage !== undefined) settings.checkout.thankYouPage = data.thankYouPage
+          dirty.checkout = false
+        }
+      } catch (error) {
+        console.warn('[Settings] Checkout settings not available:', error.message)
       }
     }
 
@@ -286,7 +289,7 @@ onMounted(async () => {
 <template>
   <div class="tw-min-h-screen">
     <!--  header -->
-    <TopHeader v-model="activeMenu" @upgrade="handleUpgrade" />
+    <TopHeader v-model="activeMenu" :isProActive="isProActive" @upgrade="handleUpgrade" />
 
 
     <!-- Content -->

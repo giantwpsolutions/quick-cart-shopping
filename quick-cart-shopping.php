@@ -42,6 +42,7 @@ final class Quick_Cart_Shopping{
         register_activation_hook( __FILE__ , [ $this, 'activate' ] );
         add_action( 'plugins_loaded', [ $this, 'on_plugins_loaded'] );
         add_action( 'admin_notices', [ $this, 'check_woocommerce_active' ] );
+        add_action( 'admin_init', [ $this, 'redirect_on_activation' ] );
         add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), [ $this, 'qcshopping_discount_settings_link' ] );
         $this->declare_hpos_compatibility();
         $this->define_constants();
@@ -131,6 +132,23 @@ final class Quick_Cart_Shopping{
         }
 
         update_option( 'qcshopping_version', self::version );
+
+        // Set transient for redirect
+        set_transient( 'qcshopping_activate_redirect', true, 30 );
+    }
+
+    /**
+     * Redirect to plugin page after activation
+     * @return void
+     */
+    public function redirect_on_activation()
+    {
+        if ( get_transient( 'qcshopping_activate_redirect' ) ) {
+            delete_transient( 'qcshopping_activate_redirect' );
+            wp_safe_remote_post( admin_url( 'admin.php?page=quick-cart-shopping#/general' ) );
+            wp_redirect( admin_url( 'admin.php?page=quick-cart-shopping#/general' ) );
+            exit;
+        }
     }
 
     /*

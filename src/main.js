@@ -26,6 +26,7 @@ app.config.globalProperties.__ = __;
 app.config.globalProperties._x = _x;
 app.config.globalProperties._n = _n;
 app.config.globalProperties._nx = _nx;
+app.config.globalProperties.qcshoppingPluginData = window.qcshoppingPluginData;
 
 app.use(router);
 app.use(ElementPlus);
