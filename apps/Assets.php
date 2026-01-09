@@ -63,17 +63,14 @@ use QuickCartShopping\Traits\SingletonTrait;
 
         wp_enqueue_script( 'wp-i18n' );
         wp_enqueue_script( 'wp-api-fetch' );
-        $is_dev        = defined( 'WP_DEBUG' ) && WP_DEBUG;
-        $dev_server_js = 'http://localhost:5174/src/main.js';
+
         $prod_js       = plugin_dir_url(__DIR__) . 'dist/assets/main.js';
         $prod_css      = plugin_dir_url(__DIR__) . 'dist/assets/main.css';
 
-        if ( $is_dev ) {
-            wp_enqueue_script( 'qcshopping-admin-vjs', $dev_server_js, ['wp-i18n', 'wp-api-fetch'], '1.0', true );
-        }else{
-            wp_enqueue_script( 'qcshopping-admin-vjs', $prod_js, ['wp-i18n', 'wp-api-fetch'], '1.0', true );
-            wp_enqueue_style( 'qcshopping-admin-styles', $prod_css, [], '1.0' );
-        }
+
+        wp_enqueue_script( 'qcshopping-admin-vjs', $prod_js, ['wp-i18n', 'wp-api-fetch'], '1.0', true );
+        wp_enqueue_style( 'qcshopping-admin-styles', $prod_css, [], '1.0' );
+
 
            
 
