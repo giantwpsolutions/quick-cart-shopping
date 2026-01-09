@@ -1,10 +1,10 @@
-=== Quick Cart Shopping  ===
+=== Quick Cart Shopping – Floating Cart & Instant Checkout for WooCommerce===
 Contributors: giantwpsolutions, developerhabib
-Tags: woocommerce cart, floating cart, side cart, mini cart, ajax cart, quick view cart
-Requires at least: 6.0
+Tags: woocommerce cart, floating cart, side cart, on-page checkout, instant checkout
+Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,8 @@ Transform your WooCommerce store with a beautiful floating cart. Let customers s
 Tired of losing customers during checkout? Quick Cart Shopping is here to change that.
 
 This lightweight plugin adds a sleek floating cart to your WooCommerce store that stays with customers as they browse. No more cart page redirects. No more interrupting the shopping flow. Just smooth, seamless cart management that keeps customers engaged and ready to buy.
+
+[Documentation](https://www.docs.giantwpsolutions.com/) | [Pro Version](https://www.giantwpsolutions.com/quick-cart-shopping) | [Asking Help](https://www.giantwpsolutions.com/contact-us/) | [Feature Request](https://www.giantwpsolutions.com/contact-us/)
 
 **Here's what makes it special:**
 
@@ -150,14 +152,20 @@ Yes! The plugin is translation-ready and works with WPML, Polylang, and other tr
 
 == Screenshots ==
 
-1. Floating cart icon appearing on the shop page
-2. Side cart layout showing cart items and totals
-3. Popup cart layout with checkout button
-4. Drag and drop functionality in action
-5. Variation selector popup for variable products
-6. Mobile view of the side cart
+1. General Settings of Admin page
+2. Floatign Cart Layout Settings
+3. Floating Cart Settings
+4. Side Cart in Store
+5. Side Cart Adding Product
+6. Drag And Drop Product into cart
+7. Drag And Drop Product for Variable product
 
 == Changelog ==
+
+= 1.0.2 Stable Release =
+* Fixed CSS conflicts with some themes
+* Performance optimizations for faster loading
+
 
 = 1.0.1 =
 * Improved compatibility with latest WooCommerce version
@@ -173,13 +181,6 @@ Yes! The plugin is translation-ready and works with WPML, Polylang, and other tr
 * AJAX cart updates
 * Full WooCommerce compatibility
 
-== Upgrade Notice ==
-
-= 1.0.1 =
-Minor bug fixes and performance improvements. Safe to update.
-
-= 1.0.0 =
-Welcome to Quick Cart Shopping! Transform your store's shopping experience today.
 
 == Support & Documentation ==
 
@@ -188,6 +189,6 @@ Need help or have questions? We're here for you.
 * **Documentation:** Visit giantwpsolutions.com for detailed guides and tutorials
 * **Support Forum:** Use the WordPress.org support forum for community help
 * **Pro Support:** Pro users get priority email support with faster response times
-* **GitHub:** Found a bug? Report it at https://github.com/giantwpsolutions/quick-cart-shopping
+* **GitHub:** Found a bug or want to see source code ? Report it at https://github.com/giantwpsolutions/quick-cart-shopping
 
 **Like this plugin?** Please leave us a review! It helps other store owners discover Quick Cart Shopping and motivates us to keep improving it.

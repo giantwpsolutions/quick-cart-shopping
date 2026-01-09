@@ -88,7 +88,7 @@ function handleUpgradeClick() {
         <!-- Upgrade Button (Hidden when Pro is active) -->
         <button
           v-if="!isProActive"
-          class="tw-relative tw-px-2.5 sm:tw-px-3 tw-py-1.5 tw-rounded-lg tw-bg-gradient-to-r tw-from-[#3498db] tw-to-[#2980b9] tw-text-white tw-text-xs tw-font-semibold tw-shadow-md hover:tw-shadow-lg hover:tw-from-[#2980b9] hover:tw-to-[#21618c] tw-transition-all tw-duration-200 tw-flex-shrink-0 tw-whitespace-nowrap tw-flex tw-items-center tw-gap-1.5"
+          class="tw-relative tw-px-2.5 sm:tw-px-3 tw-py-1.5 tw-rounded-lg tw-bg-gradient-to-r tw-from-[#3498db] tw-to-[#2980b9] tw-text-white tw-text-xs tw-font-semibold tw-shadow-md hover:tw-shadow-lg hover:tw-from-[#2980b9] hover:tw-to-[#21618c] tw-transition-all tw-duration-200 tw-flex-shrink-0 tw-whitespace-nowrap tw-flex tw-items-center tw-gap-1.5 tw-cursor-pointer"
           @click="handleUpgradeClick"
         >
           <span>Upgrade</span>
