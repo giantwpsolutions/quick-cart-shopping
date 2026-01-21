@@ -330,20 +330,35 @@
 }
 
 .qc-qty-input {
-  width: 45px;
-  height: 28px;
-  text-align: center;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #333;
-  background: #ffffff;
+  width: 45px !important;
+  height: 28px !important;
+  text-align: center !important;
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #333 !important;
+  background: #ffffff !important;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: textfield !important;
+  appearance: none !important;
+}
+
+/* Hide number input spinners */
+.qc-qty-input::-webkit-outer-spin-button,
+.qc-qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
 }
 
 .qc-qty-input:focus {
-  outline: none;
-  border-color: #05291B;
+  outline: none !important;
+  border-color: #05291B !important;
 }
 
 /* Subtotal Cell */
@@ -790,15 +805,18 @@
   }
 
   .qc-qty-btn {
-    width: 26px;
-    height: 26px;
-    font-size: 13px;
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 13px !important;
   }
 
   .qc-qty-input {
-    width: 40px;
-    height: 26px;
-    font-size: 13px;
+    width: 40px !important;
+    height: 26px !important;
+    font-size: 13px !important;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .qc-cart-item-subtotal {

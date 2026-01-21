@@ -371,6 +371,77 @@ export class VariableProductPopup {
     } else {
       console.warn('[VP Popup] WooCommerce variation form script not available');
     }
+
+    // Enhance quantity field with +/- buttons
+    this.enhanceQuantityField();
+  }
+
+  /**
+   * Enhance quantity field with +/- buttons
+   */
+  enhanceQuantityField() {
+    const quantityContainer = DOM.qs('.qc-variable-form .quantity', this.popup);
+    if (!quantityContainer) return;
+
+    const quantityInput = quantityContainer.querySelector('input[type="number"]');
+    if (!quantityInput) return;
+
+    // Check if already enhanced
+    if (quantityContainer.querySelector('.qc-qty-wrapper')) return;
+
+    // Get min, max, and step values
+    const min = parseInt(quantityInput.getAttribute('min')) || 1;
+    const max = parseInt(quantityInput.getAttribute('max')) || 9999;
+    const step = parseInt(quantityInput.getAttribute('step')) || 1;
+
+    // Create wrapper and buttons
+    const wrapper = DOM.createElement('div', {
+      class: 'qc-qty-wrapper'
+    });
+
+    const minusBtn = DOM.createElement('button', {
+      class: 'qc-qty-btn qc-qty-minus',
+      type: 'button',
+      'aria-label': 'Decrease quantity'
+    });
+    minusBtn.textContent = '-';
+
+    const plusBtn = DOM.createElement('button', {
+      class: 'qc-qty-btn qc-qty-plus',
+      type: 'button',
+      'aria-label': 'Increase quantity'
+    });
+    plusBtn.textContent = '+';
+
+    // Wrap input and buttons
+    const inputParent = quantityInput.parentNode;
+    wrapper.appendChild(minusBtn);
+    wrapper.appendChild(quantityInput);
+    wrapper.appendChild(plusBtn);
+    inputParent.appendChild(wrapper);
+
+    // Bind events
+    DOM.on(minusBtn, 'click', (e) => {
+      e.preventDefault();
+      const currentValue = parseInt(quantityInput.value) || min;
+      const newValue = Math.max(min, currentValue - step);
+      quantityInput.value = newValue;
+
+      // Trigger change event for WooCommerce
+      const event = new Event('change', { bubbles: true });
+      quantityInput.dispatchEvent(event);
+    });
+
+    DOM.on(plusBtn, 'click', (e) => {
+      e.preventDefault();
+      const currentValue = parseInt(quantityInput.value) || min;
+      const newValue = Math.min(max, currentValue + step);
+      quantityInput.value = newValue;
+
+      // Trigger change event for WooCommerce
+      const event = new Event('change', { bubbles: true });
+      quantityInput.dispatchEvent(event);
+    });
   }
 
   /**

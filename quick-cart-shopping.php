@@ -3,7 +3,7 @@
 * Plugin Name: Quick Cart Shopping
 * Plugin URI: https://giantwpsolutions.com/plugins/quick-cart-shopping
 * Description: A modern WooCommerce UX booster — adds floating cart, variation popups, and drag  &drop shopping experience. Convert more customers with smooth, app-like interactions.
-* Version: 1.0.2
+* Version: 1.0.3
 * Author: Giant WP Solutions
 * Author URI: https://giantwpsolutions.com
 * License: GPLv2 or later
@@ -32,7 +32,7 @@ final class Quick_Cart_Shopping{
       /**
      * The plugin version
      */
-    const version = '1.0.2';
+    const version = '1.0.3';
 
     /**
      * Class Constructor

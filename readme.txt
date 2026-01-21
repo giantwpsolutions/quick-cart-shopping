@@ -4,7 +4,7 @@ Tags: woocommerce cart, floating cart, side cart, on-page checkout, instant chec
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,12 @@ Transform your WooCommerce store with a beautiful floating cart. Let customers s
 
 == Description ==
 
+
 Tired of losing customers during checkout? Quick Cart Shopping is here to change that.
 
 This lightweight plugin adds a sleek floating cart to your WooCommerce store that stays with customers as they browse. No more cart page redirects. No more interrupting the shopping flow. Just smooth, seamless cart management that keeps customers engaged and ready to buy.
+
+[youtube https://youtu.be/ykeJlZDApU0]
 
 [Documentation](https://www.docs.giantwpsolutions.com/) | [Pro Version](https://www.giantwpsolutions.com/quick-cart-shopping) | [Asking Help](https://www.giantwpsolutions.com/contact-us/) | [Feature Request](https://www.giantwpsolutions.com/contact-us/)
 
@@ -37,7 +40,7 @@ Variable products? No problem. When someone tries to add a product with variatio
 * **Lightning Fast** – We obsessed over performance. This plugin won't slow down your site.
 * **Works with Any Theme** – Whether you're using Astra, Kadence, or a custom theme, it just works.
 
-**Pro Version (Coming Soon)**
+**Pro Version **
 
 Want to take it even further? The Pro version is packed with features that turn browsers into buyers:
 
@@ -161,6 +164,10 @@ Yes! The plugin is translation-ready and works with WPML, Polylang, and other tr
 7. Drag And Drop Product for Variable product
 
 == Changelog ==
+
+= 1.0.3 21-01-2026 =
+* Fixed CSS conflicts with some themes
+* Performance optimizations for faster loading
 
 = 1.0.2 Stable Release =
 * Fixed CSS conflicts with some themes
